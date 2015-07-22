@@ -8,6 +8,8 @@ class show_Controller
 	public function main(array $getVars)
 	{
 		$showmodel=new show_Model;
+		$sub=$showmodel->get_sub_by_id(1);
+		print_r($sub);
 	}
 }
 ?>
