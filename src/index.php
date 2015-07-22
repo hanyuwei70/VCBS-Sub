@@ -4,9 +4,15 @@
  */
 define('DEBUG',true); //主调试开关
 require('config.php');
-define("SERVER_ROOT",dirname(__FILE__));
-//TODO:填入域名
-define("SITE_ROOT",( isset($_SERVER['HTTPS'])===true ? 'https' : 'http')."://".(defined('DEBUG')===true?'vcbssub.dev':''));
+function autoloader($class)
+{
+	$name,$type=explode('_',$class);
+	include 'Models/'.strtolower($name).'.php';
+	include 'Controllers/'.strtolower($name).'.php';
+	include 'Views/'.strtolower($name).'.php';
+}
+spl_autoload_register('autoloader'); //自动加载
+//TODO:获取URL做路由
 
-require_once(SERVER_ROOT.'/controllers/'.'router.php');
+foreach()
 ?>
