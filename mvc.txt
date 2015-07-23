@@ -1,18 +1,18 @@
 Model:
-1.用户
-2.番剧
-3.字幕
+1.用户 (user.php,User_Model)
+2.番剧 (bangumi.php,Bangumi_Model)
+3.字幕 (subtitle.php,Subtitle_Model)
 
 Controller:
 1.用户管理相关
-2.登录/登出
-3.番剧提交，修改
+2.登录/登出 
+3.番剧提交，修改 (
 4.字幕提交，修改
 5.字幕查找，下载
 
 View:
-1.主页 (All access)
-2.字幕搜索 (All access)
-3.字幕信息显示 (All access)
-4.字幕提交/修改 (user,admin access)
-5.用户管理 (admin access)
+1.主页
+2.字幕搜索
+3.字幕信息显示
+4.字幕提交/修改
+5.用户管理
