@@ -32,6 +32,31 @@ class User_Model
 	{
 
 	}
-	public 
+	/*
+	 * 查询用户权限
+	 * @param int $id 用户ID
+	 * @return array 用户权限代码 array[0]为数组长度
+	 */
+	public function getuserperm($id)
+	{
+	
+	}
+	/*
+	 * 增加用户权限
+	 * @param int $id 被设置的用户ID
+	 * @param int $permid 权限ID
+	 * @return int 结果代码
+	 */
+	public function adduserperm($id,$permid)
+	{
+	
+	}
+	/*
+	 * 删除用户权限
+	 * @param int $id 被设置的用户ID
+	 * @param int $permid 权限ID
+	 * @return int 结果代码
+	 */
+	public function deluserperm($id,$permid)
 }
 ?>
