@@ -10,7 +10,6 @@ class User_Model
 	 * @param string $password  密码
 	 * @return int 结果代码
 	 * */
-
 	public function adduser($username,$password)
 	{
 	}
@@ -23,6 +22,15 @@ class User_Model
 	{
 	}
 	/*
+	 * 更改用户密码
+	 * @param int $id 用户ID
+	 * @param string $password 新密码
+	 * @return int 结果代码
+	 * */
+	public function changepw()
+	{
+	}
+	/*
 	 * 查询到用户id
 	 * @param string $username 用户名
 	 * @return int 用户ID，-1代表未找到
@@ -32,6 +40,48 @@ class User_Model
 	{
 
 	}
-	public 
+	/*
+	 * 检查用户ID/密码组合是否正确
+	 * @param int $id 用户ID
+	 * @param string $password 密码
+	 * @return int 检查结果
+	 * */
+	public function checkpassword($id,$password)
+	/*
+	 * 查询用户名
+	 * @param int $id 用户ID
+	 * @return string 用户名
+	 * */
+	public function getusername($id)
+	{
+	}
+	/*
+	 * 查询用户昵称
+	 * @param int $id 用户ID
+	 * @return string 用户昵称
+	 * */
+	public function getusernickname($id)
+	{
+	}
+	/*
+	 * 查询用户所拥有的权限
+	 * @param int $id 用户ID
+	 * @return array 用户拥有的权限列表
+	 * */
+	public function getuserperm($id)
+	{
+	}
+	/*
+	 * 更改用户所拥有的权限
+	 * @param int $id 用户ID
+	 * @param array $perm 用户拥有的权限列表
+	 * */
+	public function modifyuserperm($id,$perm)
+	{
+	}
+
+	private function pwdhash($password) //密码hash函数
+	{
+	}
 }
 ?>

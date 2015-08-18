@@ -25,6 +25,7 @@ create table sub_bangumis_name(
 );
 create table sub_subtitles(
 	id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --字幕ID
+	name VARCHAR(50) NOT NULL UNIQUE, --字幕标题
 	uploader INTEGER NOT NULL REFERENCE sub_users(id), --上传者ID
 	bangumi INTEGER NOT NULL DEFAULT 0, --所属番剧ID, 0为不属于任何番剧
 	uploadtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, --上传时间
