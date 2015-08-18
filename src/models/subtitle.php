@@ -3,7 +3,7 @@ class Subtitle_Model
 {
 	/*
 	 * 添加字幕
-	 * 默认添加字幕不添加字幕描述，完成后请调用
+	 * 默认添加字幕不添加字幕描述，完成后请调用modifysubdesc添加
 	 * @param string $name 字幕标题
 	 * @param int $uploaderid 上传者ID
 	 * @param string $filename 字幕保存文件名

@@ -32,4 +32,8 @@ create table sub_subtitles(
 	filename VARCHAR(50) NOT NULL --上传字幕保存的文件名
 	description TEXT --字幕描述，实际限制1KiB
 );
+create table sub_settings( --用来存储各项设置值
+	key VARCHAR(50) PRIMARY KEY,
+	value VARCHAR(100)
+);
 
