@@ -24,10 +24,10 @@ class User_Model
 	/*
 	 * 更改用户密码
 	 * @param int $id 用户ID
-	 * @param string $password 新密码
+	 * @param string $newpassword 新密码
 	 * @return int 结果代码
 	 * */
-	public function changepw()
+	public function changepw($id,$newpassword)
 	{
 	}
 	/*
@@ -47,6 +47,15 @@ class User_Model
 	 * @return int 检查结果
 	 * */
 	public function checkpassword($id,$password)
+	{
+		if (defined('DEBUG'))
+		{
+			if (strcmp($id,"test")==0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
+				return self::LoginSuccess;
+		}
+	}
+	const LoginSuccess=0;
+	const LoginFailed=1;
 	/*
 	 * 查询用户名
 	 * @param int $id 用户ID

@@ -1,11 +1,8 @@
 <?php
 class Login_View extends Mainpage_View
 {
-	private $controller,$model;
-	function __construct($mo,$con)
+	function __construct()
 	{
-		$this->model=$mo;
-		$this->controller=$con;
 	}
 	public function render()
 	{

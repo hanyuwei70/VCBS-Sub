@@ -1,12 +1,8 @@
 <?php
 class Mainpage_View
 {
-	private $controller;
-	private $model;
-	function __construct($mo,$con)
+	function __construct()
 	{
-		$this->controller=$con;
-		$this->model=$mo;	
 	}
 	public function render()
 	{
