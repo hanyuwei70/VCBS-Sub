@@ -1,10 +1,8 @@
 <?php
 class Login_Controller
 {
-	private $model;
-	function __construct($mo)
+	function __construct()
 	{
-		$this->model=$mo;
 	}
 	public function login()
 	{

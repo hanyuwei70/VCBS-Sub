@@ -1,10 +1,11 @@
 <?php
-class Mainpage_Controller
+class Mainpage_Controller extends Base_Controller
 {
-	private $model;
-	function __construct($mo)
+	function run()
 	{
-		$this->model=$mo;
+		$view=new Mainpage_View();
+		$view->loadtpl('./tpl/mainpage.tpl');
+
 	}
 }
 ?>

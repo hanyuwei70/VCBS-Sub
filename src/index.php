@@ -5,6 +5,7 @@
 define('DEBUG',true); //主调试开关
 require_once('config.php');
 require_once('error_report.php');
+require_once('base.php');
 function exception_error_transfer($severity,$msg,$file,$line)
 {
 	if (!(error_reporting() & $severity)) return;
@@ -27,22 +28,9 @@ function autoloader($class)
 }
 spl_autoload_register('autoloader'); //自动加载
 //TODO:获取URL做路由
-if (!isset($_GET['action'])) //没有任何参数时调度到mainpage.php视图上
-{
-	$mp_v=new Mainpage_View();		
-	$mp_v->render();
-}
-else
-{
-	try{
-		$viewname=$_GET['action']."_View";
-		$page_v=new $viewname();
-		$page_v->render();
-	}
-	catch(ErrorException $e)
-	{
-		
-	}
-}	
+$action="mainpage"; //没有指定action时调度至mainpage
+if (isset($_GET['action'])) $action=$_GET['action'];
+
+$con=new $action();
 ?>
 
