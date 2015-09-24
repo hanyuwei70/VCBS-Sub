@@ -3,10 +3,10 @@ class Mainpage_View
 {
 	private $controller;
 	private $model;
-	function __construct($mo,$con)
+	function __construct()
 	{
-		$this->controller=$con;
-		$this->model=$mo;	
+		$model=new Mainpage_Model();
+		$controller=new Mainpage_Controller($model);
 	}
 	public function render()
 	{

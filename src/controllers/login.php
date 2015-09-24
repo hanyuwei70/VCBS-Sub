@@ -6,5 +6,10 @@ class Login_Controller
 	{
 		$this->model=$mo;
 	}
+	public function login()
+	{
+		//TODO:反注入
+		if ($_POST[username])
+	}
 }
 ?>
