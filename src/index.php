@@ -28,9 +28,15 @@ function autoloader($class)
 }
 spl_autoload_register('autoloader'); //自动加载
 //TODO:获取URL做路由
-$action="mainpage"; //没有指定action时调度至mainpage
-if (isset($_GET['action'])) $action=$_GET['action'];
+$action="Mainpage_Controller"; //没有指定action时调度至mainpage
+if (isset($_GET['action'])) $action=$_GET['action']."_Controller"; //action指定操作调度
 
 $con=new $action();
+try{
+	$con->run();
+}catch(Exception $e){
+	if (defined('DEBUG'))
+		var_dump($e->getTrace());
+}
 ?>
 
