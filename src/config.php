@@ -8,4 +8,6 @@ $MYSQL_TABLE_PREFIX="vcbssub_dev";
 /*MYSQL_SETTING_END*/
 
 $SESSION_ADD_TIME=300;
+
+$TITLE_SUFFIX="————VCBS字幕管理";
 ?>

@@ -4,6 +4,7 @@ Mainpage
 */
 class Mainpage_View extends Base_View
 {
+	private varlist=array();
 	function __construct()
 	{
 	}
@@ -24,6 +25,7 @@ class Mainpage_View extends Base_View
 	*/
 	public function setparm($name,$val)
 	{
+		varlist[$name]=$val;
 	}
 	/*
 	render
