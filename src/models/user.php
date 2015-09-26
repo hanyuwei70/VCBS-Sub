@@ -2,7 +2,7 @@
 /*
  * 用户模型
  */
-class User_Model
+class User_Model extends Base_Model
 {
 	/*
 	 * 添加用户
@@ -38,6 +38,11 @@ class User_Model
 	 * */
 	public function getuserid($username)
 	{
+        if (defined('DEBUG'))  //开发后台用户名直接返回 id=0
+        {
+            if (strcmp($username,"test")==0)
+                return 0;
+        }
 
 	}
 	/*
@@ -50,7 +55,7 @@ class User_Model
 	{
 		if (defined('DEBUG'))
 		{
-			if (strcmp($id,"test")==0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
+			if ($id===0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
 				return self::LoginSuccess;
 		}
 	}

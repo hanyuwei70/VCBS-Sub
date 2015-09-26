@@ -12,3 +12,7 @@
 * **expiretime** : _使用Unix时间戳_ 用户SESSION过期时间，只要是验证过SESSION有效期都会自动续期5min
 * **absexpiretime** : _使用Unix时间戳_ 绝对SESSION过期时间，无论如何超过这个时间SESSION都会失效
 * **vaildip** : _不一定会加入_ SESSION有效IP
+
+##类结构
+
+* 所有的Model,Controller,View类全部继承Base_Model,Base_Controller,Base_View类，三个Base做基础性工作

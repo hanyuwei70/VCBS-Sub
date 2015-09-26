@@ -1,9 +1,6 @@
 <?php
-class Login_View extends Mainpage_View
+class Login_View extends Base_View
 {
-	function __construct()
-	{
-	}
 	public function render()
 	{
 		if (isset($_POST["submit"]))

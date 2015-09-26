@@ -4,7 +4,8 @@ Mainpage
 */
 class Mainpage_View extends Base_View
 {
-	private varlist=array();
+	private $varlist=array();
+    private $tplpath;
 	function __construct()
 	{
 	}
@@ -15,6 +16,7 @@ class Mainpage_View extends Base_View
 	 */
 	public function loadtpl($path)
 	{
+        $this->tplpath=$path;
 	}
 	/*
 	setparm
@@ -25,7 +27,7 @@ class Mainpage_View extends Base_View
 	*/
 	public function setparm($name,$val)
 	{
-		varlist[$name]=$val;
+		$this->varlist[$name]=$val;
 	}
 	/*
 	render
@@ -34,6 +36,12 @@ class Mainpage_View extends Base_View
 	*/
 	public function render()
 	{
+        $PAGE_TITLE=$this->varlist['pagetitle'];
+        if (isset($this->varlist['userid']))
+        {
+            $USER_NAME=$this->varlist['usernickname'];
+        }
+        include $this->tplpath;
 	}
 	
 }

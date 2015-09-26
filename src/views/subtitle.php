@@ -1,5 +1,5 @@
 <?php
-class Subtitle_View extends Mainpage_View
+class Subtitle_View extends Base_View
 {
 	public function render()
 	{
