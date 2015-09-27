@@ -51,16 +51,17 @@ class User_Model extends Base_Model
 	 * @param string $password 密码
 	 * @return int 检查结果
 	 * */
+    const CHECKPWD_ACCEPTED=0;
+    const CHECKPWD_DENIED=1;
+    const CHECKPWD_RESTRICTED=2;
 	public function checkpassword($id,$password)
 	{
 		if (defined('DEBUG'))
 		{
 			if ($id===0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
-				return self::LoginSuccess;
+				return self::CHECKPWD_ACCEPTED;
 		}
 	}
-	const LoginSuccess=0;
-	const LoginFailed=1;
 	/*
 	 * 查询用户名
 	 * @param int $id 用户ID

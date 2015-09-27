@@ -6,6 +6,7 @@ define('DEBUG',true); //主调试开关
 require_once('config.php');
 require_once('error_report.php');
 require_once('base.php');
+require_once('system/lang.php');
 function exception_error_transfer($severity,$msg,$file,$line)
 {
 	if (!(error_reporting() & $severity)) return;

@@ -15,7 +15,6 @@ class Mainpage_Controller extends Base_Controller
                     $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME; //续期5min
                 } else //SESSION 过期
                 {
-                    //TODO:处理SESSION过期，并且抛出过期异常
                     session_destroy();
                     throw new AuthFailed($TXT_SESSION_TIMED_OUT);
                 }
