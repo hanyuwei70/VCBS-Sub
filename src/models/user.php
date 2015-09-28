@@ -15,23 +15,33 @@ class User_Model extends Base_Model
 	const ADDUSER_DUPLICATE=1;
 	public function adduser($username,$password,$nickname)
 	{
-		$sqlstr='SELECT * FROM sub_users where username=:username';
-		$sqlcmd=$dbc->prepare($sqlstr);
-		$sqlcmd->execute(array(':username'=>$username));
-		if ($sqlcmd->columnCount()!=0)
-			return self::ADDUSER_DUPLICATE;
-		$sqlstr='INSERT username,nickname,password INTO sub_users VALUES (:username,:nickname,:password)';
-		$sqlcmd=$dbc->prepare($sqlstr);
-		$sqlcmd->execute(array(":username"=>$username,":nickname"=>$nickname,":password"=>$this->pwdhash($password)));
-        return self::ADDUSER_SUCCESS;
-	}
+        try {
+            $this->getuserid($username);
+        }catch (UserNotFound $e) {
+            $sqlstr = 'INSERT username,nickname,password INTO sub_users VALUES (:username,:nickname,:password)';
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":username" => $username, ":nickname" => $nickname, ":password" => $this->pwdhash($password)));
+            return self::ADDUSER_SUCCESS;
+        }
+        return self::ADDUSER_DUPLICATE;
+    }
 	/*
 	 * 删除用户
 	 * @param int $id 用户ID
 	 * @return int 结果代码
 	 * */
+    const DELUSER_SUCCESS=0;
 	public function deluser($id)
 	{
+        try{
+            $this->getusername($id);
+        }catch(UserNotFound $e){
+            throw $e;
+        }
+        $sqlstr="DELETE FROM sub_users WHERE id=:id";
+        $sqlcmd=$this->dbc->prepare($sqlstr);
+        $sqlcmd->execute(array(':id'=$id));
+        return self::DELUSER_SUCCESS;
 	}
 	/*
 	 * 更改用户密码
@@ -39,13 +49,15 @@ class User_Model extends Base_Model
 	 * @param string $newpassword 新密码
 	 * @return int 结果代码
 	 * */
+    const CHANGEPW_SUCCESS=0;
 	public function changepw($id,$newpassword)
 	{
+        //TODO:修改密码
 	}
 	/*
 	 * 查询到用户id
 	 * @param string $username 用户名
-	 * @return int 用户ID，-1代表未找到
+	 * @return int 用户ID
 	 * 
 	 * */
 	public function getuserid($username)
@@ -55,6 +67,12 @@ class User_Model extends Base_Model
             if (strcmp($username,"test")==0)
                 return 0;
         }
+        $sqlstr="SELECT id FROM sub_users WHERE username=:username";
+        $sqlcmd=$this->dbc->prepare($sqlstr);
+        $sqlcmd->execute(array(":username"=>$username));
+        $res=$sqlcmd->fetchAll();
+        if (count($res)==0) throw new UserNotFound();
+        return $res[0]['id'];
 	}
 	/*
 	 * 检查用户ID/密码组合是否正确
@@ -72,6 +90,12 @@ class User_Model extends Base_Model
 			if ($id===0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
 				return self::CHECKPWD_ACCEPTED;
 		}
+        $sqlstr="SELECT COUNT(*) FROM sub_users WHERE id=:id AND password=:password";
+        $sqlcmd=$this->dbc->prepare($sqlstr);
+        $sqlcmd->execute(array(":id"=>$id,"password"=>$this->pwdhash($password)));
+        if (count($sqlcmd->fetchAll())==0) return self::CHECKPWD_DENIED;
+        //TODO:被限制用户
+        return self::CHECKPWD_ACCEPTED;
 	}
 	/*
 	 * 查询用户名
@@ -80,6 +104,12 @@ class User_Model extends Base_Model
 	 * */
 	public function getusername($id)
 	{
+        $sqlstr="SELECT username FROM sub_users WHERE id=:id";
+        $sqlcmd=$this->dbc->prepare($sqlstr);
+        $sqlcmd->execute(array(":id"=>$id));
+        $res=$sqlcmd->fetchAll();
+        if (count($res)==0) throw new UserNotFound();
+        return $res[0]['username'];
 	}
 	/*
 	 * 查询用户昵称
@@ -88,6 +118,7 @@ class User_Model extends Base_Model
 	 * */
 	public function getusernickname($id)
 	{
+        //TODO:获取昵称
 	}
 	/*
 	 * 查询用户所拥有的权限
@@ -96,6 +127,7 @@ class User_Model extends Base_Model
 	 * */
 	public function getuserperm($id)
 	{
+        //TODO:查询权限
 	}
 	/*
 	 * 更改用户所拥有的权限
@@ -104,10 +136,12 @@ class User_Model extends Base_Model
 	 * */
 	public function modifyuserperm($id,$perm)
 	{
+        //TODO:修改权限
 	}
 
 	private function pwdhash($password) //密码hash函数
 	{
+        //TODO:密码hash
         return $password;
 	}
 }
