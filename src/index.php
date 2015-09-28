@@ -17,9 +17,9 @@ function autoloader($class)
 {
 	$name=explode('_',$class);
 	try{
-	include_once './models/'.strtolower($name[0]).'.php';
-	include_once './controllers/'.strtolower($name[0]).'.php';
-	include_once './views/'.strtolower($name[0]).'.php';
+	@include_once './models/'.strtolower($name[0]).'.php';
+	@include_once './controllers/'.strtolower($name[0]).'.php';
+	@include_once './views/'.strtolower($name[0]).'.php';
 	}
 	catch (ErrorException $e)
 	{
@@ -35,6 +35,7 @@ if (isset($_GET['action'])) $action=$_GET['action']."_Controller"; //actionæŒ‡å®
 $con=new $action();
 try{
 	$con->run();
+}catch(ResourceFailed $e){
 }catch(Exception $e){
 	if (defined('DEBUG'))
 		var_dump($e->getTrace());

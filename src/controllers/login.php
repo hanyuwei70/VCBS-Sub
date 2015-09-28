@@ -7,30 +7,38 @@ class Login_Controller extends Base_Controller
 {
 	public function run()
 	{
-        $m_user=new User_Model();
-		//TODO:反注入
-        //TODO:验证码
         try {
-            if (isset($_POST['username'])) {
-                $userid = $m_user->getuserid($_POST['username']);
-                switch ($m_user->checkpassword($userid, $_POST['password'])) {
-                    case $m_user::CHECKPWD_ACCEPTED:
-                        session_start();
-                        $_SESSION['userid'] = $userid;
-                        $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME;
-                        $_SESSION['absexpiretime'] = time() + $_POST['vaildtime'];
-                        break;
-                    case $m_user::CHECKPWD_DENIED:
-                        throw new AuthFailed($TXT_PASSWORD_ERROR);
-                        break;
-                    case $m_user::CHECKPWD_RESTRICTED:
-                        throw new AuthFailed($TXT_USER_RESTRICTED);
+            $m_user = new User_Model();
+            $view = new Login_View();
+            $view->setparm('pagetitle',"用户登录".$TITLE_SUFFIX);
+            //TODO:反注入
+            //TODO:验证码
+            try {
+                if (isset($_POST['username'])) {
+                    $userid = $m_user->getuserid($_POST['username']);
+                    switch ($m_user->checkpassword($userid, $_POST['password'])) {
+                        case $m_user::CHECKPWD_ACCEPTED:
+                            session_start();
+                            $_SESSION['userid'] = $userid;
+                            $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME;
+                            $_SESSION['absexpiretime'] = time() + $_POST['vaildtime'];
+                            header("Location: " . $MAIN_PAGE_URL);
+                            break;
+                        case $m_user::CHECKPWD_DENIED:
+                            throw new AuthFailed($TXT_PASSWORD_ERROR);
+                            break;
+                        case $m_user::CHECKPWD_RESTRICTED:
+                            throw new AuthFailed($TXT_USER_RESTRICTED);
+                    }
                 }
+            } catch (AuthFailed $e) {
+                $view->setparm('errormsg', $e->getMessage());
             }
         }
-        catch(AuthFailed $e){
-
+        catch(ResourceFailed $e){
+            $view->setparm('errormsg',$e->getMessage());
         }
+        $view->render();
 	}
 }
 ?>

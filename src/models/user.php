@@ -8,10 +8,22 @@ class User_Model extends Base_Model
 	 * 添加用户
 	 * @param string $username 用户名
 	 * @param string $password  密码
+	 * @param string $nickname 用户昵称
 	 * @return int 结果代码
 	 * */
-	public function adduser($username,$password)
+	const ADDUSER_SUCCESS=0;
+	const ADDUSER_DUPLICATE=1;
+	public function adduser($username,$password,$nickname)
 	{
+		$sqlstr='SELECT * FROM sub_users where username=:username';
+		$sqlcmd=$dbc->prepare($sqlstr);
+		$sqlcmd->execute(array(':username'=>$username));
+		if ($sqlcmd->columnCount()!=0)
+			return self::ADDUSER_DUPLICATE;
+		$sqlstr='INSERT username,nickname,password INTO sub_users VALUES (:username,:nickname,:password)';
+		$sqlcmd=$dbc->prepare($sqlstr);
+		$sqlcmd->execute(array(":username"=>$username,":nickname"=>$nickname,":password"=>$this->pwdhash($password)));
+        return self::ADDUSER_SUCCESS;
 	}
 	/*
 	 * 删除用户
@@ -43,7 +55,6 @@ class User_Model extends Base_Model
             if (strcmp($username,"test")==0)
                 return 0;
         }
-
 	}
 	/*
 	 * 检查用户ID/密码组合是否正确
@@ -97,6 +108,7 @@ class User_Model extends Base_Model
 
 	private function pwdhash($password) //密码hash函数
 	{
+        return $password;
 	}
 }
 ?>
