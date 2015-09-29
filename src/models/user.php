@@ -118,7 +118,12 @@ class User_Model extends Base_Model
 	 * */
 	public function getusernickname($id)
 	{
-        //TODO:获取昵称
+        $sqlstr="SELECT usernickname FROM sub_users WHERE id=:id";
+        $sqlcmd=$this->dbc->prepare($sqlstr);
+        $sqlcmd->execute(array(":id"=>$id));
+        $res=$sqlcmd->fetchAll();
+        if (count($res)==0) throw new UserNotFound();
+        return $res[0]['usernickname'];
 	}
 	/*
 	 * 查询用户所拥有的权限
