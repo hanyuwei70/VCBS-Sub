@@ -2,7 +2,7 @@
 /**
  * 番剧模型类
  * */
-class Bangumi_Model
+class Bangumi_Model extends Base_Model
 {
 	/**
 	 * create
@@ -10,12 +10,20 @@ class Bangumi_Model
 	 * 创建一个番剧
 	 *
 	 * @param	string	$name	番剧名
-	 * @param	int		$creatroid	创建者ID
+	 * @param	int		$creatroid 创建者ID
+     * @param   string  $description 番剧描述
 	 * @return	int	返回结果	 
 	 * */
-	public function create($name,$creatorid)
+    const CREATE_SUCCESS=0;
+	public function create($name,$creatorid,$description)
 	{
-		
+        try {
+            $sqlstr = "INSERT creator,description INTO sub_bangumis VALUES (:crid,:desc)";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":crid" => $creatorid, ":desc" => $description));
+        }catch(PDOException $e){
+
+        }
 	}
 	/**
 	 * getid
@@ -62,19 +70,6 @@ class Bangumi_Model
 	 * @return	int	操作结果
 	 * */
 	public function delname($id,$name)
-	{
-	}
-	/**
-	 *	changename
-	 *
-	 *	更改番剧名称
-	 *
-	 *	@param	int	$id	番剧ID
-	 *	@param	string	$oldname	老番剧名
-	 *	@param	string	$newname	新番剧名
-	 *	@return	int	操作结果
-	 * */
-	public function changename($id,$oldname,$newname)
 	{
 	}
 }
