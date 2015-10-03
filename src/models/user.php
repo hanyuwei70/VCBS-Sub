@@ -132,16 +132,17 @@ class User_Model extends Base_Model
 	 * */
 	public function getuserperm($id)
 	{
-        //TODO:查询权限
+        //TODO:查询用户所拥有的权限
 	}
 	/*
 	 * 更改用户所拥有的权限
 	 * @param int $id 用户ID
 	 * @param array $perm 用户拥有的权限列表
+	 * @return int 操作结果
 	 * */
 	public function modifyuserperm($id,$perm)
 	{
-        //TODO:修改权限
+        //TODO:修改用户所拥有的权限
 	}
 
 	private function pwdhash($password) //密码hash函数

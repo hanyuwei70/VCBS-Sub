@@ -1,2 +1,3 @@
 index.php:转发所有请求
-
+base.php:继承基类
+config.php:设置文件

@@ -1,6 +1,7 @@
 <?php
 /**
  * 番剧模型类
+ * TODO:SQL里面更新了一个番剧所有者，重写函数
  * */
 class Bangumi_Model extends Base_Model
 {
