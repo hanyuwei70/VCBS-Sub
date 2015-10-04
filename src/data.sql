@@ -22,7 +22,7 @@ create table sub_bangumis(
 );
 create table sub_bangumis_name(
 	id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --番剧名称ID
-	bangumi INTEGER NOT NULL REFERENCES sub_bangumis(id). --对应番剧ID
+	bangumi INTEGER NOT NULL REFERENCES sub_bangumis(id), --对应番剧ID
 	name VARCHAR(200) NOT NULL --名称
 );
 create table sub_subtitles(
