@@ -3,6 +3,7 @@
 有想法请在下面接上，不要删除其他人所作的回答，删除统一由芙兰(hanyuwei70@qq.com)执行
 */
 1.MVC架构下搜索应该怎么做
+个人想法是做和别的 action 一样，做一个 action=Search --ParadiseDS
 
 2.数据库里各项权限代码定义放在哪里
 个人认为放在config.php或者php某个常量文件里面 --fulan
