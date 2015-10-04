@@ -1,28 +1,28 @@
 <?php
 /*
- * ´ËController´¦Àí·¬¾çÒ³ÃæÏà¹Ø£¬Èç²é¿´£¬ÐÞ¸ÄÖ®Àà
- * ÓÐ²»Í¬Òâ¼ûÇëÔÚÏÂÃæ½ÓÉÏ ¡ª¡ªfulan
+ * æ­¤Controllerå¤„ç†ç•ªå‰§é¡µé¢ç›¸å…³ï¼Œå¦‚æŸ¥çœ‹ï¼Œä¿®æ”¹ä¹‹ç±»
+ * æœ‰ä¸åŒæ„è§è¯·åœ¨ä¸‹é¢æŽ¥ä¸Š â€•â€•fulan
  * */
 class Bangumi_Controller extends Base_Controller
 {
-    private function show() //ÏÔÊ¾²Ù×÷
+    private function show() //æ˜¾ç¤ºæ“ä½œ
     {
 
     }
-    private function add() //Ìí¼Ó²Ù×÷
+    private function add() //æ·»åŠ æ“ä½œ
     {
 
     }
-    private function modify() //ÐÞ¸Ä²Ù×÷
+    private function modify() //ä¿®æ”¹æ“ä½œ
     {
 
     }
     public function run()
     {
         /*
-         * POST±íµ¥Éè¼Æ£º
-         * do:Ö´ÐÐµÄ¾ßÌå²Ù×÷ show:ÏÔÊ¾·¬¾çÁÐ±í add:Ìí¼Ó·¬¾ç modify:ÐÞ¸Ä·¬¾ç
-         * ²»Í¬²Ù×÷µÄ¾ßÌå±íµ¥ÔÚ¸÷×ÔµÄº¯Êý×¢ÊÍÀïÃæ¶¨Òå
+         * POSTè¡¨å•è®¾è®¡ï¼š
+         * do:æ‰§è¡Œçš„å…·ä½“æ“ä½œ show:æ˜¾ç¤ºç•ªå‰§åˆ—è¡¨ add:æ·»åŠ ç•ªå‰§ modify:ä¿®æ”¹ç•ªå‰§
+         * ä¸åŒæ“ä½œçš„å…·ä½“è¡¨å•åœ¨å„è‡ªçš„å‡½æ•°æ³¨é‡Šé‡Œé¢å®šä¹‰
          * */
         switch($_POST['do'])
         {

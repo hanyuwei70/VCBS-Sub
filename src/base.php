@@ -22,10 +22,10 @@ class Base_View
     protected $tplpath;
     /*
     setparm
-    Éè¶¨Êä³ö²ÎÊı
-    @param $name string ±äÁ¿Ãû
-    @param $val N/A Öµ
-    @return int Ö´ĞĞ½á¹û
+    è®¾å®šè¾“å‡ºå‚æ•°
+    @param $name string å˜é‡å
+    @param $val N/A å€¼
+    @return int æ‰§è¡Œç»“æœ
     */
     public function setparm($name,$val)
     {
@@ -33,8 +33,8 @@ class Base_View
     }
     /*
      * loadtpl
-     * Ö¸¶¨Ä£°åÎÄ¼şÂ·¾¶
-     * @param $path $string Ä£°åÎÄ¼şÂ·¾¶
+     * æŒ‡å®šæ¨¡æ¿æ–‡ä»¶è·¯å¾„
+     * @param $path $string æ¨¡æ¿æ–‡ä»¶è·¯å¾„
      */
     public function loadtpl($path)
     {
