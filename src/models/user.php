@@ -40,7 +40,7 @@ class User_Model extends Base_Model
         }
         $sqlstr="DELETE FROM sub_users WHERE id=:id";
         $sqlcmd=$this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(':id'=$id));
+        $sqlcmd->execute(array(':id' => $id));
         return self::DELUSER_SUCCESS;
 	}
 	/*

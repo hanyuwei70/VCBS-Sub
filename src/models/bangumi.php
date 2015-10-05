@@ -19,23 +19,13 @@ class Bangumi_Model extends Base_Model
 	public function create($name,$creatorid,$description)
 	{
         try {
-            $sqlstr = "INSERT creator,description INTO sub_bangumis VALUES (:crid,:desc)";
+        	$dt = date("Y-m-d H:i:s", TIMENOW);
+            $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :desc)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
-            $sqlcmd->execute(array(":crid" => $creatorid, ":desc" => $description));
+            $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => $dt, "owner" => $creatorid, ":desc" => $description));
         }catch(PDOException $e){
 
         }
-	}
-	/**
-	 * getid
-	 *
-	 * 根据番剧名找番剧ID
-	 *
-	 * @param	string $name	番剧名
-	 * @return 	int	番剧ID,-1为未找到
-	 * */
-	public function getid($name)
-	{
 	}
 	/**
 	 * del
@@ -47,7 +37,37 @@ class Bangumi_Model extends Base_Model
 	 * */
 	public function del($id)
 	{
-
+		try {
+			//TODO; is_valid_id
+			//是否需要一个BangumiNotFound异常
+		} catch (Exception $e) {
+			
+		}
+		try {
+			$sqlstr = "DELETE FROM sub_bangumis WHERE id=:id";
+			$sqlcmd = $this->dbc->prepare($sqlstr);
+			$sqlcmd->execute(array(':id' => $id));
+		} catch (PDOException $e) {
+			
+		}
+		try {
+			$sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id";
+			$sqlcmd = $this->dbc->prepare($sqlstr);
+			$sqlcmd->execute(array(':id' => $id));
+		} catch (PDOException $e) {
+			
+		}
+	}
+	/**
+	 * getbanguminame
+	 *
+	 * 获取番剧名称
+	 *
+	 * @param  int $id 番剧
+	 * @return array   名称数组
+	 */
+	public function getbanguminame($id)
+	{
 	}
 	/**
 	 *	addname

@@ -3,6 +3,7 @@
 入口文件
  */
 define('DEBUG',true); //主调试开关
+define('TIMENOW', time()); //当前时间
 require_once('config.php');
 require_once('error_report.php');
 require_once('base.php');
