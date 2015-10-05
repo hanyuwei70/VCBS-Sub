@@ -15,6 +15,7 @@ class Base_Model
 }
 class Base_Controller
 {
+    //TODO:$_POST $_GET $_COOKIE全面过滤
 }
 class Base_View
 {
