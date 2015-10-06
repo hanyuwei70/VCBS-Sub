@@ -4,6 +4,7 @@
 */
 1.MVC架构下搜索应该怎么做
 个人想法是做和别的 action 一样，做一个 action=Search --ParadiseDS
+    就是搜索的实现啊，在数据库里找什么，怎么找，我现在都没有太好的思路 --fulan
 
 2.数据库里各项权限代码定义放在哪里
 个人认为放在config.php或者php某个常量文件里面 --fulan

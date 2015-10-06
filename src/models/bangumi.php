@@ -1,7 +1,7 @@
 <?php
 /**
  * 番剧模型类
- * TODO:SQL里面更新了一个番剧所有者，重写函数
+ * TODO:SQL里面更新了一个番剧所有者，重写函数  --owner已添加，请其他人确认后添加在此处后面
  * */
 class Bangumi_Model extends Base_Model
 {
@@ -19,6 +19,7 @@ class Bangumi_Model extends Base_Model
 	public function create($name,$creatorid,$description)
 	{
         try {
+            //TODO: 所有时间均使用 UNIX TIMESTAMP 此处需要修改
         	$dt = date("Y-m-d H:i:s", TIMENOW);
             $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :desc)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
@@ -35,6 +36,7 @@ class Bangumi_Model extends Base_Model
 	 * @param	int	$id	番剧ID
 	 * @return	int	操作结果
 	 * */
+    const DELBANGUMI_SUCCESS=0;
 	public function del($id)
 	{
 		try {
@@ -107,7 +109,7 @@ class Bangumi_Model extends Base_Model
 	public function delname($id,$name)
 	{
 		try {
-			$this->validid();
+			$this->validid($id);
 			$sqlstr = "SELECT name FROM sub_bangumis_name WHERE id=:id";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));

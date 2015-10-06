@@ -9,6 +9,9 @@
  *
  * UserNotFound
  * 找不到用户
+ *
+ * BangumiNotFound
+ * 删除番剧时找不到ID所对应的番剧
  * */
 class AuthFailed extends Exception{}
 class ResourceFailed extends Exception{}
