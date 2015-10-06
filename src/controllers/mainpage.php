@@ -20,7 +20,6 @@ class Mainpage_Controller extends Base_Controller
                 }
                 $view->setparm('userid', $_SESSION['userid']);
                 $view->setparm('usernickname', $model->getusernickname($_SESSION['userid']));
-
             }
         }catch(AuthFailed $e){
             ;
