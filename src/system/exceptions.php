@@ -13,4 +13,5 @@
 class AuthFailed extends Exception{}
 class ResourceFailed extends Exception{}
 class UserNotFound extends Exception{}
+class BangumiNotFound extends Exception{}
 ?>

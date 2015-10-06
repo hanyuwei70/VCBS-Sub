@@ -10,7 +10,7 @@ create table sub_users(
 	description TEXT --用户描述，实际限制1KiB
 );
 create table sub_privileges(
-	user_id INTEGER NOT NULL REFERENCE sub_users(id), --对应用户ID
+	user_id INTEGER NOT NULL REFERENCES sub_users(id), --对应用户ID
 	priv_num INTEGER NOT NULL --权限代码 具体含义请参见 model/perm.txt
 );
 create table sub_bangumis(
@@ -29,7 +29,7 @@ create table sub_bangumis_name(
 create table sub_subtitles(
 	id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --字幕ID
 	name VARCHAR(50) NOT NULL UNIQUE, --字幕标题
-	uploader INTEGER NOT NULL REFERENCE sub_users(id), --上传者ID
+	uploader INTEGER NOT NULL REFERENCES sub_users(id), --上传者ID
 	bangumi INTEGER NOT NULL DEFAULT 0, --所属番剧ID, 0为不属于任何番剧
 	uploadtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, --上传时间
 	filename VARCHAR(50) NOT NULL --上传字幕保存的文件名
