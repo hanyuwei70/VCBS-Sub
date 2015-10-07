@@ -2,6 +2,7 @@
 /**
  * 番剧模型类
  * TODO:SQL里面更新了一个番剧所有者，重写函数  --owner已添加，请其他人确认后添加在此处后面
+ *                                       --create中已添加owner（其实我没看懂上面那句话是要确认啥
  * */
 class Bangumi_Model extends Base_Model
 {
@@ -41,10 +42,10 @@ class Bangumi_Model extends Base_Model
 	{
 		try {
 			$this->validid($id);
-			$sqlstr = "DELETE FROM sub_bangumis WHERE id=:id";
+			$sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));
-			$sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id";
+			$sqlstr = "DELETE FROM sub_bangumis WHERE id=:id";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));
 			return self::DELBANGUMI_SUCCESS;
@@ -114,7 +115,7 @@ class Bangumi_Model extends Base_Model
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));
 			$res = $sqlcmd->fetchAll();
-			if (count($res) == 1) { //存疑，是否要判断语种信息
+			if (count($res) == 1) { //TODO: 是否要判断语种信息
 				return self::DELNAME_LAST;
 			}
 			$sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id AND name=:name";
