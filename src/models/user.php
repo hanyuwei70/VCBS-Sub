@@ -125,6 +125,28 @@ class User_Model extends Base_Model
         if (count($res)==0) throw new UserNotFound();
         return $res[0]['usernickname'];
 	}
+    /*
+     * 权限列表:
+     * */
+
+    /*
+     * 检查权限
+     * @param int $id 用户ID
+     * @param int $perm 待检查的权限
+     * @return int 结果
+     * */
+    const CHECKUSERPERM_SUCCESS=0;
+    const CHECKUSERPERM_FAILED=1;
+    public function checkuserperm($id,$perm)
+    {
+        $userperm=$this->getuserperm($id);
+        foreach ($userperm as $tperm)
+        {
+            if ($tperm===$perm)
+                return self::CHECKUSERPERM_SUCCESS;
+        }
+        return self::CHECKUSERPERM_FAILED;
+    }
 	/*
 	 * 查询用户所拥有的权限
 	 * @param int $id 用户ID
@@ -132,7 +154,16 @@ class User_Model extends Base_Model
 	 * */
 	public function getuserperm($id)
 	{
-        //TODO:查询用户所拥有的权限
+        $sqlstr="SELECT * from sub_priviledges WHERE user_id=:id";
+        $sqlcmd=$this->dbc->prepare($sqlstr);
+        $sqlcmd->execute(array(":id"=>$id));
+        $sqlres=$sqlcmd->fetchAll();
+        $result=array();
+        foreach ($sqlres as $priv)
+        {
+            $result[]=$priv;
+        }
+        return $result;
 	}
 	/*
 	 * 更改用户所拥有的权限

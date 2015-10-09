@@ -1,8 +1,6 @@
 <?php
 /**
  * 番剧模型类
- * TODO:SQL里面更新了一个番剧所有者，重写函数  --owner已添加，请其他人确认后添加在此处后面
- *                                       --create中已添加owner（其实我没看懂上面那句话是要确认啥
  * */
 class Bangumi_Model extends Base_Model
 {
