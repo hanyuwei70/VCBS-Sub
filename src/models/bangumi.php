@@ -23,6 +23,7 @@ class Bangumi_Model extends Base_Model
             $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :desc)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => $dt, "owner" => $creatorid, ":desc" => $description));
+            return self::CREATE_SUCCESS;
         }catch(PDOException $e){
 
         }
@@ -77,10 +78,25 @@ class Bangumi_Model extends Base_Model
 	 * 获取番剧名称
 	 *
 	 * @param  int $id 番剧
-	 * @return array   名称数组
+	 * @return array   名称数组 二维数组，高维为语种，低维为名称
 	 */
 	public function getbanguminame($id)
 	{
+		try {
+			$this->validid($id);
+			$sqlstr = "SELECT name, lang FROM sub_bangumis_name WHERE id = :id";
+			$sqlcmd = $this->dbc->prepare($sqlstr);
+			$sqlcmd->execute(array(':id' => $id));
+			$name_arr = array();
+			while ($row = $sqlcmd->fetch()) {
+				$name_arr[$row['lang']][] = $row['name'];
+			}
+			return $name_arr;
+		} catch (BangumiNotFound $e) {
+			throw $e;
+		} catch (PDOException $e) {
+
+		}
 	}
 	/**
 	 *	addname
@@ -89,10 +105,23 @@ class Bangumi_Model extends Base_Model
 	 *
 	 *	@param	int	$id	番剧ID
 	*	@param	string	$name	要添加的番剧名
+	*	@param  string  $lang  添加名称的语种
 	*	@return int	操作结果
 	 * */
-	public function addname($id,$name)
+	const ADDNAME_SUCCESS = 0;
+	public function addname($id,$name,$lang)
 	{
+		try {
+			$this->validid($id);
+			$sqlstr = "INSERT bangumi_id, name, lang INTO sub_bangumis_name VALUES (:id, :name, :lang)";
+			$sqlcmd = $this->dbc->prepare($sqlstr);
+			$sqlcmd->execute(array(':id' => $id, ':name' => $name, ':lang' => $lang));
+			return self::ADDNAME_SUCCESS;
+		} catch (BangumiNotFound $e) {
+			throw $e;
+		} catch (PDOException $e) {
+
+		}
 	}
 	/**
 	 *	delname
