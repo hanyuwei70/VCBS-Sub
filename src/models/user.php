@@ -12,18 +12,16 @@ class User_Model extends Base_Model
 	 * @return int 结果代码
 	 * */
 	const ADDUSER_SUCCESS=0;
-	const ADDUSER_DUPLICATE=1;
 	public function adduser($username,$password,$nickname)
 	{
         try {
-            $this->getuserid($username);
-        }catch (UserNotFound $e) {
             $sqlstr = 'INSERT username,nickname,password INTO sub_users VALUES (:username,:nickname,:password)';
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(":username" => $username, ":nickname" => $nickname, ":password" => $this->pwdhash($password)));
             return self::ADDUSER_SUCCESS;
+        } catch (PDOException $e) {
+
         }
-        return self::ADDUSER_DUPLICATE;
     }
 	/*
 	 * 删除用户
@@ -34,14 +32,13 @@ class User_Model extends Base_Model
 	public function deluser($id)
 	{
         try{
-            $this->getusername($id);
-        }catch(UserNotFound $e){
-            throw $e;
+            $sqlstr="DELETE FROM sub_users WHERE id=:id";
+            $sqlcmd=$this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id));
+            return self::DELUSER_SUCCESS;
+        } catch (PDOException $e) {
+
         }
-        $sqlstr="DELETE FROM sub_users WHERE id=:id";
-        $sqlcmd=$this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(':id' => $id));
-        return self::DELUSER_SUCCESS;
 	}
 	/*
 	 * 更改用户密码
@@ -67,12 +64,16 @@ class User_Model extends Base_Model
             if (strcmp($username,"test")==0)
                 return 0;
         }
-        $sqlstr="SELECT id FROM sub_users WHERE username=:username";
-        $sqlcmd=$this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(":username"=>$username));
-        $res=$sqlcmd->fetchAll();
-        if (count($res)==0) throw new UserNotFound();
-        return $res[0]['id'];
+        try {
+            $sqlstr="SELECT id FROM sub_users WHERE username=:username";
+            $sqlcmd=$this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":username"=>$username));
+            $res=$sqlcmd->fetchAll();
+            if (count($res)==0) throw new UserNotFound();
+            return $res[0]['id'];
+        } catch (PDOException $e) {
+
+        }
 	}
 	/*
 	 * 检查用户ID/密码组合是否正确
@@ -90,12 +91,16 @@ class User_Model extends Base_Model
 			if ($id===0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
 				return self::CHECKPWD_ACCEPTED;
 		}
-        $sqlstr="SELECT COUNT(*) FROM sub_users WHERE id=:id AND password=:password";
-        $sqlcmd=$this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(":id"=>$id,"password"=>$this->pwdhash($password)));
-        if (count($sqlcmd->fetchAll())==0) return self::CHECKPWD_DENIED;
+        try {
+            $sqlstr="SELECT COUNT(*) FROM sub_users WHERE id=:id AND password=:password";
+            $sqlcmd=$this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":id"=>$id,"password"=>$this->pwdhash($password)));
+            if (count($sqlcmd->fetchAll())==0) return self::CHECKPWD_DENIED;
         //TODO:被限制用户
-        return self::CHECKPWD_ACCEPTED;
+            return self::CHECKPWD_ACCEPTED;
+        } catch (PDOException $e) {
+
+        }
 	}
 	/*
 	 * 查询用户名
@@ -104,12 +109,16 @@ class User_Model extends Base_Model
 	 * */
 	public function getusername($id)
 	{
-        $sqlstr="SELECT username FROM sub_users WHERE id=:id";
-        $sqlcmd=$this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(":id"=>$id));
-        $res=$sqlcmd->fetchAll();
-        if (count($res)==0) throw new UserNotFound();
-        return $res[0]['username'];
+        try {
+            $sqlstr="SELECT username FROM sub_users WHERE id=:id";
+            $sqlcmd=$this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":id"=>$id));
+            $res=$sqlcmd->fetchAll();
+            if (count($res)==0) throw new UserNotFound();
+            return $res[0]['username'];
+        } catch (PDOException $e) {
+
+        }
 	}
 	/*
 	 * 查询用户昵称
@@ -118,12 +127,16 @@ class User_Model extends Base_Model
 	 * */
 	public function getusernickname($id)
 	{
-        $sqlstr="SELECT usernickname FROM sub_users WHERE id=:id";
-        $sqlcmd=$this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(":id"=>$id));
-        $res=$sqlcmd->fetchAll();
-        if (count($res)==0) throw new UserNotFound();
-        return $res[0]['usernickname'];
+        try {
+            $sqlstr="SELECT usernickname FROM sub_users WHERE id=:id";
+            $sqlcmd=$this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":id"=>$id));
+            $res=$sqlcmd->fetchAll();
+            if (count($res)==0) throw new UserNotFound();
+            return $res[0]['usernickname'];
+        } catch (PDOException $e) {
+
+        }
 	}
     /*
      * 权限列表:
@@ -154,16 +167,20 @@ class User_Model extends Base_Model
 	 * */
 	public function getuserperm($id)
 	{
-        $sqlstr="SELECT * from sub_priviledges WHERE user_id=:id";
-        $sqlcmd=$this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(":id"=>$id));
-        $sqlres=$sqlcmd->fetchAll();
-        $result=array();
-        foreach ($sqlres as $priv)
-        {
-            $result[]=$priv;
+        try {
+            $sqlstr="SELECT * from sub_priviledges WHERE user_id=:id";
+            $sqlcmd=$this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":id"=>$id));
+            $sqlres=$sqlcmd->fetchAll();
+            $result=array();
+            foreach ($sqlres as $priv)
+            {
+                $result[]=$priv;
+            }
+            return $result;
+        } catch (PDOException $e) {
+
         }
-        return $result;
 	}
 	/*
 	 * 更改用户所拥有的权限

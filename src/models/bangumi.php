@@ -11,22 +11,22 @@ class Bangumi_Model extends Base_Model
 	 *
 	 * @param	string	$name	番剧名
 	 * @param	int		$creatroid 创建者ID
-     * @param   string  $description 番剧描述
+	 * @param   string  $description 番剧描述
 	 * @return	int	返回结果	 
 	 * */
-    const CREATE_SUCCESS=0;
+	const CREATE_SUCCESS=0;
 	public function create($name,$creatorid,$description)
 	{
-        try {
-            //TODO: 所有时间均使用 UNIX TIMESTAMP 此处需要修改
-        	$dt = date("Y-m-d H:i:s", TIMENOW);
-            $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :desc)";
-            $sqlcmd = $this->dbc->prepare($sqlstr);
-            $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => $dt, "owner" => $creatorid, ":desc" => $description));
-            return self::CREATE_SUCCESS;
-        }catch(PDOException $e){
+		try {
+			//TODO: 所有时间均使用 UNIX TIMESTAMP 此处需要修改
+			$dt = date("Y-m-d H:i:s", TIMENOW);
+			$sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :desc)";
+			$sqlcmd = $this->dbc->prepare($sqlstr);
+			$sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => $dt, "owner" => $creatorid, ":desc" => $description));
+			return self::CREATE_SUCCESS;
+		}catch(PDOException $e){
 
-        }
+		}
 	}
 	/**
 	 * del
@@ -36,11 +36,10 @@ class Bangumi_Model extends Base_Model
 	 * @param	int	$id	番剧ID
 	 * @return	int	操作结果
 	 * */
-    const DELBANGUMI_SUCCESS=0;
+	const DELBANGUMI_SUCCESS=0;
 	public function del($id)
 	{
 		try {
-			$this->validid($id);
 			$sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));
@@ -48,8 +47,6 @@ class Bangumi_Model extends Base_Model
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));
 			return self::DELBANGUMI_SUCCESS;
-		} catch (BangumiNotFound $e) {
-			throw $e;
 		} catch (PDOException $e) {
 			
 		}
@@ -69,8 +66,8 @@ class Bangumi_Model extends Base_Model
 		$sqlcmd = $this->dbc->prepare($sqlstr);
 		$sqlcmd->execute(array(':id' => $id));
 		$res = $sqlcmd->fetchAll();
-        if (count($res)==0) throw new BangumiNotFound();
-        else return self::BANGUMI_VALID;
+		if (count($res)==0) throw new BangumiNotFound();
+		else return self::BANGUMI_VALID;
 	}
 	/**
 	 * getbanguminame
@@ -83,7 +80,6 @@ class Bangumi_Model extends Base_Model
 	public function getbanguminame($id)
 	{
 		try {
-			$this->validid($id);
 			$sqlstr = "SELECT name, lang FROM sub_bangumis_name WHERE id = :id";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));
@@ -92,8 +88,6 @@ class Bangumi_Model extends Base_Model
 				$name_arr[$row['lang']][] = $row['name'];
 			}
 			return $name_arr;
-		} catch (BangumiNotFound $e) {
-			throw $e;
 		} catch (PDOException $e) {
 
 		}
@@ -112,13 +106,10 @@ class Bangumi_Model extends Base_Model
 	public function addname($id,$name,$lang)
 	{
 		try {
-			$this->validid($id);
 			$sqlstr = "INSERT bangumi_id, name, lang INTO sub_bangumis_name VALUES (:id, :name, :lang)";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id, ':name' => $name, ':lang' => $lang));
 			return self::ADDNAME_SUCCESS;
-		} catch (BangumiNotFound $e) {
-			throw $e;
 		} catch (PDOException $e) {
 
 		}
@@ -137,20 +128,17 @@ class Bangumi_Model extends Base_Model
 	public function delname($id,$name)
 	{
 		try {
-			$this->validid($id);
 			$sqlstr = "SELECT name FROM sub_bangumis_name WHERE id=:id";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id));
 			$res = $sqlcmd->fetchAll();
-			if (count($res) == 1) { //TODO: 是否要判断语种信息
+			if (count($res) == 1) {
 				return self::DELNAME_LAST;
 			}
 			$sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id AND name=:name";
 			$sqlcmd = $this->dbc->prepare($sqlstr);
 			$sqlcmd->execute(array(':id' => $id, ':name' => $name));
 			return self::DELNAME_SUCCESS;
-		} catch (BangumiNotFound $e) {
-			throw $e;
 		} catch (PDOException $e) {
 
 		}

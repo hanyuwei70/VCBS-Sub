@@ -12,9 +12,13 @@
  *
  * BangumiNotFound
  * 删除番剧时找不到ID所对应的番剧
+ *
+ * SubtitleNotFound
+ * 找不到ID对应的字幕
  * */
 class AuthFailed extends Exception{}
 class ResourceFailed extends Exception{}
 class UserNotFound extends Exception{}
 class BangumiNotFound extends Exception{}
+class SubtitleNotFound extends Exception{}
 ?>
