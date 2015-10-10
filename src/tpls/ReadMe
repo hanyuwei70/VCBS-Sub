@@ -1,0 +1,6 @@
+ReadMe
+
+Chinese edition
+houzui.bat用于批量更改后缀名，tpl->html
+工程前期全部文件放于同一个文件夹，方便代书写；后期逐渐进行时会以文件类型分开
+目前主题设计指导是页面组件跟随google design 扁平化，以二次元为基础进行更改。
