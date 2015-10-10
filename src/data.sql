@@ -11,7 +11,7 @@ create table sub_users(
 );
 create table sub_privileges(
 	user_id INTEGER NOT NULL REFERENCES sub_users(id), --对应用户ID
-	priv_num INTEGER NOT NULL --权限代码 具体含义请参见 model/perm.txt
+	priv_num INTEGER NOT NULL --权限代码 具体含义请参见 model/perm.md
 );
 create table sub_bangumis(
 	id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --番剧ID
