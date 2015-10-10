@@ -12,12 +12,12 @@
   </title>
 </head>
 
-<body style="background-image: url(login-bg.jpg);">
+<body style="background-image: url($BG_LOGIN);">
   <?php echo $ERROR_MSG;?>
     <div id="passbox">
       <form id="login-form" action="../index.php?action=login" method="POST" autocomplete="off">
-          <input type="text" id="name" placeholder="谁!>_>" name="username" autofocus="">
-          <input type="password" id="password" placeholder="口令！>_<" name="password">
+          <input type="text" id="name" placeholder="$TETX_NAME" name="username" autofocus="">
+          <input type="password" id="password" placeholder="$TEXT_PW" name="password">
         <input type="submit" id="submit" name="submit" value="G O">
       </form>
     </div>

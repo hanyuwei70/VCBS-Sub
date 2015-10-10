@@ -1,0 +1,8 @@
+login.tpl
+
+命名规律：功能_位置(可能多层) “xx位置的xx功能变量” 
+实例：CSS_LOGIN
+
+$BG_LOGIN body背景图，要求长宽比为iPhone6为准
+$TEXT_NAME 默认填充登陆页面的登陆用户名填写框
+$TEXT_PW 默认填充登陆页面的登录密码填写框
