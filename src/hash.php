@@ -3,10 +3,10 @@ $hash = '';
 $str = filter_input(INPUT_POST, 'str');
 $salt = filter_input(INPUT_POST, 'salt');
 if (!empty($str) && !empty($salt)) {
-	    $hash = crypt($str, $salt);
-		    if ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
-				        exit($hash);
-						    }
+        $hash = crypt($str, $salt);
+            if ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+                        exit($hash);
+                            }
 }
 ?><!DOCTYPE html>
 <html>
@@ -65,18 +65,18 @@ if (!empty($str) && !empty($salt)) {
                     .val($(this).attr('data-bind'));
             });
 
-			            $('#generator').submit(function() {
-							                $.ajax({
-											                    type: "POST",
-																	                    data: $("#generator").serialize(),
+                        $('#generator').submit(function() {
+                                            $.ajax({
+                                                                type: "POST",
+                                                                                        data: $("#generator").serialize(),
                     success: function(data) {
-						                        $('#myhash').html(data);
-												                    }
-																                });
-											                return false;
-											            });
-			        });
+                                                $('#myhash').html(data);
+                                                                    }
+                                                                                });
+                                                            return false;
+                                                        });
+                    });
         </script>
-			    </body>
-				</html>
+                </body>
+                </html>
 

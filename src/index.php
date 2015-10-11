@@ -10,23 +10,23 @@ require_once('base.php');
 require_once('system/lang.php');
 function exception_error_transfer($severity,$msg,$file,$line)
 {
-	if (!(error_reporting() & $severity)) return;
-	throw new ErrorException($msg,0,$severity,$file,$line);
+    if (!(error_reporting() & $severity)) return;
+    throw new ErrorException($msg,0,$severity,$file,$line);
 }
 //set_error_handler("exception_error_transfer");
 function autoloader($class)
 {
-	$name=explode('_',$class);
-	try{
-	@include_once './models/'.strtolower($name[0]).'.php';
-	@include_once './controllers/'.strtolower($name[0]).'.php';
-	@include_once './views/'.strtolower($name[0]).'.php';
-	}
-	catch (ErrorException $e)
-	{
-		error_report($e);
-		die();
-	}
+    $name=explode('_',$class);
+    try{
+    @include_once './models/'.strtolower($name[0]).'.php';
+    @include_once './controllers/'.strtolower($name[0]).'.php';
+    @include_once './views/'.strtolower($name[0]).'.php';
+    }
+    catch (ErrorException $e)
+    {
+        error_report($e);
+        die();
+    }
 }
 spl_autoload_register('autoloader'); //自动加载
 //TODO:获取URL做路由
@@ -35,11 +35,11 @@ if (isset($_GET['action'])) $action=$_GET['action']."_Controller"; //action指�
 
 $con=new $action();
 try{
-	$con->run();
+    $con->run();
 }catch(ResourceFailed $e){
 }catch(Exception $e){
-	if (defined('DEBUG'))
-		var_dump($e->getTrace());
+    if (defined('DEBUG'))
+        var_dump($e->getTrace());
 }
 ?>
 

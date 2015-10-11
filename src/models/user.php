@@ -4,16 +4,16 @@
  */
 class User_Model extends Base_Model
 {
-	/*
-	 * 添加用户
-	 * @param string $username 用户名
-	 * @param string $password  密码
-	 * @param string $nickname 用户昵称
-	 * @return int 结果代码
-	 * */
-	const ADDUSER_SUCCESS=0;
-	public function adduser($username,$password,$nickname)
-	{
+    /*
+     * 添加用户
+     * @param string $username 用户名
+     * @param string $password  密码
+     * @param string $nickname 用户昵称
+     * @return int 结果代码
+     * */
+    const ADDUSER_SUCCESS=0;
+    public function adduser($username,$password,$nickname)
+    {
         try {
             $sqlstr = 'INSERT username,nickname,password INTO sub_users VALUES (:username,:nickname,:password)';
             $sqlcmd = $this->dbc->prepare($sqlstr);
@@ -23,14 +23,14 @@ class User_Model extends Base_Model
 
         }
     }
-	/*
-	 * 删除用户
-	 * @param int $id 用户ID
-	 * @return int 结果代码
-	 * */
+    /*
+     * 删除用户
+     * @param int $id 用户ID
+     * @return int 结果代码
+     * */
     const DELUSER_SUCCESS=0;
-	public function deluser($id)
-	{
+    public function deluser($id)
+    {
         try{
             $sqlstr="DELETE FROM sub_users WHERE id=:id";
             $sqlcmd=$this->dbc->prepare($sqlstr);
@@ -39,26 +39,26 @@ class User_Model extends Base_Model
         } catch (PDOException $e) {
 
         }
-	}
-	/*
-	 * 更改用户密码
-	 * @param int $id 用户ID
-	 * @param string $newpassword 新密码
-	 * @return int 结果代码
-	 * */
+    }
+    /*
+     * 更改用户密码
+     * @param int $id 用户ID
+     * @param string $newpassword 新密码
+     * @return int 结果代码
+     * */
     const CHANGEPW_SUCCESS=0;
-	public function changepw($id,$newpassword)
-	{
+    public function changepw($id,$newpassword)
+    {
         //TODO:修改密码
-	}
-	/*
-	 * 查询到用户id
-	 * @param string $username 用户名
-	 * @return int 用户ID
-	 * 
-	 * */
-	public function getuserid($username)
-	{
+    }
+    /*
+     * 查询到用户id
+     * @param string $username 用户名
+     * @return int 用户ID
+     * 
+     * */
+    public function getuserid($username)
+    {
         if (defined('DEBUG'))  //开发后台用户名直接返回 id=0
         {
             if (strcmp($username,"test")==0)
@@ -74,23 +74,23 @@ class User_Model extends Base_Model
         } catch (PDOException $e) {
 
         }
-	}
-	/*
-	 * 检查用户ID/密码组合是否正确
-	 * @param int $id 用户ID
-	 * @param string $password 密码
-	 * @return int 检查结果
-	 * */
+    }
+    /*
+     * 检查用户ID/密码组合是否正确
+     * @param int $id 用户ID
+     * @param string $password 密码
+     * @return int 检查结果
+     * */
     const CHECKPWD_ACCEPTED=0;
     const CHECKPWD_DENIED=1;
     const CHECKPWD_RESTRICTED=2;
-	public function checkpassword($id,$password)
-	{
-		if (defined('DEBUG'))
-		{
-			if ($id===0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
-				return self::CHECKPWD_ACCEPTED;
-		}
+    public function checkpassword($id,$password)
+    {
+        if (defined('DEBUG'))
+        {
+            if ($id===0 && strcmp($password,"test")==0) //开发后台用户，发布时关闭DEBUG
+                return self::CHECKPWD_ACCEPTED;
+        }
         try {
             $sqlstr="SELECT COUNT(*) FROM sub_users WHERE id=:id AND password=:password";
             $sqlcmd=$this->dbc->prepare($sqlstr);
@@ -101,14 +101,14 @@ class User_Model extends Base_Model
         } catch (PDOException $e) {
 
         }
-	}
-	/*
-	 * 查询用户名
-	 * @param int $id 用户ID
-	 * @return string 用户名
-	 * */
-	public function getusername($id)
-	{
+    }
+    /*
+     * 查询用户名
+     * @param int $id 用户ID
+     * @return string 用户名
+     * */
+    public function getusername($id)
+    {
         try {
             $sqlstr="SELECT username FROM sub_users WHERE id=:id";
             $sqlcmd=$this->dbc->prepare($sqlstr);
@@ -119,14 +119,14 @@ class User_Model extends Base_Model
         } catch (PDOException $e) {
 
         }
-	}
-	/*
-	 * 查询用户昵称
-	 * @param int $id 用户ID
-	 * @return string 用户昵称
-	 * */
-	public function getusernickname($id)
-	{
+    }
+    /*
+     * 查询用户昵称
+     * @param int $id 用户ID
+     * @return string 用户昵称
+     * */
+    public function getusernickname($id)
+    {
         try {
             $sqlstr="SELECT usernickname FROM sub_users WHERE id=:id";
             $sqlcmd=$this->dbc->prepare($sqlstr);
@@ -137,7 +137,7 @@ class User_Model extends Base_Model
         } catch (PDOException $e) {
 
         }
-	}
+    }
     /*
      * 权限列表:
      * */
@@ -160,13 +160,13 @@ class User_Model extends Base_Model
         }
         return self::CHECKUSERPERM_FAILED;
     }
-	/*
-	 * 查询用户所拥有的权限
-	 * @param int $id 用户ID
-	 * @return array 用户拥有的权限列表
-	 * */
-	public function getuserperm($id)
-	{
+    /*
+     * 查询用户所拥有的权限
+     * @param int $id 用户ID
+     * @return array 用户拥有的权限列表
+     * */
+    public function getuserperm($id)
+    {
         try {
             $sqlstr="SELECT * from sub_priviledges WHERE user_id=:id";
             $sqlcmd=$this->dbc->prepare($sqlstr);
@@ -181,22 +181,22 @@ class User_Model extends Base_Model
         } catch (PDOException $e) {
 
         }
-	}
-	/*
-	 * 更改用户所拥有的权限
-	 * @param int $id 用户ID
-	 * @param array $perm 用户拥有的权限列表
-	 * @return int 操作结果
-	 * */
-	public function modifyuserperm($id,$perm)
-	{
+    }
+    /*
+     * 更改用户所拥有的权限
+     * @param int $id 用户ID
+     * @param array $perm 用户拥有的权限列表
+     * @return int 操作结果
+     * */
+    public function modifyuserperm($id,$perm)
+    {
         //TODO:修改用户所拥有的权限
-	}
+    }
 
-	private function pwdhash($password) //密码hash函数
-	{
+    private function pwdhash($password) //密码hash函数
+    {
         //TODO:密码hash
         return $password;
-	}
+    }
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 class Mainpage_Controller extends Base_Controller
 {
-	function run()
+    function run()
     {
         $view = new Mainpage_View();
         $model = new User_Model();
@@ -25,6 +25,6 @@ class Mainpage_Controller extends Base_Controller
             ;
         }
         $view->render();
-	}
+    }
 }
 ?>
