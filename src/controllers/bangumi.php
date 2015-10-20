@@ -2,6 +2,8 @@
 /*
  * 此Controller处理番剧页面相关，如查看，修改之类
  * 有不同意见请在下面接上 ――fulan
+ *
+ * TODO: add/modify 操作的表单如何输出，POST参数设计
  * */
 class Bangumi_Controller extends Base_Controller
 {

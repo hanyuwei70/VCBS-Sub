@@ -5,8 +5,17 @@
  * */
 class Login_Controller extends Base_Controller
 {
-	public function run()
-	{
+    public function run()
+    {
+        if (isset($_SESSION)) //用户已登陆，跳转到主页
+        {
+            if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
+            {
+                $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME; //续期5min
+                header("Location: " . $MAIN_PAGE_URL);
+                exit;
+            }
+        }
         try {
             $m_user = new User_Model();
             $view = new Login_View();
@@ -39,6 +48,6 @@ class Login_Controller extends Base_Controller
             $view->setparm('errormsg',$e->getMessage());
         }
         $view->render();
-	}
+    }
 }
 ?>
