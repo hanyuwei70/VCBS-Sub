@@ -67,6 +67,28 @@ class Subtitle_Model
         }
     }
     /**
+     * 按照条件获取字幕记录
+     * @param array $field 需要获取的列名数组
+     * @param  array $cond     条件参数组成的索引数组
+     * @param  string $orderkey 排序使用的列名
+     * @param  int $order    升序=1，降序=0，默认降序
+     * @param  int $limit    获取记录的数量限制
+     * @return array           字幕记录索引数组，每条记录由一条索引数组表示
+     */
+    public function getvalue($field, $cond, $orderkey, $order = 0, $limit)
+    {
+        try {
+            // TODO: $field, $cond 展开为 SQL 语句赋值给 $field, $where
+            $sqlstr = "SELECT $field FROM sub_subtitles WHERE $where ORDER BY orderkey=:orderkey LIMIT limitnum=:limitnum";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            // TODO: $cond 数组添加排序和记录限制项
+            $sqlcmd->execute($cond);
+            // TODO: 构建返回数组
+        } catch (PDOException $e) {
+            
+        }
+    }
+    /**
      * 删除字幕
      * @param  int $id 字幕ID
      * @return int     操作结果

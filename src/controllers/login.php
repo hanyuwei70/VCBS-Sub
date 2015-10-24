@@ -19,7 +19,7 @@ class Login_Controller extends Base_Controller
         try {
             $m_user = new User_Model();
             $view = new Login_View();
-            $view->setparm('pagetitle',"用户登录".$TITLE_SUFFIX);
+            $view->setparm('pagetitle',$TITLE_USER_LOGIN . $TITLE_SUFFIX);
             //TODO:反注入
             //TODO:验证码
             try {
