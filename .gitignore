@@ -2,4 +2,5 @@
 .idea/*
 .tag*
 *.bat
-src/tpls/back.txt
+*.jpg
+src/tpls/可用键值.txt
