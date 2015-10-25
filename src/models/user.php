@@ -141,7 +141,7 @@ class User_Model extends Base_Model
     /*
      * 权限/对象列表:
      * */
-    const OBJECT_USER=1,OBJECT_USERLIST=2,OBJECT_SUB=3,OBJECT_SUBLIST=4,OBJECT_BANGUMI=5,OBJECT_BANGUMILIST=6;
+    const OBJECT_USER=1,OBJECT_USERLIST=2,OBJECT_SUB=3,OBJECT_SUBLIST=4,OBJECT_BANGUMI=5,OBJECT_BANGUMILIST=6;  //对象类型
     /*
      * 检查权限
      * @param int $id 用户ID
@@ -153,13 +153,8 @@ class User_Model extends Base_Model
     const CHECKUSERPERM_FAILED=1;
     public function checkuserperm($id,$perm,$object)
     {
-        $userperm=$this->getuserperm($id);
-        foreach ($userperm as $tperm)
-        {
-            if ($tperm===$perm)
-                return self::CHECKUSERPERM_SUCCESS;
-        }
-        return self::CHECKUSERPERM_FAILED;
+        if ($id==0) return self::CHECKUSERPERM_SUCCESS;  //root用户允许任何操作
+
     }
     /*
      * 查询用户所拥有的权限
@@ -188,7 +183,7 @@ class User_Model extends Base_Model
      * @param int $id 用户ID
      * @param array $perm 用户拥有的权限列表
      * @return int 操作结果
-     * */;;
+     * */
     public function modifyuserperm($id,$perm)
     {
         //TODO:修改用户所拥有的权限
