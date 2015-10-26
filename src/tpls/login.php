@@ -5,6 +5,7 @@ $PAGE_TITLE = "LOGIN";
 $ERROR_MSG = "";
 $TEXT_NAME = "用户名";
 $TEXT_PW = "密码";
+$TETX_SUBMIT = "登录";
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +29,7 @@ $TEXT_PW = "密码";
             <div id="passbox" style="height:100%;">
                 <input type="text" id="name" placeholder="<?php echo $TEXT_NAME;?>" name="username" autofocus="">
                 <input type="password" id="password" placeholder="<?php echo $TEXT_PW;?>" name="password">
+                <input type="submit" id="submit" name="submit" value="<?php echo $TETX_SUBMIT;?>">
             </div>
         </form>
         <div id="footer">
