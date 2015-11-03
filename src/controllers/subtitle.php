@@ -1,7 +1,7 @@
 <?php
 class Subtitle_Controller extends Base_Controller
 {
-    const NUM_PER_PAGE = 50;
+    const NUM_PER_PAGE = 50; //每页显示的数量
     function run(){
         try {
             $user = new User_Model();
@@ -22,15 +22,20 @@ class Subtitle_Controller extends Base_Controller
                 $view->setparm('userid', $_SESSION['userid']);
                 $view->setparm('usernickname', $model->getusernickname($_SESSION['userid']));
             }
-            $sublist = array();
-            // TODO: $_GET 防注入，$_GET 参数转化为字幕获取条件参数
-            $sublist = $subtitle->getvalue($cond, $orderkey, $order, NUM_PER_PAGE);
-            $view->setparm('sublist', $sublist);
+            
         } catch (AuthFailed $e) {
             
         } catch (Exception $e) {
             
         }
+        $sublist = array();
+        $cond = array();
+        $orderkey = "uploadtime";
+        // TODO: $_GET 防注入，$_GET 参数转化为字幕获取条件参数
+        $field = array("name", "uploader", "uploadtime", "lang");
+        $sublist = $subtitle->getvalue($field, $cond, "AND", $orderkey, $order, NUM_PER_PAGE, $start);
+        $view->setparm('sublist', $sublist);
+        $view->render();
     }
 }
 ?>

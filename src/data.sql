@@ -34,6 +34,7 @@ create table sub_subtitles(
     uploadtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, --上传时间
     filename VARCHAR(50) NOT NULL --上传字幕保存的文件名
     status INTEGER NOT NULL --字幕状态 具体含义未定
+    lang VARCHAR(3) NOT NULL, --语种信息 TODO: 确定标准定义字符
     description TEXT --字幕描述，实际限制1KiB
 );
 create table sub_settings( --用来存储各项设置值
