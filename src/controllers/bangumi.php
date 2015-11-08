@@ -7,17 +7,29 @@
  * */
 class Bangumi_Controller extends Base_Controller
 {
-    private function show() //显示操作
+    private function show() //显示列表操作
     {
-
+        $model = new Bangumi_Model;
+        $view = new Bangumi_View();
+        $view->loadtpl('./tpls/bangumi-show.tpl');
+    }
+    private function detail() //显示单个番剧页面操作
+    {
+        $model = new Bangumi_Model;
+        $view = new Bangumi_View();
+        $view->loadtpl('./tpls/bangumi-detail.tpl');
     }
     private function add() //添加操作
     {
-
+        $model = new Bangumi_Model;
+        $view = new Bangumi_View();
+        $view->loadtpl('./tpls/bangumi-add.tpl');
     }
     private function modify() //修改操作
     {
-
+        $model = new Bangumi_Model;
+        $view = new Bangumi_View();
+        $view->loadtpl('./tpls/bangumi-modify.tpl');
     }
     public function run()
     {
@@ -30,6 +42,9 @@ class Bangumi_Controller extends Base_Controller
         {
             case 'show':
                 $this->show();
+                break;
+            case 'detail':
+                $this->detail();
                 break;
             case 'add':
                 $this->add();

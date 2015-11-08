@@ -5,7 +5,7 @@ class Mainpage_Controller extends Base_Controller
     {
         $view = new Mainpage_View();
         $model = new User_Model();
-        $view->loadtpl('./tpl/mainpage.tpl');
+        $view->loadtpl('./tpls/mainpage.tpl');
         $view->setparm('pagetitle', $TITLE_MAIN_PAGE . $TITLE_SUFFIX);
         try {
             if (isset($_SESSION)) //用户已登录

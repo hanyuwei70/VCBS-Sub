@@ -7,7 +7,7 @@ class Subtitle_Controller extends Base_Controller
             $user = new User_Model();
             $subtitle = new Subtitle_Model();
             $view = new Subtitle_View();
-            $view->loadtpl('./tpl/subtitle.tpl');
+            $view->loadtpl('./tpls/subtitle.tpl');
             $view->setparm('pagetitle', $TITLE_SUBTITLE . $TITLE_SUFFIX);
             if (isset($_SESSION)) //用户已登录
             {
