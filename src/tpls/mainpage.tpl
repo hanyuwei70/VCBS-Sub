@@ -1,23 +1,26 @@
 <?php
-$PAGE_TITLE = "主页";
-$CSS_MAIN_POSITION = "main_theme_position.css";
-$CSS_MAIN_COLOR = "main_theme_color.css";
-$USER_ID = "1";
-$USER_NAME = "Inori";
-$TETX_NEWS = "最新上传";
+$PAGE_TITLE        = "主页";
+$CSS_MAIN_POSITION = "css/mainpage.css";
+$CSS_MAIN_COLOR    = "css/mainpage.css";
+$USER_ID           = "1";
+$USER_NAME         = "Inori";
+$TETX_NEWS         = "最新上传";
+$ICO               = "favicon.ico";
 ?>
 
 <!DOCTYPE html>
-<html style="height:100%;">
+<html lang="zh" style="height:100%;">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="<?php echo "$ICO";?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo $CSS_MAIN_POSITION;?>">
+    <link rel="stylesheet" href="<?php echo $CSS_MAIN_COLOR;?>">
     <title>
         <?php echo $PAGE_TITLE;?>
     </title>
-    <link rel="stylesheet" href="<?php echo $CSS_MAIN_POSITION;?>">
-    <link rel="stylesheet" href="<?php echo $CSS_MAIN_COLOR;?>">
 </head>
 
 <body>

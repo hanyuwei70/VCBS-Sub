@@ -1,21 +1,22 @@
 <?php
-$CSS_LOGIN_THEME_COLOR = "login_theme_color.css";
-$CSS_LOGIN_THEME_POSITION = "login_theme_position.css";
-$PAGE_TITLE = "LOGIN";
-$ERROR_MSG = "";
-$TEXT_NAME = "用户名";
-$TEXT_PW = "密码";
-$TETX_SUBMIT = "登录";
+$CSS_LOGIN_THEME_COLOR    = "css/login.css";
+$CSS_LOGIN_THEME_POSITION = "css/login.css";
+$PAGE_TITLE               = "LOGIN";
+$ERROR_MSG                = "error";
+$TEXT_NAME                = "用户名";
+$TEXT_PW                  = "密码";
+$TETX_SUBMIT              = "登录";
+$ICO                      = "favicon.ico";
 ?>
 
 <!DOCTYPE html>
-<html style="height:100%;">
+<html lang="zh" style="height:100%;">
 
 <head>
     <meta lang="zh_CN">
-    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="<?php echo "$ICO";?>">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <!--这是响应式的基础-->
     <link rel="stylesheet" href="<?php echo $CSS_LOGIN_THEME_COLOR;?>">
     <link rel="stylesheet" href="<?php echo $CSS_LOGIN_THEME_POSITION;?>">
     <title>

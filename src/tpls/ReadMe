@@ -1,11 +1,9 @@
 ReadMe
 
-houzui.bat用于批量更改后缀名，tpl->html
-工程前期全部文件放于同一个文件夹，方便代书写；后期逐渐进行时会以文件类型分开
-目前主题设计指导是页面组件跟随google design 扁平化，以二次元为基础进行更改。
+前端拥有一个分git库用于共享工作流程（虽然目前没什么东西在里边
+具体可访问[learn](https://github.com/Inori-Lover/learn "learn")
 
 TODO
 引入动画
-login页面登录框无边框画
-mainpage 全透明化
-search get操作
+完成登陆页面
+形成工作流程
