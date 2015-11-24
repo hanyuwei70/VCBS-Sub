@@ -178,6 +178,75 @@ class User_Model extends Base_Model
 
         }
     }
+    /**
+     * 获取用户本地时间
+     * @param int $id 用户ID
+     * @param  TIMESTAMP $time 需要转换的UNIX时间戳
+     * @param string $format 输出时间格式
+     * @return string       格式化时间字符串
+     */
+    public function getuserlocaltime($id, $time = "now", $format = 'Y-m-d H:i:s')
+    {
+        try {
+            $sqlstr = "SELECT timezone from sub_users WHERE user_id=:id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":id"=>$id));
+            $res = $sqlcmd->fetchAll();
+            if (count($res) == 0) throw new UserNotFound();
+            $datetime = new Datetime('@'.$time);
+            $datetime->setTimezone(new DateTimeZone($res[0]['timezone']));
+            return $datetime->format($format);
+        } catch (PDOException $e) {
+            
+        } catch (UserNotFound $e) { //返回站点默认时区
+            $datetime = new Datetime('@'.$time);
+            $datetime->setTimezone(new DateTimeZone(DEFAULT_TIME_ZONE));
+            return $datetime->format($format);
+        }
+    }
+    /**
+     * 获取用户信息
+     * @param  int $id 用户ID
+     * @param array $infoname 信息名称数组
+     * @return array     用户信息数组，索引为设置名称
+     */
+    public function getuserinfo($id, $infoname)
+    {
+        try {
+            $sqlstr = "SELECT ".implode(",", $infoname)." from sub_users WHERE user_id=:id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":id"=>$id));
+            $res = $sqlcmd->fetchAll();
+            if (count($res) == 0) throw new UserNotFound();
+            return $res[0];
+        } catch (PDOException $e) {
+            
+        } catch (UserNotFound $e) {
+            
+        }
+    }
+    /**
+     * 更新用户设置选项
+     * @param  int $id      用户ID
+     * @param  array $updates 以信息列名为索引的数据数组
+     * @return int          操作结果
+     */
+    public function updateuserinfo($id, $updates)
+    {
+        try {
+            $field = array();
+            $data = array(":id"=>$id);
+            foreach ($updates as $key => $value) {
+                $field[] = "$key=:$key";
+                $data[":$key"] = $value;
+            }
+            $sqlstr = "UPDATE sub_users SET ".implode(",", $field)." WHERE user_id=:id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute($data);
+        } catch (PDOException $e) {
+            
+        }
+    }
     /*
      * 更改用户所拥有的权限
      * @param int $id 用户ID

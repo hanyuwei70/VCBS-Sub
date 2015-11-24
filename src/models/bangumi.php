@@ -18,11 +18,9 @@ class Bangumi_Model extends Base_Model
     public function create($name,$creatorid,$description)
     {
         try {
-            //TODO: 所有时间均使用 UNIX TIMESTAMP 此处需要修改
-            $dt = date("Y-m-d H:i:s", TIMENOW);
             $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :desc)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
-            $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => $dt, "owner" => $creatorid, ":desc" => $description));
+            $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => TIMENOW, "owner" => $creatorid, ":desc" => $description));
             return self::CREATE_SUCCESS;
         }catch(PDOException $e){
 

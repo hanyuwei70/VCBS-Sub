@@ -7,7 +7,9 @@ create table sub_users(
     username VARCHAR(50) NOT NULL UNIQUE, --用户名(登录用)
     nickname VARCHAR(50) UNIQUE, --昵称(显示用)
     password VARCHAR(100), --密码
-    description TEXT --用户描述，实际限制1KiB
+    description TEXT, --用户描述，实际限制1KiB
+    timezone VARCHAR(30) NOT NULL DEFAULT "Asia/Shanghai", -- 用户所在时区，按照PHP DateTimeZone 类中允许的时区字符串定义
+    lang VARCHAR(3) NOT NULL DEFAULT "chs" -- 网站界面语言
 );
 create table sub_privileges(
     user_id INTEGER NOT NULL REFERENCES sub_users(id), --对应用户ID
