@@ -9,20 +9,26 @@ class Bangumi_Model extends Base_Model
      *
      * 创建一个番剧
      *
-     * @param   string  $name   番剧名
      * @param   int     $creatroid 创建者ID
      * @param   string  $description 番剧描述
-     * @return  int 返回结果     
+     * @return  int 番剧ID
      * */
-    const CREATE_SUCCESS=0;
-    public function create($name,$creatorid,$description)
+    const CREATE_FAILED = -1;
+    public function create($creatorid, $description)
     {
         try {
-            $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :desc)";
+            $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :descp)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
-            $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => TIMENOW, "owner" => $creatorid, ":desc" => $description));
-            return self::CREATE_SUCCESS;
-        }catch(PDOException $e){
+            $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => TIMENOW, "owner" => $creatorid, ":descp" => $description));
+            $sqlstr = "SELECT id FROM sub_bangumis WHERE creator = :crid and createtime = :crtime";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => TIMENOW));
+            $res = $sqlcmd->fetchAll();
+            if (count($res) == 0) {
+                return self::CREATE_FAILED;
+            }
+            return $res[0]['id'];
+        } catch (PDOException $e) {
 
         }
     }
@@ -64,8 +70,11 @@ class Bangumi_Model extends Base_Model
         $sqlcmd = $this->dbc->prepare($sqlstr);
         $sqlcmd->execute(array(':id' => $id));
         $res = $sqlcmd->fetchAll();
-        if (count($res)==0) throw new BangumiNotFound();
-        else return self::BANGUMI_VALID;
+        if (count($res)==0) {
+            throw new BangumiNotFound();
+        } else {
+            return self::BANGUMI_VALID;
+        }
     }
     /**
      * getbanguminame
@@ -101,7 +110,7 @@ class Bangumi_Model extends Base_Model
     *   @return int 操作结果
      * */
     const ADDNAME_SUCCESS = 0;
-    public function addname($id,$name,$lang)
+    public function addname($id, $name, $lang)
     {
         try {
             $sqlstr = "INSERT bangumi_id, name, lang INTO sub_bangumis_name VALUES (:id, :name, :lang)";
@@ -123,7 +132,7 @@ class Bangumi_Model extends Base_Model
      * */
     const DELNAME_SUCCESS = 0;
     const DELNAME_LAST = 1;
-    public function delname($id,$name)
+    public function delname($id, $name)
     {
         try {
             $sqlstr = "SELECT name FROM sub_bangumis_name WHERE id=:id";
@@ -142,5 +151,3 @@ class Bangumi_Model extends Base_Model
         }
     }
 }
-?>
-
