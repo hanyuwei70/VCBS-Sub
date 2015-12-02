@@ -1,89 +1,69 @@
-@charset "utf-8";
-/*基本设置*/
-@media all{
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: "Microsoft YaHei",Heiti SC,sans-serif;
-    }
-    *:focus {
-        outline: none;
-    }
-    body{
-        height: 100%;
-        background-image: url(img/login-bg.jpg);
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-    }
-    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-        color: #304165;
-        font-family: "Microsoft YaHei",Heiti SC,sans-serif;
-    }
-    input:-moz-placeholder, textarea:-moz-placeholder {
-        color: #304165;
-        font-family: "Microsoft YaHei",Heiti SC,sans-serif;
-    }
-    #navbar{
-        overflow: hidden;
-        background-color:rgba(256,256,256,0);
-    }
-    #logo{
-        float: left;
-        box-sizing: border-box;
-        width: 20%;
-        height: 50px;
-        background-color: rgba(256,256,256,0);
-    }
-    #userinfo{
-        float: right;
-        margin-top: 10px;
-    }
-    /*搜索*/
-    #form{
-        display: block;
-        margin: 24.6% auto;
-        overflow: hidden;
-    }
-    #search_box{
-        width: 80%;
-        margin: 0 auto;
-        background-color:rgba(256,256,256,0.35);
-        float: left;
-        margin-left: 10%;
-    }
-    #name{
-        width: 80%;
-        background-color:rgba(256,256,256,0.35);
-        border: 1px solid rgba(256,256,256,0.35);
-        text-indent: .3em;
-        box-sizing: border-box;
-        padding: 10px 0;
-        font-size: 1.2em;
-    }
-    #sublime{
-        width: 15%;
-        font-size: 1.2em;
-        background-color:rgba(256,256,256,0);
-        border: 1px solid rgba(256,256,256,0);
-        cursor: pointer;
-    }
-    /*底部*/
-    #footer{
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        text-align: center;
-        margin: 10px auto;
-        text-align: center;
-        font-size: 14px;
-        color: rgba(256, 256, 256, 0.5);
-    }
-    #footer-least{
-    }
-    #footer-least>a{
-        color: rgba(256, 256, 256, 0.5);
-        text-decoration: none;
-    }
-}
+@charset "UTF-8";
+@media all {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+  :focus {
+    outline: none; }
+  body {
+    height: 100%;
+    background-image: url(../img/login-bg.jpg);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat; }
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    color: #304165;
+    font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+  input::-moz-placeholder,
+  textarea::-moz-placeholder {
+    color: #304165;
+    font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+  #navbar {
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0); }
+    #navbar #logo {
+      float: left;
+      box-sizing: border-box;
+      width: 20%;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0); }
+    #navbar #userinfo {
+      float: right;
+      margin-top: 10px; }
+  /*搜索*/
+  #form {
+    display: block;
+    margin: 5.6% auto;
+    overflow: hidden; }
+  #search_box {
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.35);
+    float: left;
+    margin-left: 10%; }
+  #name {
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    text-indent: .3em;
+    box-sizing: border-box;
+    padding: 10px 0;
+    font-size: 1.2em; }
+  #footer {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    margin: 30px auto 10px auto;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5); }
+  #footer-least a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none; }
+  #form {
+    margin: 24.6% auto 60% auto; } }
+
+/*# sourceMappingURL=map/main.css.map */

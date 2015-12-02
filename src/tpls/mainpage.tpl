@@ -1,11 +1,11 @@
 <?php
 $PAGE_TITLE        = "主页";
-$CSS_MAIN_POSITION = "css/mainpage.css";
-$CSS_MAIN_COLOR    = "css/mainpage.css";
+// $CSS_MAIN_POSITION = "css/mainpage.css";
+$CSS_MAIN_COLOR    = "css/main.css";
 $USER_ID           = "1";
 $USER_NAME         = "Inori";
 $TETX_NEWS         = "最新上传";
-$ICO               = "favicon.ico";
+$ICO               = "img/favicon.ico";
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +29,10 @@ $ICO               = "favicon.ico";
             23333
         </div>
         <div id="userinfo">
-            <?php if (isset($USER_ID)): ?>
-                欢迎，
-                <?php echo $USER_NAME;?>
-                    <?php else: ?>
-                        未登录 请<a href="index.php?action=login">登录</a>
-                        <?php endif;?>
+        <?php if (isset($USER_ID)): ?>
+            欢迎，<?php echo $USER_NAME;?>
+        <?php else: ?>未登录 请<a href="index.php?action=login">登录</a>
+        <?php endif;?>
         </div>
     </div>
     <form action="index.php?action=search" method="GET" id="form">

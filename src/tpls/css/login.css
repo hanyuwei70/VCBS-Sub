@@ -1,99 +1,92 @@
-@charset "utf-8";
+@charset "UTF-8";
 /*基本设置*/
-@media all{
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: "Microsoft YaHei",Heiti SC,sans-serif;
-    }
+@media all {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
     *:focus {
-        outline: none;
-    }
-    body{
-        height: 100%;
-        background-image: url(img/login-bg.jpg);
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-    }
-    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-        color: #304165;
-        font-family: "Microsoft YaHei",Heiti SC,sans-serif;
-    }
-    input:-moz-placeholder, textarea:-moz-placeholder {
-        color: #304165;
-        font-family: "Microsoft YaHei",Heiti SC,sans-serif;
-    }
-    #passbox {
-        padding: 1em;
-        margin: 20% auto 0 auto;
-        background-color:rgba(256,256,256,0.35);
-        overflow: hidden;
-    }
-    #name,#password{
-        font-size: 1.2em;
-        text-indent: 1.2em;
+      outline: none; }
+  body {
+    height: 100%;
+    background-color: #B0C5E7;
+    background-image: url(../img/login-bg.jpg);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat; }
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    color: #304165;
+    font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+  input::-moz-placeholder,
+  textarea::-moz-placeholder {
+    color: #304165;
+    font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+  #login-form {
+    width: 80%;
+    margin: auto; }
+    #login-form #passbox {
+      width: 80%;
+      padding: 1em;
+      margin: 20% auto 5%;
+      /*border: 1px solid #FFF;*/
+      border-radius: 2%/3%;
+      overflow: hidden; }
+      #login-form #passbox #name,
+      #login-form #passbox #password {
+        font-size: 1.4em;
+        text-indent: 1.4em;
         display: block;
         width: 100%;
         box-sizing: border-box;
         margin: 10px 0;
-        padding: 10px 0;
-        border: 1px solid #304165;
-        border-radius: 1em/50%;
-        background-color:rgba(256,256,256,0.1);
-    }
-    #name:focus,#password:focus{
-        border-color: white;
-        outline: none;
-    }
-    #submit{
+        padding: 5px 0;
+        border: 1px solid transparent;
+        border-bottom: 1px solid #FFF;
+        /*border-radius: 1em/50%;*/
+        background-color: rgba(255, 255, 255, 0); }
+        #login-form #passbox #name:focus,
+        #login-form #passbox #password:focus {
+          /*border-color: white;*/
+          outline: none;
+          background-color: rgba(255, 255, 255, 0.35); }
+      #login-form #passbox #submit {
         font-size: 2em;
         font-weight: bold;
         display: block;
         box-sizing: border-box;
-        padding: .2em 1em;
-        color: #DB3B1A;
-        background-color: rgba(256,256,256,0.1);
+        padding: 0.2em 1em;
+        color: #DB3919;
+        background-color: rgba(255, 255, 255, 0.35);
         border: 1px solid #304165;
-        border-radius: .6em/50%;
-  }
-  /*底部*/
-  #footer{
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        text-align: center;
-        margin: 10px auto;
-        text-align: center;
-        font-size: 14px;
-        color: rgba(256, 256, 256, 0.5);
-    }
-    #footer-least{
-    }
-    #footer-least>a{
-        color: rgba(256, 256, 256, 0.5);
-        text-decoration: none;
-    }
-}
-/*小屏幕设备*/
-@media (max-width:500px){
-    #submit{
-        width: 100%;
-    }
-}
+        border-radius: 5px;
+        /*border-radius: .6em/50%;*/ }
+  #footer {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    margin: 30px auto 10px auto;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5); }
+  #footer-least a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none; } }
 
-/*大屏设备*/
-@media (min-width:500px){
-    body{
-        background-attachment: fixed;
-        background-size: cover;
-  }
-    #submit{
-        display: block;
-        float: right;
-        clear: both;
-        margin-top: 10px;
-        cursor: pointer;
-  }
-}
+@media (max-width: 500px) {
+  #sublime {
+    width: 100%; } }
+
+@media (min-width: 500px) {
+  body {
+    background-attachment: fixed;
+    background-size: cover; }
+  #submit {
+    display: block;
+    float: right;
+    clear: both;
+    margin-top: 10px;
+    cursor: pointer; } }
+
+/*# sourceMappingURL=map/login.css.map */

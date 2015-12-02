@@ -1,0 +1,159 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+  *:focus {
+    outline: none; }
+
+body {
+  height: 100%;
+  background-image: url(../img/login-bg.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+  background-repeat: no-repeat; }
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #304165;
+  font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #304165;
+  font-family: "Microsoft YaHei", Heiti SC, sans-serif; }
+
+#navbar {
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0); }
+  #navbar #logo {
+    float: left;
+    box-sizing: border-box;
+    width: 20%;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0); }
+  #navbar #userinfo {
+    float: right;
+    margin-top: 10px; }
+
+/*搜索*/
+#form {
+  display: block;
+  margin: 5.6% auto;
+  overflow: hidden; }
+
+#search_box {
+  width: 80%;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.35);
+  float: left;
+  margin-left: 10%; }
+
+#name {
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  text-indent: .3em;
+  box-sizing: border-box;
+  padding: 10px 0;
+  font-size: 1.2em; }
+
+#footer {
+  position: relative;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  margin: 30px auto 10px auto;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5); }
+
+#footer-least a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none; }
+
+/**
+ * 表格结构
+ <div class="ui-columns-table" data-columns-table="true">
+    <table class="ui-table">
+        <thead>
+            <tr>
+                <th class="ui-table-sortable" data-columns-sortby="title">标题</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-columns-row-id="0" class="ui-table-rows-even">
+            </tr>
+        </tbody>
+    </table>
+    <div class="ui-table-footer">
+    //待修改！！
+    </div>
+</div>
+ */
+.columns {
+  width: 95%;
+  margin: 0 auto; }
+  .columns .ui-table {
+    background-color: rgba(255, 255, 255, 0.35);
+    border-collapse: collapse;
+    width: 100%; }
+    .columns .ui-table thead tr {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      background-color: rgba(255, 255, 255, 0.35); }
+      .columns .ui-table thead tr th {
+        word-wrap: keep-all;
+        white-space: nowrap;
+        padding: 8px;
+        border-right: 1px solid #CCC;
+        border-bottom: 1px solid gray; }
+        .columns .ui-table thead tr th:first-child {
+          width: 60%; }
+        .columns .ui-table thead tr th .ui-arrow {
+          font-size: 10px;
+          display: block;
+          float: right;
+          width: 10px; }
+        .columns .ui-table thead tr th.ui-table-sort-up, .columns .ui-table thead tr th.ui-table-sort-down {
+          background-color: rgba(255, 255, 255, 0.35); }
+    .columns .ui-table tbody {
+      font-size: 14px; }
+      .columns .ui-table tbody tr td {
+        line-height: 2em;
+        padding: 10px 0 10px 1em;
+        text-align: center; }
+        .columns .ui-table tbody tr td:first-child {
+          text-align: left; }
+      .columns .ui-table tbody tr.ui-table-rows-even {
+        background-color: rgba(255, 255, 255, 0.75); }
+      .columns .ui-table tbody tr.ui-table-rows-odd {
+        background-color: rgba(255, 255, 255, 0.35); }
+  .columns .ui-columns-search {
+    padding: 10px;
+    text-align: right;
+    background-color: rgba(255, 255, 255, 0); }
+    .columns .ui-columns-search input {
+      padding: 4px 10px 4px 25px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.35);
+      background-image: url(../img/search.png);
+      background-repeat: no-repeat;
+      background-position: 5px center; }
+      .columns .ui-columns-search input:focus {
+        background-color: rgba(255, 255, 255, 0.75);
+        outline: none; }
+
+#form {
+  margin: 0% auto 2% auto; }
+
+.row {
+  margin: 0 auto; }
+
+.row > div {
+  margin-bottom: 30px; }
+
+/*# sourceMappingURL=map/bangumi-detail.css.map */
