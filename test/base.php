@@ -73,9 +73,9 @@ class ModelTest extends PHPUnit_Extensions_Database_TestCase
                                             array('id' => 3, 'username' => 'fulan', 'nickname' => '芙兰', 'password' => 'passwd'),
                                         ),
                                        'sub_bangumis' => array(
-                                            array('id' => 1, 'creator' => 1, 'createtime' => '2015-12-3 03:00:00', 'owner' => 1, 'description' => 'test bangumi 1'),
-                                            array('id' => 2, 'creator' => 3, 'createtime' => '2015-12-3 04:00:00', 'owner' => 3, 'description' => 'test bangumi 2'),
-                                            array('id' => 3, 'creator' => 2, 'createtime' => '2015-12-3 05:00:00', 'owner' => 2, 'description' => 'test bangumi 3'),
+                                            array('id' => 1, 'creator' => 1, 'createtime' => strtotime('2015-12-3 03:00:00'), 'owner' => 1, 'description' => 'test bangumi 1'),
+                                            array('id' => 2, 'creator' => 3, 'createtime' => strtotime('2015-12-3 04:00:00'), 'owner' => 3, 'description' => 'test bangumi 2'),
+                                            array('id' => 3, 'creator' => 2, 'createtime' => strtotime('2015-12-3 05:00:00'), 'owner' => 2, 'description' => 'test bangumi 3'),
                                         ),
                                        'sub_bangumis_name' => array(
                                             array('bangumi_id' => 1, 'name' => 'Fate Zero', 'lang' => 'eng'),
@@ -86,12 +86,12 @@ class ModelTest extends PHPUnit_Extensions_Database_TestCase
                                             array('bangumi_id' => 2, 'name' => 'デジモンアドベンチャー', 'lang' => 'jpn'),
                                         ),
                                        'sub_subtitles' => array(
-                                            array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體(字幕制作請看Readme檔)]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => '2015-12-3 05:00:00', 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
+                                            array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體(字幕制作請看Readme檔)]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
                                         ),
                                        'sub_privileges' => array(
                                             array('user_id' => 1, 'priv_num' => 503),
                                             array('user_id' => 2, 'priv_num' => 501),
-                                            array('user_id' => 1, 'priv_num' => 504),
+                                            array('user_id' => 3, 'priv_num' => 504),
                                         ),
                                        ));
     }
@@ -106,3 +106,4 @@ require_once '../src/config.php';
 require_once('../src/error_report.php');
 require_once('../src/base.php');
 require_once('../src/system/lang.php');
+require_once('../src/system/exceptions.php');

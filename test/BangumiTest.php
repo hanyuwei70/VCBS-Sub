@@ -11,17 +11,17 @@ class Bangumi_ModelTest extends ModelTest
     {
         $bangumi = new Bangumi_Model();
         $queryCount = $this->getConnection()->getRowCount('sub_bangumis');
-        $id = $bangumi->create(3, 'test description');
+        $id = $bangumi->create(2, 'test description');
         $queryCountAfter = $this->getConnection()->getRowCount('sub_bangumis');
         $this->assertEquals(1, $queryCountAfter-$queryCount);
         $query = $this->getConnection()->createQueryTable('sub_bangumis', 'SELECT * FROM sub_bangumis ORDER BY id DESC LIMIT 1');
         $expect = new DbUnit_ArrayDataSet(array(
                                             'sub_bangumis' => array(
-                                                array('id' => $id, 'creator' => 2, 'createtime' => date('Y-m-d H:i:s', TIMENOW), 'owner' => 2, 'description' => 'test description'),
+                                                array('id' => $id, 'creator' => 2, 'createtime' => TIMENOW, 'owner' => 2, 'description' => 'test description'),
                                             )
                                           ));
         $this->assertTablesEqual($expect->getTable('sub_bangumis'), $query);
-        // return $id;
+        return $id;
     }
 
     public function testdel()
@@ -47,6 +47,15 @@ class Bangumi_ModelTest extends ModelTest
         $query = $bangumi->getbanguminame(1);
         $expect = array('eng' => array('Fate Zero', 'Fate／Zero'), 'jpn' => array('フェイト/ゼロ'));
         $this->assertEquals($expect, $query);
+    }
+
+    public function testvalidid()
+    {
+        $bangumi = new Bangumi_Model();
+        $valid = $bangumi->validid(2);
+        $this->assertEquals(Bangumi_Model::BANGUMI_VALID, $valid);
+        $this->setExpectedException('BangumiNotFound');
+        $valid = $bangumi->validid(0);
     }
     /**
      * Test for Add name method
