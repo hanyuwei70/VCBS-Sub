@@ -17,7 +17,7 @@ class Bangumi_Model extends Base_Model
     public function create($creatorid, $description)
     {
         try {
-            $sqlstr = "INSERT creator, createtime, owner, description INTO sub_bangumis VALUES (:crid, :owner, :crtime, :descp)";
+            $sqlstr = "INSERT INTO sub_bangumis (creator, createtime, owner, description) VALUES (:crid, :crtime, :owner, :descp)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(":crid" => $creatorid, ":crtime" => TIMENOW, "owner" => $creatorid, ":descp" => $description));
             $sqlstr = "SELECT id FROM sub_bangumis WHERE creator = :crid and createtime = :crtime";
@@ -29,7 +29,7 @@ class Bangumi_Model extends Base_Model
             }
             return $res[0]['id'];
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /**
@@ -52,7 +52,7 @@ class Bangumi_Model extends Base_Model
             $sqlcmd->execute(array(':id' => $id));
             return self::DELBANGUMI_SUCCESS;
         } catch (PDOException $e) {
-            
+            throw $e;
         }
     }
     /**
@@ -66,9 +66,13 @@ class Bangumi_Model extends Base_Model
     const BANGUMI_VALID = 0;
     public function validid($id)
     {
-        $sqlstr = "SELECT creator FROM sub_bangumis WHERE id=:id";
-        $sqlcmd = $this->dbc->prepare($sqlstr);
-        $sqlcmd->execute(array(':id' => $id));
+        try {
+            $sqlstr = "SELECT creator FROM sub_bangumis WHERE id=:id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id));
+        } catch (PDOException $e) {
+            throw $e;
+        }
         $res = $sqlcmd->fetchAll();
         if (count($res)==0) {
             throw new BangumiNotFound();
@@ -87,7 +91,7 @@ class Bangumi_Model extends Base_Model
     public function getbanguminame($id)
     {
         try {
-            $sqlstr = "SELECT name, lang FROM sub_bangumis_name WHERE id = :id";
+            $sqlstr = "SELECT name, lang FROM sub_bangumis_name WHERE bangumi_id = :id";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id));
             $name_arr = array();
@@ -96,7 +100,7 @@ class Bangumi_Model extends Base_Model
             }
             return $name_arr;
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /**
@@ -110,15 +114,22 @@ class Bangumi_Model extends Base_Model
     *   @return int 操作结果
      * */
     const ADDNAME_SUCCESS = 0;
+    const ADDNAME_DUPE = 1;
     public function addname($id, $name, $lang)
     {
         try {
-            $sqlstr = "INSERT bangumi_id, name, lang INTO sub_bangumis_name VALUES (:id, :name, :lang)";
+            $sqlstr = "SELECT COUNT(*) FROM sub_bangumis_name WHERE bangumi_id = :id AND name = :name AND lang = :lang";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id, ':name' => $name, 'lang' => $lang));
+            if ($sqlcmd->fetchColumn() > 0) {
+                return self::ADDNAME_DUPE;
+            }
+            $sqlstr = "INSERT INTO sub_bangumis_name (bangumi_id, name, lang) VALUES (:id, :name, :lang)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id, ':name' => $name, ':lang' => $lang));
             return self::ADDNAME_SUCCESS;
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /**
@@ -132,22 +143,25 @@ class Bangumi_Model extends Base_Model
      * */
     const DELNAME_SUCCESS = 0;
     const DELNAME_LAST = 1;
+    const DELNAME_NOT_EXIST = 2;
     public function delname($id, $name)
     {
         try {
-            $sqlstr = "SELECT name FROM sub_bangumis_name WHERE id=:id";
+            $sqlstr = "SELECT COUNT(*) FROM sub_bangumis_name WHERE bangumi_id=:id";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id));
-            $res = $sqlcmd->fetchAll();
-            if (count($res) == 1) {
+            if ($sqlcmd->fetchColumn() == 1) {
                 return self::DELNAME_LAST;
             }
             $sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id AND name=:name";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id, ':name' => $name));
+            if ($sqlcmd->rowCount() == 0) {
+                return self::DELNAME_NOT_EXIST;
+            }
             return self::DELNAME_SUCCESS;
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
 }

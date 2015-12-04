@@ -4,7 +4,7 @@
  */
 date_default_timezone_set('UTC'); //默认时区为UTC
 define('DEBUG',true); //主调试开关
-define('TIMENOW', time()); //当前 UTC 时间戳
+define('TIMENOW', time()); //当前 UNIX 时间戳
 define('DEFAULT_TIME_ZONE', 'Asia/Shanghai'); //当前站点默认时区
 define('DEFAULT_SITE_LANG', 'chs'); //当前站点默认界面语言
 require_once('config.php');

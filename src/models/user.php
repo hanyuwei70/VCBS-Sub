@@ -15,7 +15,7 @@ class User_Model extends Base_Model
     public function adduser($username,$password,$nickname)
     {
         try {
-            $sqlstr = 'INSERT username,nickname,password INTO sub_users VALUES (:username,:nickname,:password)';
+            $sqlstr = 'INSERT INTO sub_users (username,nickname,password) VALUES (:username,:nickname,:password)';
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(":username" => $username, ":nickname" => $nickname, ":password" => $this->pwdhash($password)));
             return self::ADDUSER_SUCCESS;

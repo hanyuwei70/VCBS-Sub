@@ -4,6 +4,7 @@ class Base_Model
     protected $dbc;
     function __construct()
     {
+        global $MYSQL_SERVER, $MYSQL_DBNAME, $MYSQL_USERNAME, $MYSQL_USERPASS;
         try {
             $this->dbc = new PDO("mysql:host=$MYSQL_SERVER;dbname=$MYSQL_DBNAME", $MYSQL_USERNAME, $MYSQL_USERPASS);
             $this->dbc->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
