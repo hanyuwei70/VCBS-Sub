@@ -3,6 +3,8 @@
 
 PHPUnit 帮助文档 https://phpunit.de/manual/5.1/zh_cn/index.html
 
+[TOC]
+
 ## 文件说明
 
 + base.php
@@ -15,10 +17,23 @@ PHPUnit 帮助文档 https://phpunit.de/manual/5.1/zh_cn/index.html
 ## 运行方法
 
 ```bash
-$ phpunit xxxTest.php
+# 进入测试目录
+$ cd test
+# 首次运行时需要导入数据库用户和数据库结构
+$ mysql -u *your username* -p
+# 进入mysql命令行
+mysql> CREATE DATABASE vcbssub_dev;
+mysql> CREATE USER 'vcbssub.dev';
+mysql> SET PASSWORD FOR 'vcbssub.dev' = PASSWORD("vcbssub.dev");
+mysql> GRANT ALL PRIVILEGES ON vcbssub_dev.* TO 'vcbssub.dev' IDENTIFIED BY 'vcbssub.dev';
+mysql> FLUSH PRIVILEGES;
+# 导入数据库结构
+mysql> source data.sql;
+mysql> quit
 # 测试相应的 model，xxx 为 Model 前缀，如 BangumiTest 用于测试 Bangumi_Model
+$ phpunit xxxTest.php
 ```
 
-##进度
+## 进度
 
-+ BangumiTest 已完成
++ BangumiTest 已完成（create bangumi failed 未测试）

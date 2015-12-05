@@ -28,12 +28,10 @@ class Subtitle_Controller extends Base_Controller
         } catch (Exception $e) {
             
         }
-        $sublist = array();
         $cond = array();
         $orderkey = "uploadtime";
         // TODO: $_GET 防注入，$_GET 参数转化为字幕获取条件参数
-        $field = array("name", "uploader", "uploadtime", "lang");
-        $sublist = $subtitle->getvalue($field, $cond, "AND", $orderkey, $order, NUM_PER_PAGE, $start);
+        $sublist = $subtitle->getvalue($cond, "AND", $orderkey, $order, NUM_PER_PAGE, $start);
         $view->setparm('sublist', $sublist);
         $view->render();
     }

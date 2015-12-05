@@ -8,6 +8,7 @@ class Bangumi_Model extends Base_Model
      * create
      *
      * 创建一个番剧
+     * 创建番剧时不添加番剧名，创建完成后根据返回的 bangumi id 使用 addname 添加
      *
      * @param   int     $creatroid 创建者ID
      * @param   string  $description 番剧描述

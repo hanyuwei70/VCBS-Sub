@@ -84,6 +84,9 @@ class ModelTest extends PHPUnit_Extensions_Database_TestCase
                                             array('bangumi_id' => 1, 'name' => 'フェイト/ゼロ', 'lang' => 'jpn'),
                                             array('bangumi_id' => 2, 'name' => 'DIGIMON ADVENTURE', 'lang' => 'eng'),
                                             array('bangumi_id' => 2, 'name' => 'デジモンアドベンチャー', 'lang' => 'jpn'),
+                                            array('bangumi_id' => 3, 'name' => '科学的超电磁炮', 'lang' => 'chs'),
+                                            array('bangumi_id' => 3, 'name' => 'とある科学の超電磁砲', 'lang' => 'jpn'),
+                                            array('bangumi_id' => 3, 'name' => 'Toaru Kagaku no Railgun', 'lang' => 'eng'),
                                         ),
                                        'sub_subtitles' => array(
                                             array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體(字幕制作請看Readme檔)]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
