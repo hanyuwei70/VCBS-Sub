@@ -27,4 +27,22 @@ class Subtitle_ModelTest extends ModelTest
         $this->setExpectedException('PDOException'); // Duplicate Name Test
         $subid = $subtitle->addsub($name, 1, $filename, 'chs');
     }
+    /**
+     * @depends testaddsub
+     */
+    public function testassocsub()
+    {
+        $subtitle = new Subtitle_Model();
+        $name = '[科学的超电磁炮][Toaru Kagaku no Railgun][とある科学の超電磁砲][BDrip][TV 01-24+OVA Fin][ASS][SumiSora简][文件名对应VCB-S]';
+        $filename = '[VCB-S]Toaru Kagaku no Railgun[1080p][ASS][SumiSora].rar';
+        $subid = $subtitle->addsub($name, 2, $filename, 'chs');
+        $result = $subtitle->assocsub($subid, 3);
+        $this->assertEquals(Subtitle_Model::ASSOCSUB_SUCCESS, $result, 'Return value error:');
+        $query = $this->getConnection()->createQueryTable('sub_subtitles', "SELECT bangumi FROM sub_subtitles WHERE id = $subid");
+        $expect = new DbUnit_ArrayDataSet(array('sub_subtitles' =>array(
+                                                    array('bangumi' => 3)
+                                                )
+                                          ));
+        $this->assertTablesEqual($expect->getTable('sub_subtitles'), $query, 'Associate sub to bangumi error:');
+    }
 }
