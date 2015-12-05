@@ -7,6 +7,7 @@ require_once '../src/models/bangumi.php';
 
 class Bangumi_ModelTest extends ModelTest
 {
+    // CREATE_FAILED 返回未测试
     public function testcreate()
     {
         $bangumi = new Bangumi_Model();

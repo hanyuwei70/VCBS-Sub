@@ -3,6 +3,7 @@ class Subtitle_Model extends Base_Model
 {
     /*
      * 添加字幕
+     * 调用时需检查 name 和 filename 长度，数据类型为 VARCHAR(100)
      * 默认添加字幕不添加字幕描述，完成后请调用 modifydesc 添加
      * 默认不关联番剧，完成后请调用 assocsub 关联
      * @param string $name 字幕标题

@@ -36,4 +36,4 @@ $ phpunit xxxTest.php
 
 ## 进度
 
-+ BangumiTest 已完成（create bangumi failed 未测试）
++ BangumiTest 已完成（未测试 create 方法的 CREATE_FAILED 返回）
