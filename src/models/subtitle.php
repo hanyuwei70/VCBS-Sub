@@ -31,6 +31,28 @@ class Subtitle_Model extends Base_Model
             throw $e;
         }
     }
+    const SUBTITLE_VALID = 0;
+    /**
+     * 验证字幕 id 是否存在
+     * @param  int $id 待验证字幕ID
+     * @return int     有效性结果
+     */
+    public function validid($id)
+    {
+        try {
+            $sqlstr = "SELECT name FROM sub_subtitles WHERE id=:id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id));
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $res = $sqlcmd->fetchAll();
+        if (count($res)==0) {
+            throw new SubtitleNotFound();
+        } else {
+            return self::SUBTITLE_VALID;
+        }
+    }
     /*
      * 关联字幕和番剧
      * @param int $subid 字幕ID
@@ -79,7 +101,6 @@ class Subtitle_Model extends Base_Model
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id));
             $res = $sqlcmd->fetchAll();
-            if (count($res) == 0) throw new SubtitleNotFound();
             return $res[0]['name'];
         } catch (PDOException $e) {
             throw $e;
