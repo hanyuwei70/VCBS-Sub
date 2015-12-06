@@ -28,10 +28,15 @@ class Subtitle_Controller extends Base_Controller
         } catch (Exception $e) {
             
         }
-        $cond = array();
-        $orderkey = "uploadtime";
+        $valid_orderkey = array('id', 'name', 'uploader', 'bangumi_id', 'uploadtime', 'status', 'lang', 'description'); // 只允许以这几个字段排序
+        $valid_order = array('ASC', 'DESC');
+        $start = 0;
         // TODO: $_GET 防注入，$_GET 参数转化为字幕获取条件参数
-        $sublist = $subtitle->getvalue($cond, "AND", $orderkey, $order, NUM_PER_PAGE, $start);
+        if (isset($_GET['page'])) {
+            $page = intval('0'.$_GET['page']); // 正整数转换
+            $start = NUM_PER_PAGE * $page;
+        }
+        $sublist = $subtitle->getlist($start, NUM_PER_PAGE, $orderkey, $order);
         $view->setparm('sublist', $sublist);
         $view->render();
     }

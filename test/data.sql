@@ -41,7 +41,7 @@ create table sub_subtitles(
     `id` INTEGER NOT NULL AUTO_INCREMENT, -- 字幕ID
     `name` VARCHAR(100) NOT NULL, -- 字幕标题
     `uploader` INTEGER NOT NULL, -- 上传者ID
-    `bangumi` INTEGER NOT NULL DEFAULT 0, -- 所属番剧ID, 0为不属于任何番剧
+    `bangumi_id` INTEGER NOT NULL DEFAULT 0, -- 所属番剧ID, 0为不属于任何番剧
     `uploadtime` INTEGER NOT NULL, -- 上传时间
     `filename` VARCHAR(100) NOT NULL, -- 上传字幕保存的文件名
     `status` INTEGER NOT NULL, -- 字幕状态 具体含义未定
@@ -49,7 +49,7 @@ create table sub_subtitles(
     `description` TEXT, -- 字幕描述，实际限制1KiB
     PRIMARY KEY (`id`),
     UNIQUE (`name`),
-    KEY `bangumi` (`bangumi`),
+    KEY `bangumi_id` (`bangumi_id`),
     CONSTRAINT `uploader_id` FOREIGN KEY (`uploader`) REFERENCES sub_users(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 create table sub_settings( -- 用来存储各项设置值

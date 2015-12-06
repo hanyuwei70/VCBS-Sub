@@ -32,7 +32,7 @@ create table sub_subtitles(
     id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --字幕ID
     name VARCHAR(100) NOT NULL UNIQUE, --字幕标题
     uploader INTEGER NOT NULL REFERENCES sub_users(id), --上传者ID
-    bangumi INTEGER NOT NULL DEFAULT 0, --所属番剧ID, 0为不属于任何番剧
+    bangumi_id INTEGER NOT NULL DEFAULT 0, --所属番剧ID, 0为不属于任何番剧
     uploadtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, --上传时间
     filename VARCHAR(100) NOT NULL --上传字幕保存的文件名
     status INTEGER NOT NULL --字幕状态 具体含义未定
