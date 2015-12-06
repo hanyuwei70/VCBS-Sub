@@ -33,7 +33,7 @@ class Subtitle_ModelTest extends ModelTest
         $result = $subtitle->validid(1);
         $this->assertEquals(Subtitle_Model::SUBTITLE_VALID, $result, 'Returned value error:');
         $this->setExpectedException('SubtitleNotFound');
-        $result = $subtitle->validid(2);
+        $result = $subtitle->validid(5);
     }
     /**
      * @depends testaddsub
@@ -72,5 +72,50 @@ class Subtitle_ModelTest extends ModelTest
         $result = $subtitle->getsubname(1);
         $expect = '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]';
         $this->assertEquals($expect, $result);
+    }
+    /**
+     * @depends testaddsub
+     */
+    public function testgetlist()
+    {
+        $subtitle = new Subtitle_Model();
+        $sublist = $subtitle->getlist();
+        $expect = array('0' => array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
+                        '1' => array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
+                        );
+        $this->assertEquals($expect, $sublist, 'get original sub list error:');
+        $name = '[科学的超电磁炮][Toaru Kagaku no Railgun][とある科学の超電磁砲][BDrip][TV 01-24+OVA Fin][ASS][SumiSora简][文件名对应VCB-S]';
+        $filename = '[VCB-S]Toaru Kagaku no Railgun[1080p][ASS][SumiSora].rar';
+        $subid = $subtitle->addsub($name, 2, $filename, 'chs');
+        $sublist = $subtitle->getlist();
+        $expect = array('0' => array('id' => 3, 'name' => $name, 'uploader' => 2, 'bangumi' => 0, 'uploadtime' => TIMENOW, 'filename' => $filename, 'status' => 0, 'lang' => 'chs', 'description' => NULL),
+                        '1' => array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
+                        '2' => array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
+                        );
+        $this->assertEquals($expect, $sublist, 'get sub list after addsub error:');
+        $sublist = $subtitle->getlist(1); //test start param
+        $expect = array('0' => array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
+                        '1' => array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
+                        );
+        $this->assertEquals($expect, $sublist, 'start param test error:');
+        $sublist = $subtitle->getlist(0, 1); // test num param
+        $expect = array('0' => array('id' => 3, 'name' => $name, 'uploader' => 2, 'bangumi' => 0, 'uploadtime' => TIMENOW, 'filename' => $filename, 'status' => 0, 'lang' => 'chs', 'description' => NULL)
+                        );
+        $this->assertEquals($expect, $sublist, 'num param test error:');
+        $sublist = $subtitle->getlist(1, 2, 'bangumi'); // test orderkey param
+        $expect = array('0' => array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
+                        '1' => array('id' => 3, 'name' => $name, 'uploader' => 2, 'bangumi' => 0, 'uploadtime' => TIMENOW, 'filename' => $filename, 'status' => 0, 'lang' => 'chs', 'description' => NULL),
+                        );
+        $this->assertEquals($expect, $sublist, 'orderkey param test error:');
+        $sublist = $subtitle->getlist(0, 50, 'uploadtime', 'ASC'); //test order param
+        $expect = array('0' => array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
+                        '1' => array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
+                        '2' => array('id' => 3, 'name' => $name, 'uploader' => 2, 'bangumi' => 0, 'uploadtime' => TIMENOW, 'filename' => $filename, 'status' => 0, 'lang' => 'chs', 'description' => NULL),
+                        );
+        $this->assertEquals($expect, $sublist, 'order param test error:');
+    }
+    public function testgetbangumisub()
+    {
+        $subtitle = new Subtitle_Model();
     }
 }

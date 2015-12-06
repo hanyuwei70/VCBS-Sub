@@ -90,6 +90,7 @@ class ModelTest extends PHPUnit_Extensions_Database_TestCase
                                         ),
                                        'sub_subtitles' => array(
                                             array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]', 'uploader' => 1, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
+                                            array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
                                         ),
                                        'sub_privileges' => array(
                                             array('user_id' => 1, 'priv_num' => 503),
