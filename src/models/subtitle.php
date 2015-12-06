@@ -63,7 +63,7 @@ class Subtitle_Model extends Base_Model
     public function assocsub($subid,$banid)
     {
         try {
-            $sqlstr = "UPDATE sub_subtitles SET bangumi=:banid WHERE id=:subid";
+            $sqlstr = "UPDATE sub_subtitles SET bangumi_id=:banid WHERE id=:subid";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':subid' => $subid, ':banid' => $banid));
             return self::ASSOCSUB_SUCCESS;
@@ -116,21 +116,12 @@ class Subtitle_Model extends Base_Model
      * @param  int $num    获取记录的数量限制
      * @return array       字幕记录索引数组，每条记录由一条索引数组表示
      */
-    public function getvalue($cond = array(), $and_or = "AND", $orderkey = 'uploadtime', $order = 0, $num = 50, $start = 0)
+    public function getlist($start = 0, $num = 50, $orderkey = 'uploadtime', $order = 'DESC')
     {
         try {
-            $where = array();
-            $values = array();
-            foreach ($cond as $key => $value) {
-                $where[] = " " . $key . "=:" . $key . " ";
-                $values[(":".$key)] = $value;
-            }
-            $sqlstr = "SELECT * FROM sub_subtitles " . (empty($where) ? "" : "WHERE " . implode(strtoupper($and_or), $where)) . ($orderkey ? " ORDER BY :orderkey " . ($order ? "ASC" : "DESC") : "") . " LIMIT :start, :num";
+            $sqlstr = "SELECT * FROM sub_subtitles ORDER BY $orderkey $order LIMIT $start, $num";
             $sqlcmd = $this->dbc->prepare($sqlstr);
-            $values[':orderkey'] = $orderkey;
-            $values[':start'] = $start;
-            $values[':num'] = $num;
-            $sqlcmd->execute($values);
+            $sqlcmd->execute();
             $res = $sqlcmd->fetchAll();
             return $res;
         } catch (PDOException $e) {
@@ -149,6 +140,39 @@ class Subtitle_Model extends Base_Model
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':bangumi_id' => $banid));
             return $sqlcmd->fetchAll();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    /**
+     * 获取某用户上传的所有字幕列表
+     * @param  int $userid 用户 id
+     * @return array         字幕记录索引数组
+     */
+    public function getuploadersub($userid)
+    {
+        try {
+            $sqlstr = "SELECT * FROM sub_subtitles WHERE uploaderid = :uploaderid";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':uploaderid' => $userid));
+            return $sqlcmd->fetchAll();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    /**
+     * 获取字幕状态
+     * @param  int $id 字幕 ID
+     * @return int     字幕状态码
+     */
+    public function getsubstatus($id)
+    {
+        try {
+            $sqlstr = "SELECT status FROM sub_subtitles WHERE id=:id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id));
+            $res = $sqlcmd->fetchAll();
+            return $res[0]['name'];
         } catch (PDOException $e) {
             throw $e;
         }
