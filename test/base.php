@@ -66,37 +66,13 @@ class ModelTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
+        global $baseUser, $baseBangumi, $baseSub, $basePerm, $baseBangumiName;
         return new DbUnit_ArrayDataSet(array(
-                                       'sub_users' => array(
-                                            array('id' => 1, 'username' => 'ParadiseDS', 'nickname' => 'PDS', 'password' => 'passwd'),
-                                            array('id' => 2, 'username' => 'Inori', 'nickname' => '祈Inori', 'password' => 'passwd'),
-                                            array('id' => 3, 'username' => 'fulan', 'nickname' => '芙兰', 'password' => 'passwd'),
-                                        ),
-                                       'sub_bangumis' => array(
-                                            array('id' => 1, 'creator' => 1, 'createtime' => strtotime('2015-12-3 03:00:00'), 'owner' => 1, 'description' => 'test bangumi 1'),
-                                            array('id' => 2, 'creator' => 3, 'createtime' => strtotime('2015-12-3 04:00:00'), 'owner' => 3, 'description' => 'test bangumi 2'),
-                                            array('id' => 3, 'creator' => 2, 'createtime' => strtotime('2015-12-3 05:00:00'), 'owner' => 2, 'description' => 'test bangumi 3'),
-                                        ),
-                                       'sub_bangumis_name' => array(
-                                            array('bangumi_id' => 1, 'name' => 'Fate Zero', 'lang' => 'eng'),
-                                            array('bangumi_id' => 1, 'name' => 'Fate／Zero', 'lang' => 'eng'),
-                                            array('bangumi_id' => 2, 'name' => '数码兽大冒险', 'lang' => 'chs'),
-                                            array('bangumi_id' => 1, 'name' => 'フェイト/ゼロ', 'lang' => 'jpn'),
-                                            array('bangumi_id' => 2, 'name' => 'DIGIMON ADVENTURE', 'lang' => 'eng'),
-                                            array('bangumi_id' => 2, 'name' => 'デジモンアドベンチャー', 'lang' => 'jpn'),
-                                            array('bangumi_id' => 3, 'name' => '科学的超电磁炮', 'lang' => 'chs'),
-                                            array('bangumi_id' => 3, 'name' => 'とある科学の超電磁砲', 'lang' => 'jpn'),
-                                            array('bangumi_id' => 3, 'name' => 'Toaru Kagaku no Railgun', 'lang' => 'eng'),
-                                        ),
-                                       'sub_subtitles' => array(
-                                            array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]', 'uploader' => 1, 'bangumi_id' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
-                                            array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi_id' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
-                                        ),
-                                       'sub_privileges' => array(
-                                            array('user_id' => 1, 'priv_num' => 503),
-                                            array('user_id' => 2, 'priv_num' => 501),
-                                            array('user_id' => 3, 'priv_num' => 504),
-                                        ),
+                                       'sub_users' => $baseUser,
+                                       'sub_bangumis' => $baseBangumi,
+                                       'sub_bangumis_name' => $baseBangumiName,
+                                       'sub_subtitles' => $baseSub,
+                                       'sub_privileges' => $basePerm,
                                        ));
     }
 }
@@ -111,3 +87,35 @@ require_once('../src/error_report.php');
 require_once('../src/base.php');
 require_once('../src/system/lang.php');
 require_once('../src/system/exceptions.php');
+// global var
+$baseSub = array(
+                array('id' => 1, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][1920x1080][TV 01-25 Fin+Remix+SP][x264 FLAC MKV][ASS][四魂&異域字幕組/繁&簡體]', 'uploader' => 1, 'bangumi_id' => 1, 'uploadtime' => strtotime('2015-12-3 05:00:00'), 'filename' => '[异域-11番小队][Fate_Zero][BDRIP][四魂&异域字幕].rar', 'status' => 1, 'lang' => 'mix', 'description' => '四魂&异域字幕组'),
+                array('id' => 2, 'name' => '[Fate/Zero][フェイト/ゼロ][BDrip][TV 01-25][ass][澄空学园&魔术师工房&华盟字幕社]', 'uploader' => 3, 'bangumi_id' => 1, 'uploadtime' => strtotime('2015-12-3 07:00:00'), 'filename' => 'Fate0TV.rar', 'status' => 0, 'lang' => 'chs', 'description' => '澄空学园&魔术师工房&华盟字幕社'),
+                array('id' => 3, 'name' => '[科学的超电磁炮][Toaru Kagaku no Railgun][とある科学の超電磁砲][BDrip][TV 01-24+OVA Fin][ASS][SumiSora简][文件名对应VCB-S]', 'uploader' => 1, 'bangumi_id' => 0, 'uploadtime' => strtotime('2015-12-3 09:00:00'), 'filename' => '[VCB-S]Toaru Kagaku no Railgun[1080p][ASS][SumiSora].rar', 'status' => 0, 'lang' => 'chs', 'description' => '[SumiSora][文件名对应VCB-S]'),
+            );
+$baseBangumi = array(
+                    array('id' => 1, 'creator' => 1, 'createtime' => strtotime('2015-12-3 03:00:00'), 'owner' => 1, 'description' => 'test  bangumi 1'),
+                    array('id' => 2, 'creator' => 3, 'createtime' => strtotime('2015-12-3 04:00:00'), 'owner' => 3, 'description' => 'test  bangumi 2'),
+                    array('id' => 3, 'creator' => 2, 'createtime' => strtotime('2015-12-3 05:00:00'), 'owner' => 2, 'description' => 'test bangumi 3'),
+                );
+$baseUser = array(
+                array('id' => 1, 'username' => 'ParadiseDS', 'nickname' => 'PDS', 'password' => 'passwd'),
+                array('id' => 2, 'username' => 'Inori', 'nickname' => '祈Inori', 'password' => 'passwd'),
+                array('id' => 3, 'username' => 'fulan', 'nickname' => '芙兰', 'password' => 'passwd'),
+            );
+$basePerm = array(
+                array('user_id' => 1, 'priv_num' => 503),
+                array('user_id' => 2, 'priv_num' => 501),
+                array('user_id' => 3, 'priv_num' => 504),
+            );
+$baseBangumiName = array(
+                        array('bangumi_id' => 1, 'name' => 'Fate Zero', 'lang' => 'eng'),
+                        array('bangumi_id' => 1, 'name' => 'Fate／Zero', 'lang' => 'eng'),
+                        array('bangumi_id' => 2, 'name' => '数码兽大冒险', 'lang' => 'chs'),
+                        array('bangumi_id' => 1, 'name' => 'フェイト/ゼロ', 'lang' => 'jpn'),
+                        array('bangumi_id' => 2, 'name' => 'DIGIMON ADVENTURE', 'lang' => 'eng'),
+                        array('bangumi_id' => 2, 'name' => 'デジモンアドベンチャー', 'lang' => 'jpn'),
+                        array('bangumi_id' => 3, 'name' => '科学的超电磁炮', 'lang' => 'chs'),
+                        array('bangumi_id' => 3, 'name' => 'とある科学の超電磁砲', 'lang' => 'jpn'),
+                        array('bangumi_id' => 3, 'name' => 'Toaru Kagaku no Railgun', 'lang' => 'eng'),
+                    );
