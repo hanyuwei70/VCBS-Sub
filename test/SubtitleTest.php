@@ -68,9 +68,6 @@ class Subtitle_ModelTest extends ModelTest
         $expect = $baseSub[0]['name'];
         $this->assertEquals($expect, $result);
     }
-    /**
-     * @depends testaddsub
-     */
     public function testgetlist()
     {
         global $baseSub;
@@ -87,7 +84,7 @@ class Subtitle_ModelTest extends ModelTest
                         );
         $this->assertEquals($expect, $sublist, 'start param test error:');
         $sublist = $subtitle->getlist(0, 1); // test num param
-        $expect = array('0' => array('id' => 3, 'name' => '[科学的超电磁炮][Toaru Kagaku no Railgun][とある科学の超電磁砲][BDrip][TV 01-24+OVA Fin][ASS][SumiSora简][文件名对应VCB-S]', 'uploader' => 2, 'bangumi_id' => 0, 'uploadtime' => strtotime('2015-12-3 09:00:00'), 'filename' => '[VCB-S]Toaru Kagaku no Railgun[1080p][ASS][SumiSora].rar', 'status' => 0, 'lang' => 'chs', 'description' => '[SumiSora][文件名对应VCB-S]')
+        $expect = array('0' => $baseSub[2]
                         );
         $this->assertEquals($expect, $sublist, 'num param test error:');
         $sublist = $subtitle->getlist(1, 2, 'bangumi_id'); // test orderkey param
@@ -116,6 +113,15 @@ class Subtitle_ModelTest extends ModelTest
     }
     public function testgetuploadersub()
     {
+        global $baseSub;
         $subtitle = new Subtitle_Model();
+        $query = $subtitle->getuploadersub(2);
+        $this->assertEmpty($query);
+        $query = $subtitle->getuploadersub(1);
+        $expect = array(
+                    '0' => $baseSub[0],
+                    '1' => $baseSub[2],
+                    );
+        $this->assertEquals($expect, $query);
     }
 }

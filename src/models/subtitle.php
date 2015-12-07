@@ -152,9 +152,9 @@ class Subtitle_Model extends Base_Model
     public function getuploadersub($userid)
     {
         try {
-            $sqlstr = "SELECT * FROM sub_subtitles WHERE uploaderid = :uploaderid";
+            $sqlstr = "SELECT * FROM sub_subtitles WHERE uploader = :uploader";
             $sqlcmd = $this->dbc->prepare($sqlstr);
-            $sqlcmd->execute(array(':uploaderid' => $userid));
+            $sqlcmd->execute(array(':uploader' => $userid));
             return $sqlcmd->fetchAll();
         } catch (PDOException $e) {
             throw $e;
