@@ -172,7 +172,7 @@ class Subtitle_Model extends Base_Model
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id));
             $res = $sqlcmd->fetchAll();
-            return $res[0]['name'];
+            return $res[0]['status'];
         } catch (PDOException $e) {
             throw $e;
         }

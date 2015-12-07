@@ -124,4 +124,13 @@ class Subtitle_ModelTest extends ModelTest
                     );
         $this->assertEquals($expect, $query);
     }
+    public function testgetsubstatus()
+    {
+        global $baseSub;
+        $subtitle = new Subtitle_Model();
+        $query = $subtitle->getsubstatus(1);
+        $this->assertEquals($baseSub[0]['status'], $query);
+        $query = $subtitle->getsubstatus(2);
+        $this->assertEquals($baseSub[1]['status'], $query);
+    }
 }
