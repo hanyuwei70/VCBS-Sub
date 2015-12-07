@@ -10,6 +10,7 @@ class Subtitle_ModelTest extends ModelTest
     //ADD_FAILED 返回未测试
     public function testaddsub()
     {
+        // TODO 文件操作测试
         $subtitle = new Subtitle_Model();
         $queryCount = $this->getConnection()->getRowCount('sub_subtitles');
         $name = '[我们仍未知道那天所看见的花的名字。][AnoHana][あの日見た花の名前を僕達はまだ知らない。][1-11Fin][诸神简日[BDRip][1080p]][ASS]';
@@ -132,5 +133,20 @@ class Subtitle_ModelTest extends ModelTest
         $this->assertEquals($baseSub[0]['status'], $query);
         $query = $subtitle->getsubstatus(2);
         $this->assertEquals($baseSub[1]['status'], $query);
+    }
+    public function testdelsub()
+    {
+        // TODO 文件操作测试
+        global $baseSub;
+        $subtitle = new Subtitle_Model();
+        $queryCount = $this->getConnection()->getRowCount('sub_subtitles');
+        $subtitle->delsub(2);
+        $queryCountAfter = $this->getConnection()->getRowCount('sub_subtitles');
+        $this->assertEquals(-1, $queryCountAfter - $queryCount, 'Failed to del a record:');
+        $query = $this->getConnection()->createQueryTable('sub_subtitles', 'SELECT * FROM sub_subtitles');
+        $expect = new DbUnit_ArrayDataSet(array(
+                                            'sub_subtitles' => array($baseSub[0], $baseSub[2])
+                                          ));
+        $this->assertTablesEqual($expect->getTable('sub_subtitles'), $query, 'Content after del do not match expection:');
     }
 }
