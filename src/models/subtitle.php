@@ -12,7 +12,7 @@ class Subtitle_Model extends Base_Model
      * @return int 字幕id / 操作结果
      * */
     const ADD_FAILED = -1;
-    public function addsub($name,$uploaderid,$filename,$lang)
+    public function addsub($name, $uploaderid, $filename, $lang)
     {
         //TODO: 文件操作
         try {
@@ -60,7 +60,7 @@ class Subtitle_Model extends Base_Model
      * @return int 操作结果
      * */
     const ASSOCSUB_SUCCESS = 0;
-    public function assocsub($subid,$banid)
+    public function assocsub($subid, $banid)
     {
         try {
             $sqlstr = "UPDATE sub_subtitles SET bangumi_id=:banid WHERE id=:subid";
@@ -78,7 +78,7 @@ class Subtitle_Model extends Base_Model
      * @return int  操作结果
      * */
     const MODIFYDESC_SUCCESS = 0;
-    public function modifydesc($id,$desc)
+    public function modifydesc($id, $desc)
     {
         try {
             $sqlstr = "UPDATE sub_subtitles SET description=:desc WHERE id=:id";
@@ -107,14 +107,12 @@ class Subtitle_Model extends Base_Model
         }
     }
     /**
-     * 按照条件获取字幕记录
-     * @param  array $cond 条件参数组成的索引数组
-     * @param string $and_or cond 连接条件
-     * @param  string $orderkey 排序使用的列名
-     * @param  int $order  升序=1，降序=0，默认降序
-     * @param int $start   获取记录的起始偏移
-     * @param  int $num    获取记录的数量限制
-     * @return array       字幕记录索引数组，每条记录由一条索引数组表示
+     * 获取字幕列表
+     * @param  integer $start    记录起始偏移，start=0 指从第一条记录开始
+     * @param  integer $num      需要获取的记录数目
+     * @param  string  $orderkey 排序列名
+     * @param  string  $order    排序 ASC / DESC
+     * @return array            字幕记录索引数组
      */
     public function getlist($start = 0, $num = 50, $orderkey = 'uploadtime', $order = 'DESC')
     {
@@ -200,4 +198,3 @@ class Subtitle_Model extends Base_Model
         }
     }
 }
-?>
