@@ -1,12 +1,12 @@
 <?php
-$CSS_LOGIN_THEME_COLOR    = "css/login.css";
-$CSS_LOGIN_THEME_POSITION = "css/login.css";
-$PAGE_TITLE               = "LOGIN";
-$ERROR_MSG                = "error";
-$TEXT_NAME                = "用户名";
-$TEXT_PW                  = "密码";
-$TETX_SUBMIT              = "登录";
-$ICO                      = "favicon.ico";
+// $CSS_LOGIN_THEME_COLOR = 'css/login.css';
+$CSS_LOGIN_THEME_POSITION = 'css/login.css';
+$PAGE_TITLE = 'LOGIN';
+$ERROR_MSG = 'error';
+$TEXT_NAME = '用户名';
+$TEXT_PW = '密码';
+$TETX_SUBMIT = '登录';
+$ICO = 'favicon.ico';
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ $ICO                      = "favicon.ico";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="<?php echo "$ICO";?>">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo $CSS_LOGIN_THEME_COLOR;?>">
+    <!-- <link rel="stylesheet" href="<?php echo $CSS_LOGIN_THEME_COLOR;?>"> -->
     <link rel="stylesheet" href="<?php echo $CSS_LOGIN_THEME_POSITION;?>">
     <title>
         <?php echo $PAGE_TITLE?>
@@ -29,6 +29,7 @@ $ICO                      = "favicon.ico";
         <form id="login-form" action="index.php?action=login" method="POST" autocomplete="off">
             <div id="passbox" style="height:100%;">
                 <input type="text" id="name" placeholder="<?php echo $TEXT_NAME;?>" name="username" autofocus="">
+                <!-- <hr style="color:#000;"> -->
                 <input type="password" id="password" placeholder="<?php echo $TEXT_PW;?>" name="password">
                 <input type="submit" id="submit" name="submit" value="<?php echo $TETX_SUBMIT;?>">
             </div>

@@ -1,9 +1,9 @@
 <?php
-$PAGE_TITLE = "番剧";
-$USER_ID = "1";
-$USER_NAME = "Inori";
-$ICO = "img/favicon.ico";
-$TETX_NEWS = "new";
+$PAGE_TITLE = '浏览字幕';
+$USER_ID = '1';
+$USER_NAME = 'Inori';
+$ICO = 'img/favicon.ico';
+$TETX_NEWS = '最近新增';
 //目前$ITEMS仅作注释用
 $ITEMS = array(
     '标题',
@@ -14,34 +14,34 @@ $ITEMS = array(
 );
 $ARR_SUBTITLE = array(
     array(
-        "title" => "[华盟字幕]Fate/Zero x.264 1280x720",
-        "lang" => "0001",
-        "time" => 20101010,
-        "ID" => "Inori",
+        'title' => '[华盟字幕]Fate/Zero x.264 1280x720',
+        'lang' => '0001',
+        'time' => 20101010,
+        'ID' => 'Inori',
     ),
-    array("title" => "[华盟字幕]Fate/Zero x.264 1280x720",
-        "lang" => "0010",
-        "time" => 20101010,
-        "ID" => "PDS",
-    ),
-    array(
-        "title" => "[华盟字幕]Fate/Zero x.264 1280x720",
-        "lang" => "1100",
-        "time" => 20101011,
-        "ID" => "中文测试",
+    array('title' => '[华盟字幕]Fate/Zero x.264 1280x720',
+        'lang' => '0010',
+        'time' => 20101010,
+        'ID' => 'PDS',
     ),
     array(
-        "title" => "[魔术工房]Fate/Zero x.265 1920x1080",
-        "lang" => "1010",
-        "time" => 20101011,
-        "ID" => "シャナ ",
+        'title' => '[华盟字幕]Fate/Zero x.264 1280x720',
+        'lang' => '1100',
+        'time' => 20101011,
+        'ID' => '中文测试',
+    ),
+    array(
+        'title' => '[魔术工房]Fate/Zero x.265 1920x1080',
+        'lang' => '1010',
+        'time' => 20101011,
+        'ID' => 'シャナ ',
     ),
 );
-$CSS_ANIME = "css/anime.css";
-$JS_SORT = "js/jquery.columns.min.js";
+$CSS_ANIME = 'css/subtitle.css';
+$JS_SORT = 'js/jquery.columns.min.js';
 ?>
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" style="height:100%;">
 
 <head>
     <meta charset="UTF-8">
@@ -52,11 +52,6 @@ $JS_SORT = "js/jquery.columns.min.js";
         <?php echo $PAGE_TITLE;?>
     </title>
     <link rel="stylesheet" href="<?php echo "$CSS_ANIME";?>">
-    <script>
-    var arr_subtitle = <?php echo json_encode($ARR_SUBTITLE);?>;
-    </script>
-    <script src="js/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="<?php echo "$JS_SORT" ?>" ></script>
 </head>
 
 <body>
@@ -73,7 +68,7 @@ $JS_SORT = "js/jquery.columns.min.js";
     </div>
     <form action="index.php?action=search" method="GET" id="form">
         <div id="search_box">
-            <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS;?>" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS;?>" autofocus="autofocus" autocapitalize="off" autocorrect="off" spellcheck="false">
         </div>
     </form>
 <div id="columns"></div>
@@ -81,6 +76,11 @@ $JS_SORT = "js/jquery.columns.min.js";
         感谢抖M后端大力容忍。
         <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
     </div>
+    <script>
+    var arr_subtitle = <?php echo json_encode($ARR_SUBTITLE);?>;
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="<?php echo "$JS_SORT" ?>" ></script>
 </body>
 
 </html>

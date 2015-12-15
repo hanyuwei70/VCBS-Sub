@@ -3,9 +3,10 @@
 .tag*
 *.bat
 *.jpg
-src/tpls/可用键值.txt
-src/bower_components
+src/tpls/bower_components
 src/node_modules
 src/gulpfile.js
-src/bower.json
+src/tpls/bower.json
+src/tpls/scss
+src/tpls/css/map
 src/package.json
