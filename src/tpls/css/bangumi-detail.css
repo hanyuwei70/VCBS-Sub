@@ -93,7 +93,7 @@ textarea::-moz-placeholder {
 </div>
  */
 .columns {
-  width: 95%;
+  width: 100%;
   margin: 0 auto; }
   .columns .ui-table {
     background-color: rgba(255, 255, 255, 0.35);
@@ -148,12 +148,61 @@ textarea::-moz-placeholder {
         outline: none; }
 
 #form {
-  margin: 0% auto 2% auto; }
+  margin: 0 auto 2%; }
 
 .row {
   margin: 0 auto; }
 
 .row > div {
-  margin-bottom: 30px; }
+  margin-bottom: 15px;
+  border-radius: 5px; }
+
+.row #detail {
+  position: relative;
+  width: 100%;
+  overflow-y: hidden; }
+  .row #detail img {
+    border-radius: 2px; }
+  .row #detail .hover {
+    background-color: rgba(255, 255, 255, 0.75);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.2em;
+    transition: transform 0.15s ease-in-out;
+    -webkit-transition: transform 0.15s ease-in-out; }
+    .row #detail .hover #title {
+      font-size: 2em;
+      font-weight: bold; }
+    .row #detail .hover ul {
+      list-style: none;
+      opacity: 0;
+      transition: opacity 0.15s ease-in-out;
+      -webkit-transition: opacity 0.15s ease-in-out; }
+    .row #detail .hover:hover ul {
+      opacity: 1;
+      transition: opacity 0.45s ease-in-out;
+      -webkit-transition: opacity 0.45s ease-in-out; }
+
+.row #summary div {
+  padding: 30px 10px 10px;
+  line-height: 1.8em;
+  text-indent: 1em;
+  word-break: break-all;
+  color: #000;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 4px 0 rgba(0, 0, 0, 0.08), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow-y: auto; }
+  .row #summary div::-webkit-scrollbar {
+    width: 5px; }
+  .row #summary div::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0.2); }
+  .row #summary div::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0.4); }
 
 /*# sourceMappingURL=map/bangumi-detail.css.map */
