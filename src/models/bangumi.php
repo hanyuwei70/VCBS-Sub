@@ -165,4 +165,16 @@ class Bangumi_Model extends Base_Model
             throw $e;
         }
     }
+    public function getlist($start = 0, $num = 20, $orderkey = 'hit', $order = 'DESC')
+    {
+        try {
+            $sqlstr = "SELECT * FROM sub_bangumis ORDER BY $orderkey $order LIMIT $start, $num";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute();
+            $res = $sqlcmd->fetchAll();
+            return $res;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
 }

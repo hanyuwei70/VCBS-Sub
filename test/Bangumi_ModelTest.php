@@ -18,7 +18,7 @@ class Bangumi_ModelTest extends ModelTest
         $query = $this->getConnection()->createQueryTable('sub_bangumis', 'SELECT * FROM sub_bangumis ORDER BY id DESC LIMIT 1');
         $expect = new DbUnit_ArrayDataSet(array(
                                             'sub_bangumis' => array(
-                                                array('id' => $id, 'creator' => 2, 'createtime' => TIMENOW, 'owner' => 2, 'description' => 'test description'),
+                                                array('id' => $id, 'creator' => 2, 'createtime' => TIMENOW, 'owner' => 2, 'description' => 'test description', 'hit' => 0),
                                             )
                                           ));
         $this->assertTablesEqual($expect->getTable('sub_bangumis'), $query, 'Content after create do not match expection:');
@@ -94,5 +94,25 @@ class Bangumi_ModelTest extends ModelTest
         $result = $bangumi->delname(2, 'DIGIMON ADVENTURE');
         $result = $bangumi->delname(2, 'デジモンアドベンチャー');
         $this->assertEquals(Bangumi_Model::DELNAME_LAST, $result, 'Returned value error when del last name:');
+    }
+    public function testgetlist()
+    {
+        global $baseBangumi;
+        $bangumi = new Bangumi_Model();
+        $banglist = $bangumi->getlist();
+        $expect = array($baseBangumi[0], $baseBangumi[2], $baseBangumi[1]);
+        $this->assertEquals($expect, $banglist, 'get bangumi list with default param error:');
+        $banglist = $bangumi->getlist(1); // test start param
+        $expect = array($baseBangumi[2], $baseBangumi[1]);
+        $this->assertEquals($expect, $banglist, 'start param test error:');
+        $banglist = $bangumi->getlist(1, 1); // test num param
+        $expect = array($baseBangumi[2]);
+        $this->assertEquals($expect, $banglist, 'num param test error:');;
+        $banglist = $bangumi->getlist(0, 20, 'createtime'); // test orderkey param
+        $expect = array($baseBangumi[2], $baseBangumi[1], $baseBangumi[0]);
+        $this->assertEquals($expect, $banglist, 'orderkey param test error');
+        $banglist = $bangumi->getlist(0, 20, 'hit', 'ASC'); // test order param
+        $expect = array($baseBangumi[1], $baseBangumi[2], $baseBangumi[0]);
+        $this->assertEquals($expect, $banglist, 'order param test error');
     }
 }
