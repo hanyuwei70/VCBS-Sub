@@ -4,3 +4,8 @@
 *.bat
 *.jpg
 src/tpls/可用键值.txt
+src/bower_components
+src/node_modules
+src/gulpfile.js
+src/bower.json
+src/package.json
