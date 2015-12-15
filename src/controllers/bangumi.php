@@ -7,32 +7,64 @@
  * */
 class Bangumi_Controller extends Base_Controller
 {
+    const NUM_PER_PAGE = 20;
     private function show() //显示列表操作
     {
-        $model = new Bangumi_Model;
-        $view = new Bangumi_View();
         $view->loadtpl('./tpls/bangumi-show.tpl');
+        $view->setparm('pagetitle', $TITLE_BANGUMI_SHOW . $TITLE_SUFFIX);
+        $start = 0;
+        // TODO: GET 参数列表处理及安全处理
+        if (isset($_GET['page'])) {
+            $page = intval('0'.$_GET['page']); // 正整数转换
+            $start = NUM_PER_PAGE * $page;
+        }
+        $banglist = $Bangumi->getlist($start, NUM_PER_PAGE);
+        foreach ($banglist as $bang) {
+            $name_arr = $Bangumi->getbanguminame($bang['id']);
+            $user_lang = isset($_SESSION['userid']) ? $User->getlang($_SESSION['userid']) : DEFAULT_SITE_LANG;
+            $bang['title'] = implode(' / ', $name_arr[$user_lang]);
+        }
+        $view->setparm('arr_bangumi', $banglist);
+
+        $view->render();
     }
     private function detail() //显示单个番剧页面操作
     {
-        $model = new Bangumi_Model;
-        $view = new Bangumi_View();
         $view->loadtpl('./tpls/bangumi-detail.tpl');
     }
     private function add() //添加操作
     {
-        $model = new Bangumi_Model;
-        $view = new Bangumi_View();
         $view->loadtpl('./tpls/bangumi-add.tpl');
     }
     private function modify() //修改操作
     {
-        $model = new Bangumi_Model;
-        $view = new Bangumi_View();
         $view->loadtpl('./tpls/bangumi-modify.tpl');
     }
     public function run()
     {
+        try {
+            $User = new User_Model();
+            $Bangumi = new Bangumi_Model();
+            $view = new Bangumi_View();
+            if (isset($_SESSION)) //用户已登录
+            {
+                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
+                {
+                    $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME; //续期5min
+                } else //SESSION 过期
+                {
+                    session_destroy();
+                    throw new AuthFailed($TXT_SESSION_TIMED_OUT);
+                }
+                $view->setparm('userid', $_SESSION['userid']);
+                $view->setparm('usernickname', $model->getusernickname($_SESSION['userid']));
+            }
+            
+        } catch (AuthFailed $e) {
+            
+        } catch (Exception $e) {
+            
+        }
         /*
          * POST表单设计：
          * do:执行的具体操作 show:显示番剧列表 add:添加番剧 modify:修改番剧
