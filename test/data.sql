@@ -25,6 +25,7 @@ create table sub_bangumis(
     `createtime` INTEGER NOT NULL, -- 创建时间
     `owner` INTEGER NOT NULL, -- 目前番剧所有者ID
     `description` TEXT, -- 番剧描述，实际限制2KiB
+    `hit` INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     CONSTRAINT `creator_id` FOREIGN KEY (`creator`) REFERENCES sub_users(`id`),
     CONSTRAINT `owner_id` FOREIGN KEY (`owner`) REFERENCES sub_users(`id`)
