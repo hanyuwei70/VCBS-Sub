@@ -8,6 +8,11 @@
 class Bangumi_Controller extends Base_Controller
 {
     const NUM_PER_PAGE = 20;
+    /**
+     * 显示热门番剧
+     * 接受的 GET 参数
+     * page: 页数
+     */
     private function show() //显示列表操作
     {
         $view->loadtpl('./tpls/bangumi-show.tpl');
@@ -67,7 +72,7 @@ class Bangumi_Controller extends Base_Controller
         }
         /*
          * POST表单设计：
-         * do:执行的具体操作 show:显示番剧列表 add:添加番剧 modify:修改番剧
+         * do:执行的具体操作 show:显示番剧列表 add:添加番剧 modify:修改番剧 delete:删除番剧
          * 不同操作的具体表单在各自的函数注释里面定义
          * */
         switch($_POST['do'])
@@ -83,6 +88,9 @@ class Bangumi_Controller extends Base_Controller
                 break;
             case 'modify':
                 $this->modify();
+                break;
+            case 'delete':
+                $this->delete();
                 break;
         }
     }
