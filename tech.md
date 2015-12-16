@@ -18,3 +18,7 @@ _注：各个项目文件里面可能包含一些具体定义_
 ##类结构
 
 * 所有的Model,Controller,View类全部继承Base_Model,Base_Controller,Base_View类，三个Base做基础性工作
+
+##代码细节约定
+
+* 访问全局变量（主要是 lang 和 config 中的变量）统一使用 $GLOBALS 超全局变量来访问

@@ -11,15 +11,15 @@ class Login_Controller extends Base_Controller
         {
             if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
             {
-                $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME; //续期5min
-                header("Location: " . $MAIN_PAGE_URL);
+                $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME']; //续期5min
+                header("Location: " . $GLOBALS['MAIN_PAGE_URL']);
                 exit;
             }
         }
         try {
             $m_user = new User_Model();
             $view = new Login_View();
-            $view->setparm('pagetitle',$TITLE_USER_LOGIN . $TITLE_SUFFIX);
+            $view->setparm('pagetitle',$GLOBALS['TITLE_USER_LOGIN']);
             //TODO:反注入
             //TODO:验证码
             try {
@@ -29,12 +29,12 @@ class Login_Controller extends Base_Controller
                         case $m_user::CHECKPWD_ACCEPTED:
                             session_start();
                             $_SESSION['userid'] = $userid;
-                            $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME;
+                            $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME'];
                             $_SESSION['absexpiretime'] = time() + $_POST['vaildtime'];
-                            header("Location: " . $MAIN_PAGE_URL);
+                            header("Location: " . $GLOBALS['MAIN_PAGE_URL']);
                             break;
                         case $m_user::CHECKPWD_DENIED:
-                            throw new AuthFailed($TXT_PASSWORD_ERROR);
+                            throw new AuthFailed($GLOBALS['TXT_PASSWORD_ERROR']);
                             break;
                         case $m_user::CHECKPWD_RESTRICTED:
                             throw new AuthFailed($TXT_USER_RESTRICTED);

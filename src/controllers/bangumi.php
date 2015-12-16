@@ -16,7 +16,7 @@ class Bangumi_Controller extends Base_Controller
     private function show() //显示列表操作
     {
         $view->loadtpl('./tpls/bangumi-show.tpl');
-        $view->setparm('pagetitle', $TITLE_BANGUMI_SHOW . $TITLE_SUFFIX);
+        $view->setparm('pagetitle', $GLOBALS['TITLE_BANGUMI_SHOW']);
         $start = 0;
         // TODO: GET 参数列表处理及安全处理
         if (isset($_GET['page'])) {
@@ -55,11 +55,11 @@ class Bangumi_Controller extends Base_Controller
             {
                 if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
                 {
-                    $_SESSION['expiretime'] = time() + $SESSION_ADD_TIME; //续期5min
+                    $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME']; //续期5min
                 } else //SESSION 过期
                 {
                     session_destroy();
-                    throw new AuthFailed($TXT_SESSION_TIMED_OUT);
+                    throw new AuthFailed($GLOBALS['TXT_SESSION_TIMED_OUT']);
                 }
                 $view->setparm('userid', $_SESSION['userid']);
                 $view->setparm('usernickname', $model->getusernickname($_SESSION['userid']));

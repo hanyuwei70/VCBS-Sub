@@ -12,7 +12,7 @@ class Usermanage_Controller extends Base_Controller
         //TODO:校验用户权限
         if (!isset($_SESSION) || !isset($_SESSION['userid']) || )
         {
-            throw new AuthFailed($TXT_PERMISSION_ERROR);
+            throw new AuthFailed($GLOBALS['TXT_PERMISSION_ERROR']);
         }
         elseif ()
 
