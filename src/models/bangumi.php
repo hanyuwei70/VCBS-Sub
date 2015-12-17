@@ -202,7 +202,23 @@ class Bangumi_Model extends Base_Model
             if ($sqlcmd->rowCount() == 1) {
                 return self::MODIFYCOVER_SUCCESS;
             }
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    /**
+     * 获取特定番剧信息
+     * @param  int $id 番剧ID
+     * @return array     番剧信息的关联数组
+     */
+    public function getbangumiinfo($id)
+    {
+        try {
+            $sqlstr = "SELECT * FROM sub_bangumis WHERE id = :id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id));
+            return $sqlcmd->fetch();
+        } catch (PDOException $e) {
             throw $e;
         }
     }

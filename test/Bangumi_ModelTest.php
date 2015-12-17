@@ -117,7 +117,6 @@ class Bangumi_ModelTest extends ModelTest
     }
     public function testmodifycover()
     {
-        global $baseBangumi;
         $bangumi = new Bangumi_Model();
         $cover = 'http://static.mengniang.org/common/1/1e/%E6%95%B0%E7%A0%81%E5%AE%9D%E8%B4%9D.jpg';
         $result = $bangumi->modifycover(2, $cover);
@@ -128,5 +127,15 @@ class Bangumi_ModelTest extends ModelTest
                                                 )
                                           ));
         $this->assertTablesEqual($expect->getTable('sub_bangumis'), $query, 'failed to modify cover:');
+    }
+    public function testgetbangumiinfo()
+    {
+        global $baseBangumi;
+        $bangumi = new Bangumi_Model();
+        $result = $bangumi->getbangumiinfo(2);
+        $expect = $baseBangumi[1];
+        $this->assertEquals($expect, $result, 'get bangumi info error:');
+        $result = $bangumi->getbangumiinfo(4); // test non-exist bangumi
+        $this->assertFalse($result, 'test non-exist bangumi error:');
     }
 }

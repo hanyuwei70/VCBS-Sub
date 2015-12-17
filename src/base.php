@@ -6,9 +6,9 @@ class Base_Model
     {
         global $MYSQL_SERVER, $MYSQL_DBNAME, $MYSQL_USERNAME, $MYSQL_USERPASS;
         try {
-            $this->dbc = new PDO("mysql:host=$MYSQL_SERVER;dbname=$MYSQL_DBNAME", $MYSQL_USERNAME, $MYSQL_USERPASS);
+            $this->dbc = new PDO("mysql:host=$MYSQL_SERVER;dbname=$MYSQL_DBNAME", $MYSQL_USERNAME, $MYSQL_USERPASS, array(PDO::MYSQL_ATTR_FOUND_ROWS => true)); // 对于 rowCount() 返回实际匹配的行数而不是改变的行数
             $this->dbc->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            $this->dbc->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->dbc->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // 结果只以关联数组的形式表示，没有索引数组
         }
         catch(PDOException $e){
             throw new ResourceFailed($e->getMessage());
