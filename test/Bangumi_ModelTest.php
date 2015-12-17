@@ -18,7 +18,7 @@ class Bangumi_ModelTest extends ModelTest
         $query = $this->getConnection()->createQueryTable('sub_bangumis', 'SELECT * FROM sub_bangumis ORDER BY id DESC LIMIT 1');
         $expect = new DbUnit_ArrayDataSet(array(
                                             'sub_bangumis' => array(
-                                                array('id' => $id, 'creator' => 2, 'createtime' => TIMENOW, 'owner' => 2, 'description' => 'test description', 'hit' => 0),
+                                                array('id' => $id, 'creator' => 2, 'createtime' => TIMENOW, 'owner' => 2, 'description' => 'test description', 'hit' => 0, 'cover' => NULL),
                                             )
                                           ));
         $this->assertTablesEqual($expect->getTable('sub_bangumis'), $query, 'Content after create do not match expection:');

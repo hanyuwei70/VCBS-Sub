@@ -21,7 +21,8 @@ create table sub_bangumis(
     createtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, --创建时间
     owner INTEGER NOT NULL REFERENCES sub_users(id), --目前番剧所有者ID
     description TEXT, --番剧描述，实际限制2KiB
-    hit INTEGER NOT NULL DEFAULT 0 --番剧热度，以番剧详情页面访问次数计算
+    hit INTEGER NOT NULL DEFAULT 0, --番剧热度，以番剧详情页面访问次数计算
+    cover VARCHAR(200) DEFAULT NULL --番剧封面，以 URL 字符串存储
 );
 create table sub_bangumis_name(
     id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --番剧名称ID
