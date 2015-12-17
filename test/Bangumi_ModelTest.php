@@ -115,4 +115,18 @@ class Bangumi_ModelTest extends ModelTest
         $expect = array($baseBangumi[1], $baseBangumi[2], $baseBangumi[0]);
         $this->assertEquals($expect, $banglist, 'order param test error');
     }
+    public function testmodifycover()
+    {
+        global $baseBangumi;
+        $bangumi = new Bangumi_Model();
+        $cover = 'http://static.mengniang.org/common/1/1e/%E6%95%B0%E7%A0%81%E5%AE%9D%E8%B4%9D.jpg';
+        $result = $bangumi->modifycover(2, $cover);
+        $this->assertEquals(Bangumi_Model::MODIFYCOVER_SUCCESS, $result, 'return value error:');
+        $query = $this->getConnection()->createQueryTable('sub_bangumis', 'SELECT cover FROM sub_bangumis WHERE id=2');
+        $expect = new DbUnit_ArrayDataSet(array('sub_bangumis' => array(
+                                                array('cover' => $cover),
+                                                )
+                                          ));
+        $this->assertTablesEqual($expect->getTable('sub_bangumis'), $query, 'failed to modify cover:');
+    }
 }

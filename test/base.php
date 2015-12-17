@@ -95,8 +95,8 @@ $baseSub = array(
             );
 $baseBangumi = array(
                     array('id' => 1, 'creator' => 1, 'createtime' => strtotime('2015-12-3 03:00:00'), 'owner' => 1, 'description' => 'test  bangumi 1', 'hit' => '5', 'cover' => 'covers/001.jpg'),
-                    array('id' => 2, 'creator' => 3, 'createtime' => strtotime('2015-12-3 04:00:00'), 'owner' => 3, 'description' => 'test  bangumi 2', 'hit' => '0', 'cover' => 'http://static.mengniang.org/common/thumb/4/46/Toaru_Kagaku_no_Railgun_2.jpg/800px-Toaru_Kagaku_no_Railgun_2.jpg'),
-                    array('id' => 3, 'creator' => 2, 'createtime' => strtotime('2015-12-3 05:00:00'), 'owner' => 2, 'description' => 'test  bangumi 3', 'hit' => '3', 'cover' => NULL),
+                    array('id' => 2, 'creator' => 3, 'createtime' => strtotime('2015-12-3 04:00:00'), 'owner' => 3, 'description' => 'test  bangumi 2', 'hit' => '0', 'cover' => NULL),
+                    array('id' => 3, 'creator' => 2, 'createtime' => strtotime('2015-12-3 05:00:00'), 'owner' => 2, 'description' => 'test  bangumi 3', 'hit' => '3', 'cover' => 'http://static.mengniang.org/common/thumb/4/46/Toaru_Kagaku_no_Railgun_2.jpg/800px-Toaru_Kagaku_no_Railgun_2.jpg'),
                 );
 $baseUser = array(
                 array('id' => 1, 'username' => 'ParadiseDS', 'nickname' => 'PDS', 'password' => 'passwd'),

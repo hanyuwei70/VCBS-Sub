@@ -165,6 +165,15 @@ class Bangumi_Model extends Base_Model
             throw $e;
         }
     }
+    /**
+     * getlist
+     * 获取番剧记录
+     * @param  integer $start    起始记录偏移
+     * @param  integer $num      需要获取的记录数目
+     * @param  string  $orderkey 排序字段，允许字段为数据库列名
+     * @param  排序方式  $order    升降序，接受 ASC/ DESC
+     * @return array            结果数组，每一个元素代表一个番剧的信息关联数组
+     */
     public function getlist($start = 0, $num = 20, $orderkey = 'hit', $order = 'DESC')
     {
         try {
@@ -174,6 +183,26 @@ class Bangumi_Model extends Base_Model
             $res = $sqlcmd->fetchAll();
             return $res;
         } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    /**
+     * 修改番剧封面信息
+     * @param  int $id 番剧ID
+     * @param string $cover 番剧封面 URL 字符串
+     * @return int     操作结果
+     */
+    const MODIFYCOVER_SUCCESS = 0;
+    public function modifycover($id, $cover)
+    {
+        try {
+            $sqlstr = "UPDATE sub_bangumis SET cover = :cover WHERE id = :id";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id, ':cover' => $cover));
+            if ($sqlcmd->rowCount() == 1) {
+                return self::MODIFYCOVER_SUCCESS;
+            }
+        } catch (Exception $e) {
             throw $e;
         }
     }
