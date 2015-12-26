@@ -45,7 +45,7 @@ class Bangumi_ModelTest extends ModelTest
     {
         $bangumi = new Bangumi_Model();
         $query = $bangumi->getbanguminame(1);
-        $expect = array('eng' => array('Fate Zero', 'Fate／Zero'), 'jpn' => array('フェイト/ゼロ'));
+        $expect = array('eng' => array('Fate Zero', 'Fate／Zero'), 'jpn' => array('フェイト/ゼロ'), 'main' => array('Fate／Zero'));
         $this->assertEquals($expect, $query, 'Bangumi name result error:');
     }
 
@@ -74,6 +74,14 @@ class Bangumi_ModelTest extends ModelTest
         $this->assertEquals($expect, $name_arr, 'Content after add do not match expection:');
         $result = $bangumi->addname(1, 'Fate Zero', 'eng');
         $this->assertEquals(Bangumi_Model::ADDNAME_DUPE, $result, 'Returned value error when add dupe name:');
+        $result = $bangumi->addname(3, 'とある科学の超電磁砲', 'jpn', true);
+        $name_arr = $bangumi->getbanguminame(3);
+        $expect = array('chs' => array('科学的超电磁炮'),
+                        'eng' => array('Toaru Kagaku no Railgun'),
+                        'jpn' => array('とある科学の超電磁砲'),
+                        'main' => array('とある科学の超電磁砲'),
+                        );
+        $this->assertEquals($expect, $name_arr, 'Content after add main title do not match expection:');
     }
     /**
      * Test for Del name method
@@ -94,6 +102,8 @@ class Bangumi_ModelTest extends ModelTest
         $result = $bangumi->delname(2, 'DIGIMON ADVENTURE');
         $result = $bangumi->delname(2, 'デジモンアドベンチャー');
         $this->assertEquals(Bangumi_Model::DELNAME_LAST, $result, 'Returned value error when del last name:');
+        $result = $bangumi->delname(1, 'Fate／Zero');
+        $this->assertEquals(Bangumi_Model::DELNAME_LAST_MAIN, $result, 'Returned value error when del last main name');
     }
     public function testgetlist()
     {

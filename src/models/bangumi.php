@@ -129,7 +129,7 @@ class Bangumi_Model extends Base_Model
                 return self::ADDNAME_DUPE;
             }
             $main = $main ? 'yes' : 'no';
-            $sqlstr = "INSERT INTO sub_bangumis_name (bangumi_id, name, lang) VALUES (:id, :name, :lang, :main)";
+            $sqlstr = "INSERT INTO sub_bangumis_name (bangumi_id, name, lang, main) VALUES (:id, :name, :lang, :main)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id, ':name' => $name, ':lang' => $lang, ':main' => $main));
             return self::ADDNAME_SUCCESS;
