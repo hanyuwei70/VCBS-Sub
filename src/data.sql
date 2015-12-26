@@ -28,7 +28,8 @@ create table sub_bangumis_name(
     id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --番剧名称ID
     bangumi_id INTEGER NOT NULL REFERENCES sub_bangumis(id), --对应番剧ID
     name VARCHAR(200) NOT NULL, --名称
-    lang VARCHAR(3) NOT NULL --语种信息 TODO: 确定标准定义字符
+    lang VARCHAR(3) NOT NULL, --语种信息 TODO: 确定标准定义字符
+    main ENUM('yes', 'no') NOT NULL DEFAULT 'no' --是否为番剧原始标题
 );
 create table sub_subtitles(
     id INTEGER IDENTITY(1,1) NOT NULL PRIMARY KEY, --字幕ID

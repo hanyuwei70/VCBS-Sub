@@ -109,13 +109,12 @@ $basePerm = array(
                 array('user_id' => 3, 'priv_num' => 504),
             );
 $baseBangumiName = array(
-                        array('bangumi_id' => 1, 'name' => 'Fate Zero', 'lang' => 'eng'),
-                        array('bangumi_id' => 1, 'name' => 'Fate／Zero', 'lang' => 'eng'),
-                        array('bangumi_id' => 2, 'name' => '数码兽大冒险', 'lang' => 'chs'),
-                        array('bangumi_id' => 1, 'name' => 'フェイト/ゼロ', 'lang' => 'jpn'),
-                        array('bangumi_id' => 2, 'name' => 'DIGIMON ADVENTURE', 'lang' => 'eng'),
-                        array('bangumi_id' => 2, 'name' => 'デジモンアドベンチャー', 'lang' => 'jpn'),
-                        array('bangumi_id' => 3, 'name' => '科学的超电磁炮', 'lang' => 'chs'),
-                        array('bangumi_id' => 3, 'name' => 'とある科学の超電磁砲', 'lang' => 'jpn'),
-                        array('bangumi_id' => 3, 'name' => 'Toaru Kagaku no Railgun', 'lang' => 'eng'),
+                        array('bangumi_id' => 1, 'name' => 'Fate Zero', 'lang' => 'eng', 'main' => 'no'),
+                        array('bangumi_id' => 1, 'name' => 'Fate／Zero', 'lang' => 'eng', 'main' => 'yes'),
+                        array('bangumi_id' => 2, 'name' => '数码兽大冒险', 'lang' => 'chs', 'main' => 'no'),
+                        array('bangumi_id' => 1, 'name' => 'フェイト/ゼロ', 'lang' => 'jpn', 'main' => 'no'),
+                        array('bangumi_id' => 2, 'name' => 'DIGIMON ADVENTURE', 'lang' => 'eng', 'main' => 'no'),
+                        array('bangumi_id' => 2, 'name' => 'デジモンアドベンチャー', 'lang' => 'jpn', 'main' => 'no'),
+                        array('bangumi_id' => 3, 'name' => '科学的超电磁炮', 'lang' => 'chs', 'main' => 'no'),
+                        array('bangumi_id' => 3, 'name' => 'Toaru Kagaku no Railgun', 'lang' => 'eng', 'main' => 'no'),
                     );

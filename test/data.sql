@@ -36,6 +36,7 @@ create table sub_bangumis_name(
     `bangumi_id` INTEGER NOT NULL, -- 对应番剧ID
     `name` VARCHAR(200) NOT NULL, -- 名称
     `lang` VARCHAR(3) NOT NULL, -- 语种信息 TODO: 确定标准定义字符
+    `main` ENUM('yes', 'no') NOT NULL DEFAULT 'no', -- 是否为番剧原始标题
     PRIMARY KEY (`id`),
     CONSTRAINT `bangumi_id` FOREIGN KEY (`bangumi_id`) REFERENCES sub_bangumis(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
