@@ -92,12 +92,15 @@ class Bangumi_Model extends Base_Model
     public function getbanguminame($id)
     {
         try {
-            $sqlstr = "SELECT name, lang FROM sub_bangumis_name WHERE bangumi_id = :id";
+            $sqlstr = "SELECT name, lang, main FROM sub_bangumis_name WHERE bangumi_id = :id";
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id));
             $name_arr = array();
             while ($row = $sqlcmd->fetch()) {
                 $name_arr[$row['lang']][] = $row['name'];
+                if ($row['main'] == 'yes') {
+                    $name_arr['main'][] = $row['name'];
+                }
             }
             return $name_arr;
         } catch (PDOException $e) {
@@ -116,7 +119,7 @@ class Bangumi_Model extends Base_Model
      * */
     const ADDNAME_SUCCESS = 0;
     const ADDNAME_DUPE = 1;
-    public function addname($id, $name, $lang)
+    public function addname($id, $name, $lang, $main = false)
     {
         try {
             $sqlstr = "SELECT COUNT(*) FROM sub_bangumis_name WHERE bangumi_id = :id AND name = :name AND lang = :lang";
@@ -125,9 +128,10 @@ class Bangumi_Model extends Base_Model
             if ($sqlcmd->fetchColumn() > 0) {
                 return self::ADDNAME_DUPE;
             }
-            $sqlstr = "INSERT INTO sub_bangumis_name (bangumi_id, name, lang) VALUES (:id, :name, :lang)";
+            $main = $main ? 'yes' : 'no';
+            $sqlstr = "INSERT INTO sub_bangumis_name (bangumi_id, name, lang) VALUES (:id, :name, :lang, :main)";
             $sqlcmd = $this->dbc->prepare($sqlstr);
-            $sqlcmd->execute(array(':id' => $id, ':name' => $name, ':lang' => $lang));
+            $sqlcmd->execute(array(':id' => $id, ':name' => $name, ':lang' => $lang, ':main' => $main));
             return self::ADDNAME_SUCCESS;
         } catch (PDOException $e) {
             throw $e;
@@ -136,7 +140,7 @@ class Bangumi_Model extends Base_Model
     /**
      *  delname
      *
-     *  删除番剧名称，当只有最后一个名称时不允许删除
+     *  删除番剧名称，当删除最后一个名称/最后一个主名称时不允许删除
      *
      * @param   int $id 番剧ID
      * @param   string  $name   要删除的番剧名
@@ -145,6 +149,7 @@ class Bangumi_Model extends Base_Model
     const DELNAME_SUCCESS = 0;
     const DELNAME_LAST = 1;
     const DELNAME_NOT_EXIST = 2;
+    const DELNAME_LAST_MAIN = 3;
     public function delname($id, $name)
     {
         try {
@@ -153,6 +158,14 @@ class Bangumi_Model extends Base_Model
             $sqlcmd->execute(array(':id' => $id));
             if ($sqlcmd->fetchColumn() == 1) {
                 return self::DELNAME_LAST;
+            }
+            //最后一个主名称不允许删除
+            $sqlstr = "SELECT * FROM sub_bangumis_name WHERE bangumi_id = :id AND main = 'yes'";
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':id' => $id));
+            $res = $sqlcmd->fetchAll();
+            if (count($res) == 1 and $res[0]['name'] == $name) {
+                return self::DELNAME_LAST_MAIN;
             }
             $sqlstr = "DELETE FROM sub_bangumis_name WHERE bangumi_id=:id AND name=:name";
             $sqlcmd = $this->dbc->prepare($sqlstr);
