@@ -19,6 +19,7 @@ class Login_Controller extends Base_Controller
         try {
             $m_user = new User_Model();
             $view = new Login_View();
+            $view->loadtpl('./tpls/login.tpl');
             $view->setparm('pagetitle',$GLOBALS['TITLE_USER_LOGIN']);
             //TODO:反注入
             //TODO:验证码

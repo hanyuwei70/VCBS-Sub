@@ -5,7 +5,7 @@ class Login_View extends Base_View
     {
         $PAGE_TITLE=$this->varlist['pagetitle'].$GLOBALS['TITLE_SUFFIX'];
         if (isset($this->varlist['errormsg'])) $ERROR_MSG=$this->varlist['errormsg'];
-        include 'tpls/login.tpl';
+        include_once $this->tplpath;
     }
 }
 ?>
