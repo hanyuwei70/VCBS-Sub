@@ -15,6 +15,28 @@ class Bangumi_Controller extends Base_Controller
      */
     private function show() //显示列表操作
     {
+        try {
+            $User = new User_Model();
+            $Bangumi = new Bangumi_Model();
+            $view = new Bangumi_View();
+            if (isset($_SESSION)) //用户已登录
+            {
+                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
+                {
+                    $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME']; //续期5min
+                } else //SESSION 过期
+                {
+                    session_destroy();
+                    throw new AuthFailed($GLOBALS['TXT_SESSION_TIMED_OUT']);
+                }
+                $view->setparm('userid', $_SESSION['userid']);
+                $view->setparm('usernickname', $model->getusernickname($_SESSION['userid']));
+            }
+        } catch (AuthFailed $e) {
+            
+        } catch (Exception $e) {
+            
+        }
         $view->loadtpl('./tpls/bangumi-show.tpl');
         $view->setparm('pagetitle', $GLOBALS['TITLE_BANGUMI_SHOW']);
         $start = 0;
@@ -27,7 +49,11 @@ class Bangumi_Controller extends Base_Controller
         foreach ($banglist as $bang) {
             $name_arr = $Bangumi->getbanguminame($bang['id']);
             $user_lang = isset($_SESSION['userid']) ? $User->getlang($_SESSION['userid']) : DEFAULT_SITE_LANG;
-            $bang['title'] = implode(' / ', $name_arr[$user_lang]);
+            if (isset($name_arr[$user_lang])) {
+                $bang['title'] = implode(' / ', $name_arr[$user_lang]); // 只输出当前界面语言的标题
+            } else {
+                $bang['title'] = implode(' / ', $name_arr['main']); // 不存在匹配语种的标题时输出主标题
+            }
         }
         $view->setparm('arr_bangumi', $banglist);
 
@@ -47,29 +73,6 @@ class Bangumi_Controller extends Base_Controller
     }
     public function run()
     {
-        try {
-            $User = new User_Model();
-            $Bangumi = new Bangumi_Model();
-            $view = new Bangumi_View();
-            if (isset($_SESSION)) //用户已登录
-            {
-                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
-                {
-                    $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME']; //续期5min
-                } else //SESSION 过期
-                {
-                    session_destroy();
-                    throw new AuthFailed($GLOBALS['TXT_SESSION_TIMED_OUT']);
-                }
-                $view->setparm('userid', $_SESSION['userid']);
-                $view->setparm('usernickname', $model->getusernickname($_SESSION['userid']));
-            }
-            
-        } catch (AuthFailed $e) {
-            
-        } catch (Exception $e) {
-            
-        }
         /*
          * POST表单设计：
          * do:执行的具体操作 show:显示番剧列表 add:添加番剧 modify:修改番剧 delete:删除番剧
