@@ -54,6 +54,9 @@ class Bangumi_Controller extends Base_Controller
             } else {
                 $bang['title'] = implode(' / ', $name_arr['main']); // 不存在匹配语种的标题时输出主标题
             }
+            $bang['creatorname'] = $User->getusernickname($bang['creator']);
+            $bang['ownername'] = $User->getusernickname($bang['owner']);
+            $bang['createtime'] = isset($_SESSION['userid']) ? $User->getuserlocaltime($_SESSION['userid'], $bang['createtime'], 'Y-m-d') : $User->getuserlocaltime(0, $bang['createtime'], 'Y-m-d');
         }
         $view->setparm('arr_bangumi', $banglist);
 
@@ -61,7 +64,59 @@ class Bangumi_Controller extends Base_Controller
     }
     private function detail() //显示单个番剧页面操作
     {
+        try {
+            $User = new User_Model();
+            $Bangumi = new Bangumi_Model();
+            $Subtitle = new Subtitle_Model();
+            $view = new Bangumi_View();
+            if (isset($_SESSION)) //用户已登录
+            {
+                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
+                {
+                    $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME']; //续期5min
+                } else //SESSION 过期
+                {
+                    session_destroy();
+                    throw new AuthFailed($GLOBALS['TXT_SESSION_TIMED_OUT']);
+                }
+                $view->setparm('userid', $_SESSION['userid']);
+                $view->setparm('usernickname', $model->getusernickname($_SESSION['userid']));
+            }
+        } catch (AuthFailed $e) {
+            
+        } catch (Exception $e) {
+            throw $e;
+        }
         $view->loadtpl('./tpls/bangumi-detail.tpl');
+        $id = intval('0'.$_GET['id']);
+        try {
+            $Bangumi->validid($id);
+            $name_arr = $Bangumi->getbanguminame($id);
+            $sublist = $Subtitle->getbangumisub($id);
+            $user_lang = isset($_SESSION['userid']) ? $User->getlang($_SESSION['userid']) : DEFAULT_SITE_LANG;
+            // 番剧参数设置
+            $bangumi = $Bangumi->getbangumiinfo($id);
+            if (isset($name_arr[$user_lang])) {
+                $bangumi['title'] = implode(' / ', $name_arr[$user_lang]); // 只输出当前界面语言的标题
+            } else {
+                $bangumi['title'] = implode(' / ', $name_arr['main']); // 不存在匹配语种的标题时输出主标题
+            }
+            $bangumi['creatorname'] = $User->getusernickname($bangumi['creator']);
+            $bangumi['ownername'] = $User->getusernickname($bangumi['owner']);
+            $bangumi['createtime'] = isset($_SESSION['userid']) ? $User->getuserlocaltime($_SESSION['userid'], $bangumi['createtime'], 'Y-m-d') : $User->getuserlocaltime(0, $bangumi['createtime'], 'Y-m-d');
+            // 字幕参数设置
+            foreach ($sublist as $sub) {
+                $sub['uploadtime'] = isset($_SESSION['userid']) ? $User->getuserlocaltime($_SESSION['userid'], $sub['uploadtime'], 'Y-m-d') : $User->getuserlocaltime(0, $sub['uploadtime'], 'Y-m-d');
+                $sub['uploadername'] = $User->getusernickname($sub['uploader']);
+            }
+            $view->setparm('pagetitle', $bangumi['title']."::".$GLOBALS['TITLE_BANGUMI_DETAIL']);
+            $view->setparm('arr_bangumi', $bangumi);
+            $view->setparm('arr_subtitle', $sublist);
+        } catch (BangumiNotFound $e) {
+            $view->setparm('errormsg',$GLOBALS['ERROR_BANGUMI_NOT_FOUND']);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
     private function add() //添加操作
     {
