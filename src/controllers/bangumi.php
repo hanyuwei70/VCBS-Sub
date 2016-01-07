@@ -19,10 +19,8 @@ class Bangumi_Controller extends Base_Controller
             $User = new User_Model();
             $Bangumi = new Bangumi_Model();
             $view = new Bangumi_View();
-            if (isset($_SESSION)) //用户已登录
-            {
-                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
-                {
+            if (isset($_SESSION)) { //用户已登录
+                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) { //SESSION未超有效期
                     $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME']; //续期5min
                 } else //SESSION 过期
                 {
@@ -62,6 +60,12 @@ class Bangumi_Controller extends Base_Controller
 
         $view->render();
     }
+    /**
+     * 番剧详情，对应的字幕也在此页面显示
+     *
+     * 接受的 GET 参数
+     * id: 番剧 ID
+     */
     private function detail() //显示单个番剧页面操作
     {
         try {
@@ -69,10 +73,8 @@ class Bangumi_Controller extends Base_Controller
             $Bangumi = new Bangumi_Model();
             $Subtitle = new Subtitle_Model();
             $view = new Bangumi_View();
-            if (isset($_SESSION)) //用户已登录
-            {
-                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) //SESSION未超有效期
-                {
+            if (isset($_SESSION)) { //用户已登录
+                if ($_SESSION['expiretime'] >= time() && $_SESSION['absexpiretime'] >= time()) { //SESSION未超有效期
                     $_SESSION['expiretime'] = time() + $GLOBALS['SESSION_ADD_TIME']; //续期5min
                 } else //SESSION 过期
                 {
@@ -113,7 +115,7 @@ class Bangumi_Controller extends Base_Controller
             $view->setparm('arr_bangumi', $bangumi);
             $view->setparm('arr_subtitle', $sublist);
         } catch (BangumiNotFound $e) {
-            $view->setparm('errormsg',$GLOBALS['ERROR_BANGUMI_NOT_FOUND']);
+            $view->setparm('errormsg', $GLOBALS['ERROR_BANGUMI_NOT_FOUND']);
         } catch (Exception $e) {
             throw $e;
         }
@@ -133,8 +135,7 @@ class Bangumi_Controller extends Base_Controller
          * do:执行的具体操作 show:显示番剧列表 add:添加番剧 modify:修改番剧 delete:删除番剧
          * 不同操作的具体表单在各自的函数注释里面定义
          * */
-        switch($_POST['do'])
-        {
+        switch ($_POST['do']) {
             case 'show':
                 $this->show();
                 break;
@@ -153,4 +154,3 @@ class Bangumi_Controller extends Base_Controller
         }
     }
 }
-?>
