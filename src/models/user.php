@@ -9,18 +9,25 @@ class User_Model extends Base_Model
      * @param string $username 用户名
      * @param string $password  密码
      * @param string $nickname 用户昵称
-     * @return int 结果代码
+     * @return int 用户 id
      * */
-    const ADDUSER_SUCCESS=0;
+    const ADDUSER_FAILED = -1;
     public function adduser($username,$password,$nickname)
     {
         try {
             $sqlstr = 'INSERT INTO sub_users (username,nickname,password) VALUES (:username,:nickname,:password)';
             $sqlcmd = $this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(":username" => $username, ":nickname" => $nickname, ":password" => $this->pwdhash($password)));
-            return self::ADDUSER_SUCCESS;
+            $sqlstr = 'SELECT id FROM sub_users WHERE username = :username';
+            $sqlcmd = $this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(":username" => $username));
+            $res = $sqlcmd->fetchAll();
+            if (count($res) == 0) {
+                return self::ADDUSER_FAILED;
+            }
+            return $res[0]['id'];
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /*
