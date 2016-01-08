@@ -99,9 +99,9 @@ $baseBangumi = array(
                     array('id' => 3, 'creator' => 2, 'createtime' => strtotime('2015-12-3 05:00:00'), 'owner' => 2, 'description' => 'test  bangumi 3', 'hit' => '3', 'cover' => 'http://static.mengniang.org/common/thumb/4/46/Toaru_Kagaku_no_Railgun_2.jpg/800px-Toaru_Kagaku_no_Railgun_2.jpg'),
                 );
 $baseUser = array(
-                array('id' => 1, 'username' => 'ParadiseDS', 'nickname' => 'PDS', 'password' => 'passwd'),
-                array('id' => 2, 'username' => 'Inori', 'nickname' => '祈Inori', 'password' => 'passwd'),
-                array('id' => 3, 'username' => 'fulan', 'nickname' => '芙兰', 'password' => 'passwd'),
+                array('id' => 1, 'username' => 'ParadiseDS', 'nickname' => 'PDS', 'password' => 'passwd', 'restricted' => 'no'),
+                array('id' => 2, 'username' => 'Inori', 'nickname' => '祈Inori', 'password' => 'passwd', 'restricted' => 'no'),
+                array('id' => 3, 'username' => 'fulan', 'nickname' => '芙兰', 'password' => 'passwd', 'restricted' => 'yes'),
             );
 $basePerm = array(
                 array('user_id' => 1, 'priv_num' => 503),

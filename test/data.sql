@@ -9,6 +9,7 @@ create table sub_users(
     `description` TEXT, -- 用户描述，实际限制1KiB
     `timezone` VARCHAR(30) NOT NULL DEFAULT "Asia/Shanghai", --  用户所在时区，按照PHP DateTimeZone 类中允许的时区字符串定义
     `lang` VARCHAR(3) NOT NULL DEFAULT "chs", --  网站界面语言
+    `restricted` ENUM('yes', 'no') NOT NULL DEFAULT 'yes', -- 是否为受限用户，注册时默认为受限用户
     PRIMARY KEY (`id`),
     UNIQUE KEY `username` (`username`),
     UNIQUE (`nickname`)
