@@ -25,6 +25,7 @@ class User_Model extends Base_Model
             if (count($res) == 0) {
                 return self::ADDUSER_FAILED;
             }
+            // TODO: 是否在此处完成用户权限的添加
             return $res[0]['id'];
         } catch (PDOException $e) {
             throw $e;
@@ -36,15 +37,19 @@ class User_Model extends Base_Model
      * @return int 结果代码
      * */
     const DELUSER_SUCCESS=0;
+    const DELUSER_FAILED = -1;
     public function deluser($id)
     {
         try{
             $sqlstr="DELETE FROM sub_users WHERE id=:id";
             $sqlcmd=$this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(':id' => $id));
+            if ($sqlcmd->rowCount() == 0) {
+                return self::DELUSER_FAILED;
+            }
             return self::DELUSER_SUCCESS;
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /*
@@ -54,9 +59,20 @@ class User_Model extends Base_Model
      * @return int 结果代码
      * */
     const CHANGEPW_SUCCESS=0;
+    const CHANGEPW_FAILED=1;
     public function changepw($id,$newpassword)
     {
-        //TODO:修改密码
+        try {
+            $sqlstr="UPDATE sub_users SET password = :password WHERE id = :id";
+            $sqlcmd=$this->dbc->prepare($sqlstr);
+            $sqlcmd->execute(array(':password'=>$this->pwdhash($newpassword), 'id' => $id));
+            if ($sqlcmd->rowCount() == 0) {
+                return self::CHANGEPW_FAILED;
+            }
+            return self::CHANGEPW_SUCCESS;
+        } catch (PDOException $e) {
+            throw $e;
+        }
     }
     /*
      * 查询到用户id
@@ -79,7 +95,7 @@ class User_Model extends Base_Model
             if (count($res)==0) throw new UserNotFound();
             return $res[0]['id'];
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /*
@@ -99,14 +115,19 @@ class User_Model extends Base_Model
                 return self::CHECKPWD_ACCEPTED;
         }
         try {
-            $sqlstr="SELECT COUNT(*) FROM sub_users WHERE id=:id AND password=:password";
+            $sqlstr="SELECT restricted FROM sub_users WHERE id=:id AND password=:password";
             $sqlcmd=$this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(":id"=>$id,"password"=>$this->pwdhash($password)));
-            if (count($sqlcmd->fetchAll())==0) return self::CHECKPWD_DENIED;
-        //TODO:被限制用户
+            $res = $sqlcmd->fetchAll();
+            if (count($res) == 0) {
+                return self::CHECKPWD_DENIED;
+            }
+            if ($res[0]['restricted'] == 'yes') {
+                return self::CHECKPWD_RESTRICTED;
+            }
             return self::CHECKPWD_ACCEPTED;
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /*
@@ -124,7 +145,7 @@ class User_Model extends Base_Model
             if (count($res)==0) throw new UserNotFound();
             return $res[0]['username'];
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /*
@@ -135,14 +156,14 @@ class User_Model extends Base_Model
     public function getusernickname($id)
     {
         try {
-            $sqlstr="SELECT usernickname FROM sub_users WHERE id=:id";
+            $sqlstr="SELECT nickname FROM sub_users WHERE id=:id";
             $sqlcmd=$this->dbc->prepare($sqlstr);
             $sqlcmd->execute(array(":id"=>$id));
             $res=$sqlcmd->fetchAll();
             if (count($res)==0) throw new UserNotFound();
-            return $res[0]['usernickname'];
+            return $res[0]['nickname'];
         } catch (PDOException $e) {
-
+            throw $e;
         }
     }
     /*
@@ -204,7 +225,7 @@ class User_Model extends Base_Model
             $datetime->setTimezone(new DateTimeZone($res[0]['timezone']));
             return $datetime->format($format);
         } catch (PDOException $e) {
-            
+            throw $e;
         } catch (UserNotFound $e) { //返回站点默认时区
             $datetime = new Datetime('@'.$time);
             $datetime->setTimezone(new DateTimeZone(DEFAULT_TIME_ZONE));
