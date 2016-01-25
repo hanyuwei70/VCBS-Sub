@@ -125,7 +125,7 @@ textarea::-moz-placeholder {
           line-height: 2em; }
         .row .post-masonry .post-bangumi .post-hover a {
           color: #fff; }
-      @media (max-width: 600px) {
+      @media (max-width: 599px) {
         .row .post-masonry .post-bangumi:hover .title-over {
           -webkit-transition: transform 100ms ease-in-out;
           -moz-transition: transform 100ms ease-in-out;

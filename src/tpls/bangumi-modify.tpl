@@ -8,14 +8,34 @@ $ICO = 'img/favicon.ico';
 $CSS_BANGUMI_M = 'css/bangumi-modify.css';
 $JS_JQ = 'bower_components/jquery/dist/jquery.min.js';
 $CSS_BS = 'bower_components/bootstrap/dist/css/bootstrap.min.css';
-//$ARR_BANGUMI中的tag标签只是为了以后升级，后端不必先跟上，返回空字符串就好
-$ARR_BANGUMI = array(
+$ARR_SUB_BANGUMIS = array(
+// 番剧id    id 
+// 创建者id creator 
+// 创建时间 createtime 
+// 番剧负责人 owner 
+// 番剧描述 description
+// 番剧热度 hit 
+// 番剧封面 cover 
+    'id' => '111111111',
+    'creator' => 'inori-l',
+    'createtime' => '2000.10.10',
+    'owner' => 'inori',
+    'description' => '2029年，日本因突然爆發的」Apocalypse Virus(天啟病毒）「的蔓延而陷入了混亂之中。處於無政府狀態的日本，受到了由超國家之間所組織成的名為「GHQ」的組織的武力介入並接受其統治，東京的六本木更成為被封鎖的地區。之後又以名為「lost christmas（失落的聖誕）」的事件為契機，日本失去了獨立國家的實質權力，並被賦予了表面上的自治權，由此人們開始享受短暫的和平。',
+    'hit' => '000',
     'cover' => 'img/gc1.jpg',
-    'number' => '24',
-    'time' => '2011.2',
-    'tag' => '原创，超能力，战斗，袭胸',
-    'title' => 'My いのり 不可能这么可爱',
-    'summary' => '2029年，日本因突然爆發的」Apocalypse Virus(天啟病毒）「的蔓延而陷入了混亂之中。處於無政府狀態的日本，受到了由超國家之間所組織成的名為「GHQ」的組織的武力介入並接受其統治，東京的六本木更成為被封鎖的地區。之後又以名為「lost christmas（失落的聖誕）」的事件為契機，日本失去了獨立國家的實質權力，並被賦予了表面上的自治權，由此人們開始享受短暫的和平。',
+    'tag' => '原创，超能力，战斗，袭胸',//待添加
+);
+$ARR_SUB_BANGUMIS_NAME = array(
+// id  --番剧名称ID
+// bangumi_id  --对应番剧ID
+// name --名称
+// lang --语种信息 TODO: 确定标准定义字符
+// main --是否为番剧原始标题 yes or no
+    'id' => '111111110',
+    'bangumi_id' => '111111111',
+    'name' => 'GC',
+    'lang' => 'jp',
+    'main' => 'no'
 );
 
 ?>
@@ -55,27 +75,45 @@ $ARR_BANGUMI = array(
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <form class="detail" action="test.php" method="post" enctype="multipart/form-data">
 
-                        <!-- 字幕信息区 -->
-                        <input type="file" value="多选文件 or 单选" multiple="true" accept="application/x-zip-compressed,.ass,.sub,.ssa,smi,.srt"/>
-                        <!-- 番剧区 -->
-                        <input type="text" name="" id="" placeholder="此处放番剧名">
-                        <!-- <input type="hidden" name="" id="" placeholder="此处预留番剧status"> -->
-                        <input type="hidden" name="" id="" placeholder="此处放预定义番剧id 不可见 或 不可修改">
-                        <input type="text" name="" id="" placeholder="此处放番剧描述">
+                        <!-- 上传图片 or 图片链接 -->
+                        <div id = "upload" style="height:300px;border:1px solid gray;">
+                            <div id="left" style="float:left;">
+                                <input type="file" value="cover" multiple="true" accept="application/x-zip-compressed,.ass,.sub,.ssa,smi,.srt"/>
+                                    <span>创建人：</span><input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS['creator'];?>">
+                                <br><span>负责人：</span><input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS['owner'];?>">
+                                <br>番剧id<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS['id'];?>">
+                            </div>
+                            <div id="right" style="float:right;">
+                                    描述<textarea name="" id=""><?php echo $ARR_SUB_BANGUMIS['description'];?></textarea>
+                                <br>番剧状态<input type="text" name="" id="" disabled="" placeholder="此处预留番剧status" >
+                                <br>围观次数<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS['hit'];?>">
+                            </div>
+                        </div>
+                        <!-- 番剧名称信息 -->
+                        <div id="title">
+                            番剧名称id<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['id'];?>">
+                            <br>番剧名称<input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['name'];?>">
+                            名称语种<select name="" >
+                                <option value="jp">jp</option>
+                                <option value="en">en</option>
+                                <option value="cn">cn</option>
+                                <option value="tw">tw</option>
+                            </select>
+                            主标题？<input type="radio" name="main" id="" >
+                        </div>
+                        <div id="title">
+                            番剧名称id<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['id'];?>">
+                            <br>番剧名称<input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['name'];?>">
+                            名称语种<select name="" >
+                                <option value="jp">jp</option>
+                                <option value="en">en</option>
+                                <option value="cn">cn</option>
+                                <option value="tw">tw</option>
+                            </select>
+                            主标题？<input type="radio" name="main" id="" >
+                        </div>
                         <!-- 番剧区 end -->
-                        <hr>
-                        <input type="text" name="" id="" placeholder="此处放字幕标题">
-                        <input type="text" name="" id="" placeholder="此处放上传字幕保存的文件名">
-                        <input type="text" name="" id="" placeholder="此处放字幕状态">
-                        <input type="text" name="" id="" placeholder="此处放字幕描述">
-                        <input type="text" name="" id="" placeholder="此处放字幕语种"><br /><span>or</span><br />
-                        <input type="checkbox" name="lang" value="CHS">CHS
-                        <input type="checkbox" name="lang" value="JP">JP
-                        <input type="checkbox" name="lang" value="CHT">CHT
-                        <input type="checkbox" name="lang" value="EN">EN
-                        <br >
-                        <input type="submit">
-                        <!-- 字幕信息区 end -->
+                        <input type="reset">
                     </form>
                 </div>
 
