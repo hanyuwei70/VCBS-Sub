@@ -73,79 +73,29 @@ textarea::-moz-placeholder {
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none; }
 
-/**
- * 表格结构
- <div class="ui-columns-table" data-columns-table="true">
-    <table class="ui-table">
-        <thead>
-            <tr>
-                <th class="ui-table-sortable" data-columns-sortby="title">标题</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr data-columns-row-id="0" class="ui-table-rows-even">
-            </tr>
-        </tbody>
-    </table>
-    <div class="ui-table-footer">
-    //待修改！！
-    </div>
-</div>
- */
-.columns {
-  width: 100%;
-  margin: 0 auto; }
-  .columns .ui-table {
-    background-color: rgba(255, 255, 255, 0.35);
-    border-collapse: collapse;
+#sub_list {
+  clear: both;
+  background-color: #fff; }
+  #sub_list #search {
+    float: right;
+    margin: 10px; }
+  #sub_list table {
     width: 100%; }
-    .columns .ui-table thead tr {
-      font-size: 14px;
-      font-weight: bold;
-      color: #333;
-      background-color: rgba(255, 255, 255, 0.35); }
-      .columns .ui-table thead tr th {
-        word-wrap: keep-all;
-        white-space: nowrap;
-        padding: 8px;
-        border-right: 1px solid #CCC;
-        border-bottom: 1px solid gray; }
-        .columns .ui-table thead tr th:first-child {
-          width: 60%; }
-        .columns .ui-table thead tr th .ui-arrow {
-          font-size: 10px;
-          display: block;
-          float: right;
-          width: 10px; }
-        .columns .ui-table thead tr th.ui-table-sort-up, .columns .ui-table thead tr th.ui-table-sort-down {
-          background-color: rgba(255, 255, 255, 0.35); }
-    .columns .ui-table tbody {
-      font-size: 14px; }
-      .columns .ui-table tbody tr td {
-        line-height: 2em;
-        padding: 10px 0 10px 1em;
-        text-align: center; }
-        .columns .ui-table tbody tr td:first-child {
-          text-align: left; }
-      .columns .ui-table tbody tr.ui-table-rows-even {
-        background-color: rgba(255, 255, 255, 0.75); }
-      .columns .ui-table tbody tr.ui-table-rows-odd {
-        background-color: rgba(255, 255, 255, 0.35); }
-  .columns .ui-columns-search {
-    padding: 10px;
-    text-align: right;
-    background-color: rgba(255, 255, 255, 0); }
-    .columns .ui-columns-search input {
-      padding: 4px 10px 4px 25px;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      background-color: rgba(255, 255, 255, 0.35);
-      background-image: url(../img/search.png);
-      background-repeat: no-repeat;
-      background-position: 5px center; }
-      .columns .ui-columns-search input:focus {
-        background-color: rgba(255, 255, 255, 0.75);
-        outline: none; }
+    #sub_list table .arrow {
+      display: inline-block;
+      vertical-align: middle;
+      width: 0;
+      height: 0;
+      margin-left: 5px;
+      opacity: 0.66; }
+    #sub_list table .arrow.asc {
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid gray; }
+    #sub_list table .arrow.dsc {
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid gray; }
 
 #form {
   margin: 0 auto 2%; }

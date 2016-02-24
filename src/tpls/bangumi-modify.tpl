@@ -6,7 +6,9 @@ $USER_NAME = 'Inori';
 $TETX_NEWS = '最新上传';
 $ICO = 'img/favicon.ico';
 $CSS_BANGUMI_M = 'css/bangumi-modify.css';
-$JS_JQ = 'bower_components/jquery/dist/jquery.min.js';
+// $JS_JQ = 'bower_components/jquery/dist/jquery.min.js';
+$JS_VUE = 'bower_components/vue/dist/vue.min.js';
+$JS_BANGUMI = 'js/bangumi-modify.js';
 $CSS_BS = 'bower_components/bootstrap/dist/css/bootstrap.min.css';
 $ARR_SUB_BANGUMIS = array(
 // 番剧id    id 
@@ -90,6 +92,7 @@ $ARR_SUB_BANGUMIS_NAME = array(
                             </div>
                         </div>
                         <!-- 番剧名称信息 -->
+                        <!-- 
                         <div id="title">
                             番剧名称id<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['id'];?>">
                             <br>番剧名称<input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['name'];?>">
@@ -112,7 +115,12 @@ $ARR_SUB_BANGUMIS_NAME = array(
                             </select>
                             主标题？<input type="radio" name="main" id="" >
                         </div>
+                        -->
+                        <!--new 番剧表单 vue-->
+                        <div></div>
                         <!-- 番剧区 end -->
+                       <div><input type="buttom"></div>
+                        <!--番剧添加按钮-->
                         <input type="reset">
                     </form>
                 </div>
@@ -123,6 +131,8 @@ $ARR_SUB_BANGUMIS_NAME = array(
             感谢抖M后端大力容忍。
             <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
         </div>
+        <script src="<?php echo $JS_VUE;?>"></script>
+        <script src="<?php echo $JS_BANGUMI;?>"></script>
     </body>
 
     </html>
