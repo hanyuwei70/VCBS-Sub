@@ -12,5 +12,6 @@ src/tpls/css/map
 src/package.json
 src/LICENSE
 src/README.md
-src - 快捷方式.lnk
 composer.*
+src/fms.js
+src/mock
