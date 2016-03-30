@@ -1,14 +1,3 @@
-<?php
-// $CSS_LOGIN_THEME_COLOR = 'css/login.css';
-$CSS_LOGIN_THEME_POSITION = 'css/login.css';
-$PAGE_TITLE = 'LOGIN';
-$ERROR_MSG = 'error';
-$TEXT_NAME = '用户名';
-$TEXT_PW = '密码';
-$TETX_SUBMIT = '登录';
-$ICO = 'favicon.ico';
-?>
-
 <!DOCTYPE html>
 <html lang="zh" style="height:100%;">
 
@@ -33,7 +22,7 @@ $ICO = 'favicon.ico';
                 <input type="password" id="password" placeholder="<?php echo $TEXT_PW;?>" name="password">
                 <input type="submit" id="submit" name="submit" value="<?php echo $TETX_SUBMIT;?>">
             </div>
-        </form>
+        </form>  
         <div id="footer">
             感谢抖M后端大力容忍。
             <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
