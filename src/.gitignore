@@ -7,6 +7,5 @@ views
 tpls/bower_components
 node_modules
 tpls/css
-README
 vendor
 doc
