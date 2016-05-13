@@ -1,94 +1,81 @@
-    <!DOCTYPE html>
-    <html lang="zh" style="height:100%;">
+<!DOCTYPE html>
+<html lang="zh" style="height:100%;">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="shortcut icon" href="<?php echo $ICO;?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo $CSS_BS;?>">
-        <link rel="stylesheet" href="<?php echo $CSS_BANGUMI_M;?>">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="<?php echo $ICO; ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo $CSS_BS; ?>">
+    <link rel="stylesheet" href="<?php echo $CSS_BANGUMI_M; ?>">
+    <title>
+        <?php echo $PAGE_TITLE; ?>
+    </title>
 
-        <title>
-            <?php echo $PAGE_TITLE;?>
-        </title>
-    </head>
+</head>
 
-    <body>
-        <div id="navbar">
-            <div id="logo">
-                23333
-            </div>
-            <div id="userinfo">
-                <?php if (isset($USER_ID)): ?>
-                    欢迎，
-                    <?php echo $USER_NAME;?>
-                        <?php else: ?>未登录 请<a href="index.php?action=login">登录</a>
-                            <?php endif;?>
-            </div>
+<body>
+    <div id="navbar">
+        <div id="logo">
+            23333
         </div>
-        <div class="container">
-            <div class="row">
+        <div id="userinfo">
+            <?php
+            if (isset($USER_ID)) :
+                echo "欢迎， $USER_NAME" ;
+            else :
+                echo "未登录 请<a href='index.php?action=login'>登录</a>";
+            endif;
+                ?>
+        </div>
+    </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <form class="detail" action="test.php" method="post" enctype="multipart/form-data">
+    <form action="index.php?action=search" method="GET" id="form">
+        <div id="search_box">
+            <input type="text" id="name" name="search" placeholder="<?php echo $TEXT_NEWS; ?>" autocapitalize="off" autocorrect="off"
+                spellcheck="false">
+        </div>
+    </form>
 
-                        <!-- 上传图片 or 图片链接 -->
-                        <div id = "upload" style="height:300px;border:1px solid gray;">
-                            <div id="left" style="float:left;">
-                                <input type="file" value="cover" multiple="true" accept="application/x-zip-compressed,.ass,.sub,.ssa,smi,.srt"/>
-                                    <span>创建人：</span><input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS['creator'];?>">
-                                <br><span>负责人：</span><input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS['owner'];?>">
-                                <br>番剧id<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS['id'];?>">
-                            </div>
-                            <div id="right" style="float:right;">
-                                    描述<textarea name="" id=""><?php echo $ARR_SUB_BANGUMIS['description'];?></textarea>
-                                <br>番剧状态<input type="text" name="" id="" disabled="" placeholder="此处预留番剧status" >
-                                <br>围观次数<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS['hit'];?>">
-                            </div>
-                        </div>
-                        <!-- 番剧名称信息 -->
-                        <!-- 
-                        <div id="title">
-                            番剧名称id<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['id'];?>">
-                            <br>番剧名称<input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['name'];?>">
-                            名称语种<select name="" >
-                                <option value="jp">jp</option>
-                                <option value="en">en</option>
-                                <option value="cn">cn</option>
-                                <option value="tw">tw</option>
-                            </select>
-                            主标题？<input type="radio" name="main" id="" >
-                        </div>
-                        <div id="title">
-                            番剧名称id<input type="text" name="" id="" disabled="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['id'];?>">
-                            <br>番剧名称<input type="text" name="" id="" placeholder="<?php echo $ARR_SUB_BANGUMIS_NAME['name'];?>">
-                            名称语种<select name="" >
-                                <option value="jp">jp</option>
-                                <option value="en">en</option>
-                                <option value="cn">cn</option>
-                                <option value="tw">tw</option>
-                            </select>
-                            主标题？<input type="radio" name="main" id="" >
-                        </div>
-                        -->
-                        <!--new 番剧表单 vue-->
-                        <div></div>
-                        <!-- 番剧区 end -->
-                       <div><input type="buttom"></div>
-                        <!--番剧添加按钮-->
-                        <input type="reset">
-                    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 cover">
+                <div id="detail">
+                    <img src=" <?php echo $ARR_BANGUMI['cover']; ?> " alt="GC" width="100%" />
+                    <div class="hover" v-el:hover @hover="xia">
+                        <span id="title">{{ ititle }}</span>
+                        <ul>
+                            <li id="time">播放时间：<span>{{ itime }}</span></li>
+                            <li id="number">集数：<span>{{ inumber }}</span></li>
+                            <li id="tag">tag：<span>{{ itag }}</span></li>
+                        </ul>
+                    </div>
                 </div>
-
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <form class="subtitle" action="test.php" method="post" enctype="multipart/form-data">
+                    <label for="i_cover">选择封面</label><input type="file" value="番剧封面" name="subFile" id="i_cover">
+                    <br/><label for="i_title">标题</label> <input type="text" v-model="ititle" name="title" id="i_title">
+                    <br/><label for="i_time">播放时间</label> <input type="text" v-model="itime" name="title" id="i_time">
+                    <br/><label for="i_number">播放集数</label> <input type="text" v-model="inumber" name="title" id="inumber">
+                    <br/><label for="i_tag">tag</label> <input type="text" v-model="itag" name="title" id="i_tag">
+                    <br/><label for="i_summary">梗概</label> <textarea type="text" name="title" id="i_summary"></textarea>
+                </form>
             </div>
         </div>
-        <div id="footer">
-            感谢抖M后端大力容忍。
-            <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
-        </div>
-        <script src="<?php echo $JS_VUE;?>"></script>
-        <script src="<?php echo $JS_BANGUMI;?>"></script>
-    </body>
 
-    </html>
+    </div>
+    </div>
+    <div id="footer ">
+        感谢抖M后端大力容忍。
+        <p id="footer-least ">© 2015 <a href="test.av ">test.av</a> All rights reserved.</p>
+    </div>
+    <script>
+        var arr_subtitle = <?php echo json_encode($ARR_BANGUMI); ?>;
+    </script>
+    <!--<script src="<?php echo $JS_JQ; ?>"></script>-->
+    <script src="<?php echo $JS_VUE; ?>"></script>
+    <script src="<?php echo $JS_BANGUMI_M; ?>"></script>
+</body>
+
+</html>
