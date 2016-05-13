@@ -25,12 +25,17 @@
     </div>
     <form action="index.php?action=search" method="GET" id="form">
         <div id="search_box">
-            <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS; ?>" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="text" id="name" name="search" placeholder="<?php echo $TEXT_NEWS; ?>" autocapitalize="off" autocorrect="off" spellcheck="false">
         </div>
     </form>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4 cover">
+            <!--
+                xs 所有手机&1440屏幕半屏720 <768sm
+                sm 1920屏幕半屏960 <992md
+                bs分栏向上扩展
+            -->
+            <div class="hidden-xs col-sm-4 cover">
                 <div id="detail">
                     <img src=" <?php echo $ARR_BANGUMI['cover']; ?> " alt="GC" width="100%" />
                     <div class="hover">
@@ -43,21 +48,21 @@
                     </div>
                 </div>
             </div>
-            <div id="s-form" class="col-xs-12 col-sm-8 col-md-8">
+            <div id="s-form" class="col-xs-12 col-sm-8">
                 <form class="subtitle" action="test.php" method="post" enctype="multipart/form-data">
                         <div>
                             
-                        <input type="file" value="字幕" name="subFile" multiple="true" onchange="analyze(this)"/>
+                        <label for="subFile">文件上传</label><input type="file" name="subFile" id = "subFile" multiple="true" onchange="analyze(this)"/>
                         
-                        字幕ID<input type="text" name = "subId" id = "subId" value="12345" readonly><br />  
+                        <label for="sName">字幕ID</label><input type="text" name = "subId" id = "subId" value="12345" readonly><br />  
                         
-                        <label for="sName">字幕标题</label><input type="text" id = "subName" name = "subName"><br />
+                        <label for="subName">字幕标题</label><input type="text" id = "subName" name = "subName"><br />
                         
-                        上传者ID<input type="text" value="<?php echo $USER_ID; ?>" id = "uploader" name = "uploader" readonly><br />
+                        <label for="uploader">上传者ID</label><input type="text" value="<?php echo $USER_ID; ?>" id = "uploader" name = "uploader" readonly><br />
                         
-                        所属番剧<input type="text" value="<?php echo $ARR_BANGUMI['title']; ?>" id = "bangumiTitle" name ="bangumiTitle" readonly><br />
+                        <label for="bangumiTitle">所属番剧</label><input type="text" value="<?php echo $ARR_BANGUMI['title']; ?>" id = "bangumiTitle" name ="bangumiTitle" readonly><br />
                         
-                        所属番剧ID<input type="text" value="<?php echo $ARR_BANGUMI['title']; ?>" id = "bangumiID" name = "bangumiID" readonly><br />
+                        <label for="bangumiID">所属番剧ID</label><input type="text" value="<?php echo $ARR_BANGUMI['title']; ?>" id = "bangumiID" name = "bangumiID" readonly><br />
                          
                          <!--时间由后端自行解决，不上传-->
                         
@@ -83,7 +88,10 @@
         感谢抖M后端大力容忍。
         <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
     </div>
-    <script src="<?php echo $JS_JQ; ?>"></script>
+    <script>
+        var arr_subtitle = <?php echo json_encode($ARR_SUBTITLE); ?>;
+    </script>
+    <!--<script src="<?php echo $JS_JQ; ?>"></script>-->
     <script src="<?php echo $JS_VUE; ?>"></script>
     <script src="<?php echo $JS_ADD; ?>"></script>
 </body>

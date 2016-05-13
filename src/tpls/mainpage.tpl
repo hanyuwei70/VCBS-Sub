@@ -26,7 +26,7 @@
     </div>
     <form action="index.php?action=search" method="GET" id="form">
         <div id="search_box">
-            <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS;?>" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="text" id="name" name="search" placeholder="<?php echo $TEXT_NEWS;?>" autocapitalize="off" autocorrect="off" spellcheck="false">
         </div>
     </form>
     <div id="footer">

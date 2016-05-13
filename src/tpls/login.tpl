@@ -20,7 +20,7 @@
                 <input type="text" id="name" placeholder="<?php echo $TEXT_NAME;?>" name="username" autofocus="">
                 <!-- <hr style="color:#000;"> -->
                 <input type="password" id="password" placeholder="<?php echo $TEXT_PW;?>" name="password">
-                <input type="submit" id="submit" name="submit" value="<?php echo $TETX_SUBMIT;?>">
+                <input type="submit" id="submit" name="submit" value="<?php echo $TEXT_SUBMIT;?>">
             </div>
         </form>  
         <div id="footer">
