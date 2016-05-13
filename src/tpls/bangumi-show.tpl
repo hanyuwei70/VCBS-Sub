@@ -29,13 +29,13 @@
         </div>
     <form action="index.php?action=search" method="GET" id="form">
             <div id="search_box">
-                <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS;?>" autocapitalize="off" autocorrect="off" spellcheck="false">
+                <input type="text" id="name" name="search" placeholder="<?php echo $TEXT_NEWS;?>" autocapitalize="off" autocorrect="off" spellcheck="false">
             </div>
         </form>
         <div class="container">
             <div class="row">
                 <?php
-                foreach ($ARR_BANGUMI as $BANGUMI) {
+                foreach ($ARR_BANGUMI_LIST as $BANGUMI) {
                     echo "<div class='post-masonry col-md-4 col-sm-6'>";
                     echo "<div class='post-bangumi'>";
                     echo "<img src='$BANGUMI[cover]' alt='$BANGUMI[title]' width='100%' />";
