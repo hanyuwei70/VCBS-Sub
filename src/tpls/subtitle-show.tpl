@@ -1,45 +1,3 @@
-<?php
-$PAGE_TITLE = '浏览字幕';
-$USER_ID = '1';
-$USER_NAME = 'Inori';
-$ICO = 'img/favicon.ico';
-$TETX_NEWS = '最近新增';
-//目前$ITEMS仅作注释用
-$ITEMS = array(
-    '标题',
-    '语言', // 简繁日英
-    '上传日期',
-    '上传者',
-    '评分',
-);
-$ARR_SUBTITLE = array(
-    array(
-        'title' => '[华盟字幕]Fate/Zero x.264 1280x720',
-        'lang' => '0001',
-        'time' => 20101010,
-        'ID' => 'Inori',
-    ),
-    array('title' => '[华盟字幕]Fate/Zero x.264 1280x720',
-        'lang' => '0010',
-        'time' => 20101010,
-        'ID' => 'PDS',
-    ),
-    array(
-        'title' => '[华盟字幕]Fate/Zero x.264 1280x720',
-        'lang' => '1100',
-        'time' => 20101011,
-        'ID' => '中文测试',
-    ),
-    array(
-        'title' => '[魔术工房]Fate/Zero x.265 1920x1080',
-        'lang' => '1010',
-        'time' => 20101011,
-        'ID' => 'シャナ ',
-    ),
-);
-$CSS_ANIME = 'css/subtitle.css';
-$JS_SORT = 'js/jquery.columns.min.js';
-?>
 <!DOCTYPE html>
 <html lang="zh" style="height:100%;">
 
@@ -68,7 +26,7 @@ $JS_SORT = 'js/jquery.columns.min.js';
     </div>
     <form action="index.php?action=search" method="GET" id="form">
         <div id="search_box">
-            <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS;?>" autofocus="autofocus" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="text" id="name" name="search" placeholder="<?php echo $TEXT_NEWS;?>" autofocus="autofocus" autocapitalize="off" autocorrect="off" spellcheck="false">
         </div>
     </form>
 <div id="columns"></div>
@@ -78,8 +36,9 @@ $JS_SORT = 'js/jquery.columns.min.js';
     </div>
     <script>
     var arr_subtitle = <?php echo json_encode($ARR_SUBTITLE);?>;
+    // var arr_subtitle = <?php echo "$ARR_SUBTITLE";?>;
     </script>
-    <script src="js/jquery.min.js"></script>
+    <script src="<?php echo "$JS_JQ" ?>"></script>
     <script type="text/javascript" charset="utf8" src="<?php echo "$JS_SORT" ?>" ></script>
 </body>
 
