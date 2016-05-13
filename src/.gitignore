@@ -7,5 +7,7 @@ views
 tpls/bower_components
 node_modules
 tpls/css
+tpls/map
 vendor
 doc
+jsconfig.json
