@@ -1,13 +1,3 @@
-<?php
-$TETX_NEWS = '最新上传';
-$ICO = 'img/favicon.ico';
-$CSS_BANGUMI_A = 'css/bangumi-add.css';
-$JS_JQ = 'bower_components/jquery/dist/jquery.min.js';
-$CSS_BS = 'bower_components/bootstrap/dist/css/bootstrap.min.css';
-$JS_ADD = 'js/bangumi-add.js';
-$JS_VUE = 'bower_components/vue/dist/vue.min.js';
-?>
-
 <!DOCTYPE html>
 <html lang="zh" style="height:100%;">
 
@@ -18,11 +8,10 @@ $JS_VUE = 'bower_components/vue/dist/vue.min.js';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo $CSS_BS; ?>">
     <link rel="stylesheet" href="<?php echo $CSS_BANGUMI_A; ?>">
-
     <title>
         <?php echo $PAGE_TITLE; ?>
     </title>
-  
+
 </head>
 
 <body>
@@ -31,38 +20,60 @@ $JS_VUE = 'bower_components/vue/dist/vue.min.js';
             23333
         </div>
         <div id="userinfo">
-            <?php if (isset($USER_ID)) :
-            ?> 欢迎， <?php echo $USER_NAME; ?> <?php else : ?>未登录 请<a href="index.php?action=login">登录</a> <?php endif; ?>
+            <?php
+            if (isset($USER_ID)) :
+                echo "欢迎， $USER_NAME" ;
+            else :
+                echo "未登录 请<a href='index.php?action=login'>登录</a>";
+            endif;
+                ?>
         </div>
     </div>
-    
+
     <form action="index.php?action=search" method="GET" id="form">
         <div id="search_box">
-            <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS; ?>" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="text" id="name" name="search" placeholder="<?php echo $TEXT_NEWS; ?>" autocapitalize="off" autocorrect="off"
+                spellcheck="false">
         </div>
     </form>
-    
+
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4 cover">
-                    <form class="subtitle" action="test.php" method="post" enctype="multipart/form-data">
-                        <img src="http://www.atool.org/placeholder.png?size=300x400" alt="占位">
-                        <input type="file" value=番剧封面" name="subFile" multiple="true" onchange="showImg(this)" accept="application/x-zip-compressed" style="position: absolute;">
+            <div class="col-sm-4 col-md-4 cover">
+                <div id="detail">
+                    <img src=" <?php echo $ARR_BANGUMI['cover']; ?> " alt="GC" width="100%" />
                     <div class="hover">
-                        <div id = "hover">
-                        <span id="title">名称：<input type="text"></span>
+                        <span id="title">{{ ititle }}</span>
+                        <ul>
+                            <li id="time">播放时间：<span>{{ itime }}</span></li>
+                            <li id="number">集数：<span>{{ inumber }}</span></li>
+                            <li id="tag">tag：<span>{{ itag }}</span></li>
+                        </ul>
                     </div>
-                        </form>
                 </div>
             </div>
-
+            <div class="col-sm-8 col-md-8">
+                <form class="subtitle" action="test.php" method="post" enctype="multipart/form-data">
+                    <label for="i_cover">选择封面</label><input type="file" value="番剧封面" name="subFile" id="i_cover">
+                    <br/><label for="i_title">标题</label> <input type="text" v-model="ititle" name="title" id="i_title">
+                    <br/><label for="i_time">播放时间</label> <input type="text" v-model="itime" name="title" id="i_time">
+                    <br/><label for="i_number">播放集数</label> <input type="text" v-model="inumber" name="title" id="inumber">
+                    <br/><label for="i_tag">tag</label> <input type="text" v-model="itag" name="title" id="i_tag">
+                    <br/><label for="i_summary">梗概</label> <textarea type="text" name="title" id="i_summary"></textarea>
+                </form>
+            </div>
         </div>
+
     </div>
-    <div id="footer">
+    </div>
+    <div id="footer ">
         感谢抖M后端大力容忍。
-        <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
+        <p id="footer-least ">© 2015 <a href="test.av ">test.av</a> All rights reserved.</p>
     </div>
-    <script src="<?php echo $JS_JQ; ?>"></script>
+    <script>
+        var arr_bangumi = <?php echo json_encode($ARR_BANGUMI); ?>;
+    </script>
+    <!--<script src="<?php echo $JS_JQ; ?>"></script>-->
     <script src="<?php echo $JS_VUE; ?>"></script>
     <script src="<?php echo $JS_ADD; ?>"></script>
 </body>
