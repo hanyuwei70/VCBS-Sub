@@ -13,14 +13,14 @@
         <?php echo $PAGE_TITLE; ?>
     </title>
     <!-- component template -->
-    <script type="text/x-template" id="grid-template">
+    <script type="text/x-template" id="sub-list-template">
   <table>
     <thead>
       <tr>
         <th v-for="key in columns"
           @click="sortBy(key)"
           :class="{active: sortKey == key}">
-          {{key}}
+          {{key | capitalize}}
           <span class="arrow"
             :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
           </span>
@@ -52,7 +52,7 @@
     </div>
     <form action="index.php?action=search" method="GET" id="form">
         <div id="search_box">
-            <input type="text" id="name" name="search" placeholder="<?php echo $TETX_NEWS; ?>" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="text" id="name" name="search" placeholder="<?php echo $TEXT_NEWS; ?>" autocapitalize="off" autocorrect="off" spellcheck="false">
         </div>
     </form>
     <div class="container">
@@ -74,13 +74,16 @@
                 <div><?php echo $ARR_BANGUMI['summary']; ?>
                 </div>
             </div>
-            <div id="sub_list">
-                <form id="search">
-                    过滤：
-                    <input name="query" v-model="searchQuery">
-                </form>
-                <sub :data="gridData" :columns="gridColumns" :filter-key="searchQuery"></sub>
-            </div>
+            <div id="sub">
+  <form id="search">
+    Search <input name="query" v-model="searchQuery">
+  </form>
+  <sub-list
+    :data="gridData"
+    :columns="gridColumns"
+    :filter-key="searchQuery">
+  </sub-list>
+</div>
         </div>
     </div>
     <div id="footer">
@@ -88,7 +91,7 @@
         <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
     </div>
     <script>
-        var arr_subtitle = <?php echo json_encode($ARR_SUBTITLE); ?>;
+        var arr_subtitle = <?php echo json_encode($ARR_SUBTITLE_LIST); ?>;
     </script>
     <script src="<?php echo $JS_JQ; ?>"></script>
     <script src="<?php echo $JS_VUE; ?>"></script>
