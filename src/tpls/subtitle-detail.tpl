@@ -60,30 +60,32 @@
                 </div>
 
                 <row>
-                    <div class="col-xs-12 col-sm-8 sub-detail">
+                    <div class="col-xs-12 col-sm-8 sub-detail" id="subDetail">
                         <row>
-                            <div class="col-xs-4 col-sm-2 col-xs-offset-2 col-sm-offset-3">语言</div>
-                            <div class="col-xs-4">
-                                <?php echo $ARR_SUBTITLE[lang]; ?>
+                            <div class="col-xs-4 col-sm-2 col-xs-offset-1 col-sm-offset-3 sub-item">语言</div>
+                            <div class="col-xs-5 sub-val">
+                                <span v-text="arrSubtitle | langTrans"></span>
                             </div>
                         </row>
                         <row>
-                            <div class="col-xs-4 col-sm-2 col-xs-offset-2 col-sm-offset-3">字体</div>
-                            <div class="col-xs-4">
-                                <?php echo $ARR_SUBTITLE[lang]; ?>
+                            <div class="col-xs-4 col-sm-2 col-xs-offset-1 col-sm-offset-3 sub-item">字体</div>
+                            <div class="col-xs-5 sub-val">
+                                <span v-text="arrSubtitle.lang | fontTrans"></span>
                             </div>
                         </row>
                         <row>
-                            <div class="col-xs-4 col-sm-2 col-xs-offset-2 col-sm-offset-3">特效</div>
-                            <div class="col-xs-4">
-                                <?php echo $ARR_SUBTITLE[lang]; ?>
+                            <div class="col-xs-4 col-sm-2 col-xs-offset-1 col-sm-offset-3 sub-item">特效</div>
+                            <div class="col-xs-5 sub-val">
+                                <span v-text="arrSubtitle.lang | effTrans"></span>
                             </div>
                         </row>
                     </div>
                 </row>
                 <!--<row>-->
-                <div class="dl-bn col-xs-4 col-xs-offset-5 col-sm-offset-5"><a><span>⇓</span></a></div>
-                <div class="warming col-xs-12 col-sm-7 col-sm-offset-5">仅供学习用途，请勿用于非法行为。</div>
+                <div class="dl-bn col-xs-4 col-xs-offset-5 col-sm-offset-5"><span>⇓</span></div>
+                <div class="warming col-xs-12 col-sm-7 col-sm-offset-5">
+                    <span>请配合正版片源食用&gt;_&lt;</span><a href="test.com">download</a>
+                </div>
                 <!--</row>-->
             </div>
         </div>
@@ -94,8 +96,11 @@
         感谢抖M后端大力容忍。
         <p id="footer-least">© 2015 <a href="test.av">test.av</a> All rights reserved.</p>
     </div>
+    <script>
+        var arrSubtitle = <?php echo json_encode($ARR_SUBTITLE); ?>;
+    </script>
     <script src="<?php echo $JS_VUE; ?>"></script>
-    <!--<script src="<?php echo $JS_SUBTITLE_D; ?>"></script>-->
+    <script src="<?php echo $JS_SUBTITLE_D; ?>"></script>
 </body>
 
 </html>
