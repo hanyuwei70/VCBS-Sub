@@ -18,9 +18,9 @@ $(function() {
     });
 })
 
-// 注册组件
-Vue.component('sub', {
-  template: '#grid-template',
+// register the grid component
+Vue.component('sub-list', {
+  template: '#sub-list-template',
   props: {
     data: Array,
     columns: Array,
@@ -44,12 +44,12 @@ Vue.component('sub', {
   }
 })
 
-
-var sub = new Vue({
-  el: '#sub_list',
+// bootstrap the demo
+var demo = new Vue({
+  el: '#sub',
   data: {
     searchQuery: '',
-    gridColumns: ['title', 'lang', 'time', 'ID'],
+    gridColumns: ['title', 'lang','time','upload'],
     gridData: arr_subtitle
   }
 })
