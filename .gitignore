@@ -14,3 +14,4 @@ src/README.md
 composer.*
 src/fms.js
 src/mock
+src/tpls/stylus

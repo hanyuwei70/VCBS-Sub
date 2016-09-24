@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "scss": "gulp sass",
-    "php-s": "php -S 127.0.0.1:1234 -t ./mock/",
-    "fmsjs": "nodemon -w fms.js fms.js",
+    "stylus": "gulp stylus",
+    "php-s": "php\\php -S 127.0.0.1:1234 -t ./mock",
+    "fmsjs": "node fms.js",
     "serve": "gulp serve",
-    "fms": "npm-run-all -p php-s fmsjs serve"
+    "fms": "npm-run-all -p fmsjs serve"
   },
   "keywords": [
     "vcbs"
@@ -16,26 +17,26 @@
   "author": "inori",
   "license": "ISC",
   "devDependencies": {
-    "autoprefixer": "^6.3.6",
+    "autoprefixer": "^6",
     "bower": "^1.7.9",
-    "browser-sync": "^2.12.8",
-    "eslint": "^2.10.2",
-    "fms": "0.0.31",
+    "browser-sync": "^2",
+    "eslint": "^3",
+    "fms": "0.0.32",
     "gulp": "^3.9.1",
-    "gulp-eslint": "^2.0.0",
+    "gulp-eslint": "^3.0.1",
     "gulp-line-ending-corrector": "^1.0.1",
-    "gulp-plumber": "^1.0.1",
+    "gulp-plumber": "^1.1",
     "gulp-postcss": "^6.1.1",
-    "gulp-sass": "^2.3.1",
+    "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-stylus": "^2.3.1",
-    "gulp-uglify": "^1.5.1",
-    "nodemon": "^1.9.2",
-    "npm-run-all": "^1.8.0",
-    "postcss-scss": "^0.1.8",
-    "run-sequence": "^1.2.0",
-    "stylelint": "^6.5.1",
-    "stylelint-config-standard": "^7.0.0"
+    "gulp-stylus": "^2.5",
+    "gulp-uglify": "^2",
+    "nodemon": "^1",
+    "npm-run-all": "^3",
+    "postcss-scss": "^0.3.0",
+    "run-sequence": "^1.2",
+    "stylelint": "^7.2",
+    "stylelint-config-standard": "^13.0.0"
   },
   "eslintConfig": {
     "env": {
