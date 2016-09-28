@@ -1,59 +1,17 @@
 {
-  "name": "vcbswf",
-  "version": "1.0.0",
-  "description": "personal workflow setting",
+  "name": "inori-tpls",
+  "version": "0.0.1",
+  "description": "VCBS_Sub pages",
   "main": "index.js",
   "scripts": {
-    "scss": "gulp sass",
-    "stylus": "gulp stylus",
-    "php-s": "php\\php -S 127.0.0.1:1234 -t ./mock",
-    "fmsjs": "node fms.js",
-    "serve": "gulp serve",
-    "fms": "npm-run-all -p fmsjs serve"
+    "test": "rm -rf tpls/* & mv node_modules/vcbs-pages/tpls/* ./tpls/ & rm -rf node_modules"
   },
   "keywords": [
-    "vcbs"
+    "vcbs-pages"
   ],
   "author": "inori",
-  "license": "ISC",
-  "devDependencies": {
-    "autoprefixer": "^6",
-    "bower": "^1.7.9",
-    "browser-sync": "^2",
-    "eslint": "^3",
-    "fms": "0.0.32",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^3.0.1",
-    "gulp-line-ending-corrector": "^1.0.1",
-    "gulp-plumber": "^1.1",
-    "gulp-postcss": "^6.1.1",
-    "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-stylus": "^2.5",
-    "gulp-uglify": "^2",
-    "nodemon": "^1",
-    "npm-run-all": "^3",
-    "postcss-scss": "^0.3.0",
-    "run-sequence": "^1.2",
-    "stylelint": "^7.2",
-    "stylelint-config-standard": "^13.0.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
-    },
-    "extends": "eslint:recommended",
-    "rules": {
-      "no-var": 0
-    }
-  },
-  "stylelint": {
-    "extends": "stylelint-config-standard",
-    "rules": {
-      "max-nesting-depth": 5,
-      "number-leading-zero": null
-    }
+  "license": "MIT",
+  "dependencies": {
+    "vcbs-pages": "^1"
   }
 }
